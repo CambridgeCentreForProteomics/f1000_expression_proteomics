@@ -3438,9 +3438,9 @@ and at GitHub repository https://github.com/CambridgeCentreForProteomics/f1000_e
 C. H. conceptualization, investigation, methodology, project administration,
 software, validation, writing – original draft preparation, review and editing;
 C. S. D. software and writing - review and editing; T. K. methodology,
-supervision, software, writing - review and editing; K. S. L. writing - review
-and editing; L. M. B. conceptualization, methodology, supervision, writing - 
-review and editing.
+supervision, software, writing - review and editing; K. S. L. funding acquisition, 
+supervision, writing - review and editing; L. M. B. conceptualization, methodology,
+supervision, writing - review and editing.
 
 
 # Competing interests
