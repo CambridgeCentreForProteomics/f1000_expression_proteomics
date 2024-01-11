@@ -1,8 +1,7 @@
 ---
 title: 'Appendix for "A Bioconductor workflow for processing, evaluating, and interpreting
   expression proteomics data"'
-subtitle: Charlotte Hutchings, Charlotte S. Dawson, Thomas Krueger, Kathryn S. Lilley, Lisa M. Breckels
-author: Cambridge Centre for Proteomics, Department of Biochemistry, University
+author: Charlotte Hutchings, Cambridge Centre for Proteomics, University
   of Cambridge, UK
 output: pdf_document
 bibliography: refs.bib
