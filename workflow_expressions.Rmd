@@ -330,33 +330,30 @@ Proteome Discoverer output.
 ### Importing data into R and creating a QFeatures object
 
 Data cleaning, exploration and filtering at the PSM-level is performed in R
-using `QFeatures`. The function `readQFeatures` is used to import the PSM-level
-`.txt` file. As the cell pellet TMT data we will use is derived from one
-TMT6plex, only one PSM-level `.txt` file needs to be imported. This file should
-be stored within the users working directory.
+using `QFeatures`. First, data is imported from our PSM-level `.txt` file into a 
+`data.frame` using the base R `read.delim` function (the equivalent for `.csv` 
+files would be `read.csv`). This file should be stored within the users working
+directory.
 
-The columns containing quantitative data also need to be identified before
-import. To check the column names we use `names` and `read.delim` (the equivalent
-for a `.csv` file would be `read.csv`). In the current experiment the order of
-TMT labels was randomized in an attempt to minimize the effect of TMT channel
-leakage. For ease of grouping and simplification of downstream visualization,
-samples are re-ordered during the import step. This is done by creating a vector
-containing the sample column names in their correct order. If samples are
-already in the desired order, the vector can be created by simply indexing the
-quantitative columns.
+Next, we use the `names` function to inspect the column names and identify which
+columns contain quantitative data. In the current experiment the order of TMT
+labels was randomized in an attempt to minimize the effect of TMT channel leakage. 
+For ease of grouping and simplification of downstream visualization, samples are 
+re-ordered during the import step. This is done by creating a vector containing 
+the sample column names in their correct order. If samples are already in the 
+desired order, the vector can be created by simply indexing the quantitative columns.
 
 ```{r tmt_data_import_1, message = FALSE}
 ## Locate the PSM .txt file
 cp_psm <- "cell_pellet_tmt_results_psms.txt"
 
+## Import into a dataframe
+cp_df <- read.delim(cp_psm)
+
 ## Identify columns containing quantitative data
-cp_psm %>%
-  read.delim() %>%
+cp_df %>%
   names()
 
-```
-
-```{r tmt_data_import_2, message = FALSE}
 ## Store location of quantitative columns in a vector in the desired order
 abundance_ordered <- c("Abundance.128",
                        "Abundance.127",
@@ -366,28 +363,26 @@ abundance_ordered <- c("Abundance.128",
                        "Abundance.130")
 ```
 
-Now that the necessary file and its quantitative data columns have been
-identified, we can pass this to the `readQFeatures` function and provide these
-two pieces of information. We also specify that the file is tab-delimited by
-including `sep = "\t"` (similarly you would use `sep = ","` for a `.csv` file).
-Of note, the `readQFeatures` function can also take `fnames` as an argument to
-specify a column to be used as the row names of the imported object. Whilst
-previous `QFeatures` vignettes used the "Sequence" or "Annotated.Sequence" as
-row names, we advise against this because of the presence of PSMs matched to the
-same peptide sequence with different modifications. In such cases, multiple rows
-would have the same name forcing the `readQFeatures` function to output a
-"making assay row names unique" message and add an identifying number to the end
-of each duplicated row name. These sequences would then be considered as unique
-during the aggregation of PSM to peptide, thus resulting in two independent
+Now that the quantitative data columns have been identified, we can pass our
+`data.frame` and quantitative column index to the `readQFeatures` function. The
+latter is passed to an argument called `quantCols` (which was `ecols` in previous
+package versions). Of note, the `readQFeatures` function can also take `fnames` 
+as an argument to specify a column to be used as the row names of the imported
+object. Whilst previous `QFeatures` vignettes used the "Sequence" or 
+"Annotated.Sequence" as row names, we advise against this because of the presence
+of PSMs matched to the same peptide sequence with different modifications. In such
+cases, multiple rows would have the same name forcing the `readQFeatures` function 
+to output a "making assay row names unique" message and add an identifying number 
+to the end of each duplicated row name. These sequences would then be considered 
+as unique during the aggregation of PSM to peptide, thus resulting in two independent
 peptide- level quantitation values rather than one. Therefore, we do not pass a
 `fnames` argument and the row names automatically become indices. Finally, we
 pass the `name` argument to indicate the type of data added.
 
 ```{r tmt_data_import_3}
 ## Create QFeatures 
-cp_qf <- readQFeatures(table = cp_psm,
-                       ecol = abundance_ordered,
-                       sep = "\t",
+cp_qf <- readQFeatures(assayData = cp_df,
+                       quantCols = abundance_ordered,
                        name = "psms_raw")
 ```
 
@@ -422,6 +417,24 @@ cp_qf[["psms_raw"]] %>%
   summarise(mean_intensity = mean(Intensity))
 ```
 
+To ensure that quantitative data has been correctly imported in as a numeric
+variable, we can look at the `assay` slot.
+
+```{r}
+## Look at top 6 rows of the assay (quantitative data)
+cp_qf[["psms_raw"]] %>%
+  assay() %>%
+  head() 
+
+## Confirm numeric assay
+cp_qf[["psms_raw"]] %>%
+  assay() %>%
+  type()
+```
+
+Our `assay` contains data of type `double`, a sub-type of numeric data in R. If
+users find that their quantitative data is of type `character`, it is necessary
+to correct this before moving on with the rest of the workflow.
 
 ### Adding metadata 
 
@@ -689,23 +702,26 @@ To demonstrate how to check for TMT labelling efficiency, only two of the eight
 fractions were utilized for this search.
 
 As we will only look at TMT efficiency at the PSM-level, here we upload the `.txt` 
-file directly as a `SummarizedExperiment` rather than a `QFeatures` object. 
-This is done using the `readSummarizedExperiment` function and the same arguments 
-as those in `readQFeatures`.
+into a `data.frame` to format into a `SummarizedExperiment` object. This is done
+using the `readSummarizedExperiment` function and the same arguments as those
+in `readQFeatures`. The reason for this is that we only need the PSM-level data,
+so do not need to generate a `QFeatures` object with the function of holding
+multiple `SummarizedExperiments` across different levels. 
 
 ```{r tmt_efficiency_import_1}
 ## Locate the PSM .txt file
 tmt_psm <- "cell_pellet_tmt_efficiency_psms.txt"
 
+## Import into a data.frame
+tmt_df <- read.delim(tmt_psm)
+
 ## Identify columns containing quantitative data
-tmt_psm %>%
-  read.delim() %>%
+tmt_df %>%
   names()
 
 ## Read in as a SummarizedExperiment
-tmt_se <- readSummarizedExperiment(table = tmt_psm,
-                                   ecol = abundance_ordered,
-                                   sep = "\t")
+tmt_se <- readSummarizedExperiment(assayData = tmt_df,
+                                   quantCols = abundance_ordered)
 
 ## Clean sample names
 colnames(tmt_se) <- paste0("S", 1:6)
@@ -1542,11 +1558,11 @@ during aggregation.
 
 First, to determine the presence of missing values in the PSM-level data we use
 the `nNA` function within the `QFeatures` infrastructure. This function will
-return the absolute number and percentage of missing values both per sample and
-as an average. Importantly, alternative third-party software may output missing
-values in formats other than NA, such as zero, or infinite. In such cases,
-missing values can be converted directly into NA values through use of the
-`zeroIsNA` or `infIsNA` functions within the `QFeatures` infrastructure.
+return the absolute number (nNA) and proportion (pNA) of missing values both per
+sample and as an average. Importantly, alternative third-party software may 
+output missing values in formats other than NA, such as zero, or infinite. In
+such cases, missing values can be converted directly into NA values through use
+of the `zeroIsNA` or `infIsNA` functions within the `QFeatures` infrastructure.
 
 ```{r tmt_missing_data_1}
 ## Determine whether there are any NA values in the data
@@ -1559,15 +1575,13 @@ cp_qf[["psms_filtered"]] %>%
   nNA()
 ```
 
-We can see that the data only contains `r format(nNA(cp_qf[["psms_filtered"]])$nNA$pNA, digits = 1)`%
-missing values, corresponding to `r nNA(cp_qf[["psms_filtered"]])$nNA$nNA` NA 
-values. This low proportion is due to a combination of the TMT labelling
-strategy and the stringent PSM quality control filtering. In particular,
-co-isolation interference when using TMT labels often results in very low
-quantification values for peptides which should actually be missing or 'NA'.
-Nevertheless, we continue and check for sample-specific bias in the distribution
-of NAs by plotting a simple histogram. We also use colour to indicate the
-condition of each sample as to check for condition-specific bias.
+We can see that the proportion of missing values in our data is only `r format(nNA(cp_qf[["psms_filtered"]])$nNA$pNA, digits = 1)`, corresponding to `r nNA(cp_qf[["psms_filtered"]])$nNA$nNA` NA values. This low proportion is due to a
+combination of the TMT labelling strategy and the stringent PSM quality control
+filtering. In particular, co-isolation interference when using TMT labels often 
+results in very low quantification values for peptides which should actually be
+missing or 'NA'. Nevertheless, we continue and check for sample-specific bias in 
+the distribution of NAs by plotting a simple histogram. We also use colour to 
+indicate the condition of each sample as to check for condition-specific bias.
 
 ```{r tmt_missing_data_2, out.height = '40%', fig.align = 'center'}
 ## Plot histogram to visualize the distribution of NAs
@@ -1576,12 +1590,11 @@ nNA(cp_qf[["psms_filtered"]])$nNAcols %>%
   mutate(Condition = rep(c("Treated", "Control"), each = 3)) %>%
   ggplot(aes(x = name, y = pNA, group = Condition, fill = Condition)) +
   geom_bar(stat = "identity", position = "dodge") +
-  geom_hline(yintercept = 0.002, linetype = "dashed", color = "red") +
-  labs(x = "Sample", y = "Missing values (%)") +
+  labs(x = "Sample", y = "Proportion missing values") +
   theme_bw()
 ```
 
-The percentage of missing values is sufficiently low that none of the samples
+The proportion of missing values is sufficiently low that none of the samples
 need be removed. Further, there is no sample- or condition-specific bias in the
 data. We can get more information about the PSMs with NA values using the code
 below.
@@ -1620,12 +1633,12 @@ proportion of NA values to allow.
 ## Check how many PSMs we will remove
 nNA(cp_qf[["psms_filtered"]])$nNArows %>%
   as_tibble() %>%
-  dplyr::count(pNA >= 20)
+  dplyr::count(pNA >= 0.2)
 
 ```
 
-Although the use-case data does not contain any PSMs with >20% missing values, 
-we demonstrate how to apply the desired filter below.
+Although the use-case data does not contain any PSMs with a higher proportion
+of missing values than 0.2, we demonstrate how to apply the desired filter below.
 
 ```{r tmt_missing_data_6}
 ## Remove PSMs with more than 20 % (0.2) NA values
@@ -2177,7 +2190,7 @@ samples even without a corresponding PSM, simply by sharing feature information
 across runs.
 
 ### Importing data into a QFeatures object
-We locate the PeptideGroups `.txt` file and upload this into a `QFeatures` data
+We locate the PeptideGroups `.txt` file and upload this into a `data.frame`
 container in the same way as before. Since the samples are already stored in the
 correct order, we simply identify the quantitative columns by their indices.
 
@@ -2185,22 +2198,22 @@ correct order, we simply identify the quantitative columns by their indices.
 ## Locate the PeptideGroups .txt file
 sn_peptide <- "supernatant_lfq_results_peptides.txt"
 
+## Import into a data.frame
+sn_df <- read.delim(sn_peptide)
+
 ## Identify columns containing quantitative data
-sn_peptide %>%
-  read.delim() %>%
+sn_df %>%
   names()
 ```
 
-In the code chunk below, we again use the `readQFeatures` function to import our
-data into R and create a `QFeatures` object. We find the abundance data is
-located in columns 21 to 26 and thus pass this to `ecol`. After import we
-annotate the `colData`.
+In the code chunk below, we again use the `readQFeatures` function to create a
+`QFeatures` object. We find the abundance data is located in columns 21 to 26
+and thus pass this to `quantCols`. After import we annotate the `colData`.
 
 ```{r lfq_data_import_2}
 ## Create QFeatures object 
-sn_qf <- readQFeatures(table = sn_peptide,
-                       ecol = 21:26,
-                       sep = "\t",
+sn_qf <- readQFeatures(assayData = sn_df,
+                       quantCols = 21:26,
                        name = "peptides_raw")
 
 ## Clean sample names
@@ -2548,8 +2561,9 @@ sn_qf[["peptides_filtered"]] %>%
 As expected, the LFQ data contains a higher proportion of missing values as
 compared to the TMT-labelled data. There are `r nNA(sn_qf[["peptides_filtered"]])$nNA$nNA`
 missing (NA) values within the data, which corresponds to
-`r format(nNA(sn_qf[["peptides_filtered"]])$nNA$pNA, digits = 1)`%. We check for
-sample- and condition- specific biases in the distribution of these NA values.
+`r format(nNA(sn_qf[["peptides_filtered"]])$nNA$pNA, digits = 1)` of the data.
+We check for sample- and condition- specific biases in the distribution of these 
+NA values. 
 
 ```{r lfq_missing_data_2, out.height = '40%', fig.align = 'center'}
 ## Plot histogram to visualize sample-specific distribution of NAs
@@ -2558,8 +2572,7 @@ nNA(sn_qf[["peptides_filtered"]])$nNAcols %>%
   mutate(Condition = rep(c("Treated", "Control"), each = 3)) %>%
   ggplot(aes(x = name, y = pNA, group = Condition, fill = Condition)) +
   geom_bar(stat = "identity") +
-  geom_hline(yintercept = 14.7, linetype = "dashed", color = "red") +
-  labs(x = "Sample", y = "Missing values (%)") +
+  labs(x = "Sample", y = "Proportion missing values") +
   theme_bw()
 ```
 
