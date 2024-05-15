@@ -231,7 +231,7 @@ for example.
 
 The files required for this workflow can be found deposited to the ProteomeXchange
 Consortium via the PRIDE [@PerezRiverol2021; @Deutsch2022] partner repository 
-with the dataset identifier PXD041794, Zenodo at [http://doi.org/10.5281/zenodo.7837375](http://doi.org/10.5281/zenodo.7837375)
+with the dataset identifier PXD041794, Zenodo at [http://doi.org/10.5281/zenodo.11196770](http://doi.org/10.5281/zenodo.11196770)
 and at the Github repository https://github.com/CambridgeCentreForProteomics/f1000_expression_proteomics/.
 Users are advised to download these files into their current working directory.
 In R the `setwd` function can be used to specify a working directory, or if
@@ -3586,7 +3586,7 @@ are shown in the Session information section.
 Raw mass spectrometry data is freely available online through the
 ProteomeXchange Consortium via the PRIDE repository with identifier PXD041794.
 All processed data is available at
-[http://doi.org/10.5281/zenodo.7837375](http://doi.org/10.5281/zenodo.7837375),
+[http://doi.org/10.5281/zenodo.11196770](http://doi.org/10.5281/zenodo.11196770),
 and at GitHub repository https://github.com/CambridgeCentreForProteomics/f1000_expression_proteomics.
 
 # Author contributions
