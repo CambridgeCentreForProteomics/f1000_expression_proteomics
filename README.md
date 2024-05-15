@@ -4,7 +4,7 @@ This Github repository conatins the text, code and data for the workflow written
 
 Data:
 - The raw mass spectrometry data and output data from Proteome Discoverer can be found on the PRIDE database under identifier [PXD041794](https://www.ebi.ac.uk/pride/archive/projects/PXD041794)
-- The PSM and peptide level data output from Proteome Discoverer can also be found at (1) Zenodo at https://zenodo.org/record/7837375 and (2) in the top level of this directory
+- The necessary PSM, peptide and protein level data output from Proteome Discoverer can also be found at (1) Zenodo at https://zenodo.org/record/11196770 and (2) in the top level of this directory
 - The PSM-level TMT-labelled data is found in `cell_pellet_tmt_results_psms.txt` and the peptide-level label-free data is found in `supernatant_lfq_results_peptides.txt`. Please see the [workflow](https://github.com/CambridgeCentreForProteomics/f1000_expression_proteomics/blob/main/workflow_expressions.pdf) for details.
 
 Manuscipt:
