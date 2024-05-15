@@ -333,15 +333,8 @@ Data cleaning, exploration and filtering at the PSM-level is performed in R
 using `QFeatures`. First, data is imported from our PSM-level `.txt` file into a 
 `data.frame` using the base R `read.delim` function (the equivalent for `.csv` 
 files would be `read.csv`). This file should be stored within the users working
-directory.
-
-Next, we use the `names` function to inspect the column names and identify which
-columns contain quantitative data. In the current experiment the order of TMT
-labels was randomized in an attempt to minimize the effect of TMT channel leakage. 
-For ease of grouping and simplification of downstream visualization, samples are 
-re-ordered during the import step. This is done by creating a vector containing 
-the sample column names in their correct order. If samples are already in the 
-desired order, the vector can be created by simply indexing the quantitative columns.
+directory. Next, we use the `names` function to inspect the column names and 
+identify which columns contain quantitative data. 
 
 ```{r tmt_data_import_1, message = FALSE}
 ## Locate the PSM .txt file
@@ -354,20 +347,15 @@ cp_df <- read.delim(cp_psm)
 cp_df %>%
   names()
 
-## Store location of quantitative columns in a vector in the desired order
-abundance_ordered <- c("Abundance.128",
-                       "Abundance.127",
-                       "Abundance.131",
-                       "Abundance.129",
-                       "Abundance.126",
-                       "Abundance.130")
 ```
 
+
 Now that the quantitative data columns have been identified, we can pass our
-`data.frame` and quantitative column index to the `readQFeatures` function. The
-latter is passed to an argument called `quantCols` (which was `ecols` in previous
-package versions). Of note, the `readQFeatures` function can also take `fnames` 
-as an argument to specify a column to be used as the row names of the imported
+`data.frame` to the `readQFeatures` function and specify where our quantitative
+columns are. The latter is done by passing either a numeric or character vector
+to an argument called `quantCols` ( `ecols` in previous package versions). 
+Of note, the `readQFeatures` function can also take `fnames` as an argument to
+specify a column to be used as the row names of the imported
 object. Whilst previous `QFeatures` vignettes used the "Sequence" or 
 "Annotated.Sequence" as row names, we advise against this because of the presence
 of PSMs matched to the same peptide sequence with different modifications. In such
@@ -379,10 +367,10 @@ peptide- level quantitation values rather than one. Therefore, we do not pass a
 `fnames` argument and the row names automatically become indices. Finally, we
 pass the `name` argument to indicate the type of data added.
 
-```{r tmt_data_import_3}
+```{r}
 ## Create QFeatures 
 cp_qf <- readQFeatures(assayData = cp_df,
-                       quantCols = abundance_ordered,
+                       quantCols = 49:54,
                        name = "psms_raw")
 ```
 
@@ -440,32 +428,40 @@ to correct this before moving on with the rest of the workflow.
 
 Having imported the data, each sample is first annotated with its TMT label,
 sample reference and condition. As this information is experimental metadata, it
-is added to the `colData` slot. It is also useful to clean up sample names such
-that they are short, intuitive and informative. This is done by editing the
-`colnames`. These steps may not always be necessary depending upon the
-identification search output.
+is added to the `colData` slot. It is important for users check that the `colData` 
+annotations correspond to their correct samples, particularly if the column order
+in the imported results file does not align with the sample order. This is the 
+case for the use-case data since TMT labels were randomized in an attempt to 
+minimze the effect of TMT channel leakage.
 
 ```{r tmt_housekeeping, message = FALSE}
-## Clean sample names
-colnames(cp_qf[["psms_raw"]]) <- paste0("S", 1:6)
-
 ## Add sample info as colData to QFeatures object
-cp_qf$label <- c("TMT128",
+cp_qf$label <- c("TMT126",
                  "TMT127",
-                 "TMT131",
+                 "TMT128",
                  "TMT129",
-                 "TMT126",
-                 "TMT130")
+                 "TMT130",
+                 "TMT131")
 
-cp_qf$sample <- paste0("S", 1:6)
+cp_qf$sample <- c("S5", "S2", "S1", "S4", "S6", "S3")
 
-cp_qf$condition <- rep(c("Treated", "Control"), each = 3)
+cp_qf$condition <- c("Control", "Treated", "Treated",
+                     "Control", "Control", "Treated")
 
 ## Verify
 colData(cp_qf)
 
 ## Assign the colData to first assay as well
 colData(cp_qf[["psms_raw"]]) <- colData(cp_qf)
+```
+
+It is also useful to clean up sample names such that they are short, intuitive 
+and informative. This is done by editing the `colnames`. These steps may not 
+always be necessary depending upon the identification search output.
+
+```{r}
+## Clean sample names
+colnames(cp_qf[["psms_raw"]]) <- c("S5", "S2", "S1", "S4", "S6", "S3")
 ```
 
 
@@ -721,22 +717,23 @@ tmt_df %>%
 
 ## Read in as a SummarizedExperiment
 tmt_se <- readSummarizedExperiment(assayData = tmt_df,
-                                   quantCols = abundance_ordered)
+                                   quantCols = 49:54)
 
 ## Clean sample names
-colnames(tmt_se) <- paste0("S", 1:6)
+colnames(tmt_se) <- c("S5", "S2", "S1", "S4", "S6", "S3")
 
 ## Add sample info as colData to QFeatures object
-tmt_se$label <- c("TMT128",
+tmt_se$label <- c("TMT126",
                   "TMT127", 
-                  "TMT131", 
+                  "TMT128", 
                   "TMT129",
-                  "TMT126",
-                  "TMT130")
+                  "TMT130",
+                  "TMT131")
 
-tmt_se$sample <- paste0("S", 1:6)
+tmt_se$sample <- c("S5", "S2", "S1", "S4", "S6", "S3")
 
-tmt_se$condition <- rep(c("Treated", "Control"), each = 3)
+tmt_se$condition <- c("Control", "Treated", "Treated",
+                      "Control", "Control", "Treated")
 ```
 
 ```{r tmt_efficiency_import_2}
@@ -1685,7 +1682,8 @@ indicate the condition of each sample as to check for condition-specific bias.
 ## Plot histogram to visualize the distribution of NAs
 nNA(cp_qf[["psms_filtered"]])$nNAcols %>%
   as_tibble() %>%
-  mutate(Condition = rep(c("Treated", "Control"), each = 3)) %>%
+  mutate(Condition = c("Control", "Treated", "Treated",
+                       "Control", "Control", "Treated")) %>%
   ggplot(aes(x = name, y = (pNA * 100 ), group = Condition, fill = Condition)) +
   geom_bar(stat = "identity", position = "dodge") +
   labs(x = "Sample", y = "Missing values (%)") +
@@ -2063,7 +2061,8 @@ pre_norm <- cp_qf[["log_proteins"]] %>%
   assay() %>%
   longFormat() %>%
   mutate(Condition = ifelse(colname %in% c("S1", "S2", "S3"),
-                            "Treated", "Control")) %>%
+                            "Treated", "Control"),
+         colname = factor(colname, levels = paste0("S", 1:6))) %>%
   ggplot(aes(x = colname, y = value, fill = Condition)) +
   geom_boxplot() +
   labs(x = "Sample", y = "log2(abundance)", title = "Pre-normalization") +
@@ -2073,7 +2072,8 @@ post_norm <- cp_qf[["log_norm_proteins"]] %>%
   assay() %>%
   longFormat() %>%
   mutate(Condition = ifelse(colname %in% c("S1", "S2", "S3"),
-                            "Treated", "Control")) %>%
+                            "Treated", "Control"),
+         colname = factor(colname, levels = paste0("S", 1:6))) %>%
   ggplot(aes(x = colname, y = value, fill = Condition)) +
   geom_boxplot() +
   labs(x = "Sample", y = "log2(abundance)", title = "Post-normalization") +
