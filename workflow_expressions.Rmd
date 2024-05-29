@@ -141,7 +141,7 @@ if (!require("BiocManager", quietly = TRUE)) {
 
 BiocManager::install(c("QFeatures",
                        "ggplot2",
-                       "stringr"
+                       "stringr",
                        "NormalyzerDE",
                        "corrplot",
                        "Biostrings",
@@ -219,12 +219,16 @@ knitr::include_graphics("Images/experimental-method.png", error = FALSE)
 The cell pellet and supernatant datasets were handled independently and we take
 advantage of this to discuss the processing of TMT-labelled and LFQ proteomics 
 data. In both cases, the raw MS data were processed using Proteome Discoverer
-v2.5 (Thermo Fisher Scientific). While the focus in the workflow presented below 
-is differential protein expression analysis, the data processing and quality 
-control steps described here are applicable to any TMT or LFQ proteomics dataset.
-Importantly, however, the experimental aim will influence data-guided decisions 
-and the considerations discussed here likely differ from those of spatial proteomics, 
-for example.
+v2.5 (Thermo Fisher Scientific). As a result, this workflow uses the specific 
+columns and files output by Proteome Discoverer. Nevertheless, most third party
+software output similar data structures and this workflow can be adapted. As an
+example, information on how to adapt this workflow for data processed by MaxQuant
+is provided in the [appendix](https://github.com/CambridgeCentreForProteomics/f1000_expression_proteomics).
+While the focus in the workflow presented below is differential protein expression
+analysis, the data processing and quality control steps described here are 
+applicable to any TMT or LFQ proteomics dataset. Importantly, however, the 
+experimental aim will influence data-guided decisions and the considerations
+discussed here likely differ from those of spatial proteomics, for example.
 
 
 ## Downloading the data
@@ -1002,7 +1006,7 @@ derived from a search in which N-terminal TMT modifications were dynamic, the
 data does include this annotation. Users are reminded that column names are 
 typically software-specific as the "Quan.Info" column is found only in outputs
 derived from Proteome Discoverer. However, the majority of alternative third 
-party softwares will have an equivalent column containing the same information.
+party software will have an equivalent column containing the same information.
 
 ```{r tmt_no_quant_1, message = FALSE}
 ## Find out how many PSMs we expect to lose
@@ -1603,8 +1607,8 @@ prots_removed_prop_2 <- ((prots_removed_2 / original_prots) * 100) %>%
 
 ## Print as a table
 data.frame("Feature" = c("PSMs",
-                         "Peptides",
-                         "Proteins"),
+                         "Peptides (stripped)",
+                         "Protein groups"),
            "Number lost" = c(psms_removed_2,
                              peps_removed_2,
                              prots_removed_2),
@@ -1810,8 +1814,8 @@ prots_removed_total_prop <- ((prots_removed_total / original_prots) * 100) %>%
 
 ## Print as table
 data.frame("Feature" = c("PSMs",
-                         "Peptides",
-                         "Proteins"),
+                         "Peptides (stripped)",
+                         "Protein groups"),
            "Number lost" = c(psms_removed_total,
                              peps_removed_total,
                              prots_removed_total),
@@ -1885,7 +1889,12 @@ Here, we use `robustSummary` to aggregate from PSM to peptide-level. This method
 is currently considered to be state-of-the-art as it is more robust against
 outliers than other aggregation methods [@Sticker2020; @Goeminne2016]. We also 
 include `na.rm = TRUE` to exclude any NA values prior to completing the
-summarization.
+summarization. For simplicity, we here aggregate all PSMs corresponding to the 
+same stripped peptide sequence, regardless of whether they contain different 
+modifications. If users are interested in exploring differential expression of
+protein isoforms or have reason to believe that post-translational modifications
+may be important in answering their question, PSMs could also be aggregated by 
+`"Annotated.Sequence"` to preserve this information.
 
 ```{r tmt_psm_to_peptide, messages = FALSE, results = "hide", warning = FALSE}
 ## Aggregate PSM to peptide
@@ -1975,72 +1984,26 @@ downstream. An extensive review on normalization strategies, both experimental
 and computational, is provided in [@ORourke2019].
 
 Unfortunately, there is not currently a single normalization method which
-performs best for all quantitative proteomics datasets. Within the Bioconductor
-packages, however, exists
-[`NormalyzerDE`](https://www.bioconductor.org/packages/release/bioc/html/NormalyzerDE.html),
-a tool for evaluating different normalization methods [@Willforss2018]. By 
-passing a `SummarizedExperiment` object to the `normalyzer` function it is
-possible to generate a report comparing common normalization strategies, such as
-total intensity (TI), median intensity (MedI), average intensity (AI), quantile
-(from the `preprocessCore` package)[@preprocessCore], NormFinder (NM)[@Andersen2004], 
-Variance Stabilising Normalization (VSN, from the `vsn` package)[@Huber2002], 
-Robust Linear Regression (RLR), and LOESS (from the `limma` package)[@Smyth2004]. 
-A number of qualitative and quantitative evaluation measures are provided within 
-the report, including total intensity, Pooled intragroup Coefficient of Variation 
-(PCV), Pooled intragroup Median Absolute Deviation (PMDA), CV-intensity plots,
-MA-plots, Pearson and Spearman correlation.
+performs best for all quantitative proteomics datasets. That said, the median 
+(or median-based methods) are a good choice for most quantitative proteomics data. 
+By contrast, mean normalization is a method to be avoided since the mean is very
+sensitive to outliers and we often have such outliers in proteomics data.
+Similarly, quantile normalization is not recommended for quantitative proteomics 
+data due to complications imposed by the presence of missing values. For users
+wishing to explore and compare normalization methods, the [`NormalyzerDE`](https://www.bioconductor.org/packages/release/bioc/html/NormalyzerDE.html),
+package within Bioconductor can be used [@Willforss2018]. 
 
-Normalyzer accepts intensity data in a raw format, prior to log transformation.
-Therefore, we first generate a protein-level `SummarizedExperiment` from our
-PSM-level data prior to transformation.
-
-```{r tmt_psm_direct_agg, message = FALSE, results = "hide", warning = FALSE}
-## Aggregate from PSM directly to protein
-cp_qf <- aggregateFeatures(cp_qf,
-                           i = "psms_filtered",
-                           fcol = "Master.Protein.Accessions",
-                           name = "proteins_direct",
-                           fun = MsCoreUtils::robustSummary,
-                           na.rm = TRUE)
-```
-
-Hence, we will use the "proteins_direct" `SummarizedExperiment` here and the 
-function will do the log2 transformation for us. A second important consideration
-is that missing values must be denoted 'NA', not zero, NaN or infinite. We can
-pass the `SummarizedExperiment` containing the protein data to the `normalyzer`
-function. With this, we provide a name for the report and the directory in which
-to save the report. The `normalyzer` function also expects two pieces of
-information, the sample name and corresponding experimental group. We previously
-annotated the data with this information through the sample and condition
-columns of the `colData`, so we tell the `normalyzer` function to look here.
-
-```{r tmt_normalyzer, eval = FALSE, out.height = '30%', fig.align = 'center'}
-## Generate normalyzer report
-normalyzer(jobName = "normalyzer",
-           experimentObj = cp_qf[["proteins_direct"]],
-           sampleColName = "sample",
-           groupColName = "condition",
-           outputDir = ".")
-```
-
-The function will take a few minutes to run, particularly if there are many
-samples. Once complete, the report can be accessed as a `.pdf` file containing
-plots such as those displayed in (Figure \@ref(fig:normalyzer-figure)).
-
-```{r normalyzer-figure, out.width ='85%', echo = FALSE, fig.cap = "Example of plots generated by the normalyzer tool and provided in the .pdf report. Boxplots (top) and scatterplots (bottom) are two of the evaluation measures within the normalyzer report. Samples are grouped based on their condition to provide users with an easy way to evaluate the suitability of different normalization methods for their data. The log2 data can be used as a reference to compare the data pre- and post-normalization."}
-knitr::include_graphics("Images/normalyzerreport.png", error = FALSE)
-```
-
-Since the normalyzer report did not indicate any superior normalization method
-in this case, we will apply a center median approach here. To do this, we pass
-the log transformed protein-level data to the `normalize` function in
-`QFeatures`. We specify the method of normalization that we wish to apply i.e.
-`method = "center.median"` and name the new data level e.g. `name = "log_norm_proteins"`. 
-Of note, for users who wish to apply VSN normalization the raw protein data must
-be passed (prior to any log transformation) as the log transformation is done
-internally when specify `method = "vsn"`. All other methods require users to
-explicitly perform log transformation on their data before use. More details
-can be found in the `QFeatures` documentation, please type `help("normalize,QFeatures-method")`.
+Here, we will demonstrate the use of a center median normalization approach using 
+the `normalize` function within `QFeatures`.we will apply a center median
+approach. To do this, we pass the log transformed protein-level data to the
+`normalize` function in `QFeatures`. We specify the method of normalization that 
+we wish to apply i.e. `method = "center.median"` and name the new data level
+e.g. `name = "log_norm_proteins"`. Of note, for users who wish to apply VSN 
+normalization the raw protein data must be passed (prior to any log transformation)
+as the log transformation is done internally when specify `method = "vsn"`. All 
+other methods require users to explicitly perform log transformation on their
+data before use. More details can be found in the `QFeatures` documentation,
+please type `help("normalize,QFeatures-method")`.
 
 ```{r tmt_normalization_1}
 ## normalize the log transformed peptide data
@@ -2107,6 +2070,18 @@ cp_qf[["log_norm_proteins"]] %>%
                 main = "log2(norm proteins)")
 ```
 
+Density plots are a useful vizualization tool as we are able to quickly compare
+the data across samples by plotting the distribution of each sample together. 
+When doing this we get an idea of where the majority of the intensities lie. If,
+for example, all samples come from the same cells and our treatment/conditions
+don’t cause massive changes to the proteome, we expect the distributions of the 
+intensities to be roughly the same. Above, we see that the raw data before 
+normalization (left), log2 normalized (middle) and post normalization (right). 
+In the first two plots the curves/peaks are at different locations but after
+normalization (right) we see that we have shifted the curves according to their
+median and all peaks of samples are now overlapping.
+
+
 ## Exploration of data using QFeatures links
 ## Creating assay links
 After completing all data pre-processing, we now add explicit links between our
@@ -2149,7 +2124,7 @@ Q01581
 ```
 
 We find that in this data the protein Q01581 has `r nrow(Q01581[["log_peptides"]])`
-peptides and `r nrow(Q01581[["psms_filtered"]])` supporting its  identification 
+peptides and `r nrow(Q01581[["psms_filtered"]])` PSMs supporting its identification 
 and quantitation. We also see that the original data prior to processing contained
 `r nrow(Q01581[["psms_raw"]])` PSMs in support of this protein.
 
@@ -2191,31 +2166,12 @@ within the rowData of the new `SummarizedExperiment`. This column indicates how
 many lower-level features were aggregated into each new higher-level feature.
 Hence, `".n"` in the peptide-level data represents how many PSMs were aggregated
 into a peptide, whilst in the protein-level data it tells us how many peptides
-were grouped into a master protein. For ease of plotting, we will use the
-`"proteins_direct"` data generated above. Since this data was generated via
-direct aggregation of PSM to protein, `".n"` this will tell us PSM support per
-protein. We plot these data as simple histograms.
+were grouped into a master protein. As an example, we plot the a histogram of 
+`".n"` from the protein-level to explore peptide support per protein.
 
 ```{r support_plots, out.width = '100%', fig.align = 'center', warning = FALSE}
-## Plot PSM support per protein - .n in the proteins_direct SE
-psm_per_protein <- cp_qf[["proteins_direct"]] %>%
-  rowData() %>%
-  as_tibble() %>%
-  ggplot(aes(x = .n)) +
-  geom_histogram(binwidth = 1, boundary = 0.5) +
-  labs(x = "PSM support (shown up to 20)",
-       y = "Frequency") +
-  scale_x_continuous(expand = c(0, 0),
-                     limits = c(0, 20.5),
-                     breaks = seq(1, 20, 1)) +
-  scale_y_continuous(expand = c(0, 0),
-                     limits = c(0, 1000),
-                     breaks = seq(0, 1000, 100)) +
-  ggtitle("PSM support per protein") +
-  theme_bw()
-
 ## Plot peptide support per protein - .n in the proteins SE
-peptide_per_protein <- cp_qf[["log_proteins"]] %>%
+cp_qf[["log_proteins"]] %>%
   rowData() %>%
   as_tibble() %>%
   ggplot(aes(x = .n)) +
@@ -2231,7 +2187,6 @@ peptide_per_protein <- cp_qf[["log_proteins"]] %>%
   ggtitle("Peptide support per protein") +
   theme_bw()
 
-psm_per_protein + peptide_per_protein
 ```
 
 At this point, users may wish to include additional quality control filtering
@@ -2272,10 +2227,10 @@ workflow for a more in-depth explanation of any shared steps.
 
 As was the case for TMT labelled cell pellets, raw LFQ data from supernatant
 samples was searched using Proteome Discoverer 2.5. The workflows for this
-identification search are provided in the supplementary materials with an
-additional explanation of key parameters in the appendix. To begin processing
-LFQ data, users should export a peptide-level `.txt` file from the results of
-their identification search.
+identification search are provided in the supplementary materials with an additional
+explanation of key parameters in the appendix. To begin processing LFQ data, 
+users should export a peptide-level `.txt` file from the results of their 
+identification search.
 
 
 ## Data import, housekeeping and exploration
@@ -2335,7 +2290,7 @@ These features differ from those found at the PSM-level and users should be
 aware that they have reduced post-search control over the quality of PSMs
 included in the peptide quantitation, and which method of aggregation is used to
 define these. Proteome Discoverer uses the sum of PSM quantitative values to
-calculate peptide-level values. Other third-party softwares may use different 
+calculate peptide-level values. Other third-party software may use different 
 methods.
 
 ```{r lfq_exploration_1}
@@ -2516,7 +2471,7 @@ sn_qf <- addAssay(x = sn_qf,
 sn_qf
 ```
 
-Here, cleaning is done is two steps. The first is the removal of contaminant 
+Here, cleaning is done in two steps. The first is the removal of contaminant 
 proteins using the self-defined `find_cont` function. Refer back to the TMT 
 processing workflow for more details.
 
@@ -2651,8 +2606,8 @@ prots_removed_prop <- ((prots_removed / original_prots) * 100) %>%
 
 ## Present in a table
 data.frame("Feature" = c("PSMs",
-                         "Peptides",
-                         "Proteins"),
+                         "Peptides (stripped)",
+                         "Protein groups"),
            "Number lost" = c(psms_removed,
                              peps_removed,
                              prots_removed),
@@ -2903,9 +2858,9 @@ sn_qf <- normalize(sn_qf,
 sn_qf
 ```
 
-The final dataset is comprised of `r nrow(sn_qf[["log_norm_proteins"]])` proteins.
-We will save the protein-level `SummarizedExperiment` file as well as exporting
-the final `QFeatures` object.
+The final dataset is comprised of `r nrow(sn_qf[["log_norm_proteins"]])` protein
+groups. We will save the protein-level `SummarizedExperiment` file as well as
+exporting the final `QFeatures` object.
 
 ```{r lfq_protein_export, eval = FALSE}
 ## Save protein-level SE
@@ -3055,7 +3010,7 @@ pca_df %>%
   geom_hline(yintercept = 0, linetype = "dashed") +
   geom_vline(xintercept = 0, linetype = "dashed") +
   guides(colour = guide_legend(override.aes = list(size = 3))) +
-  labs(x = "PC1 (42.5 %)", y = "PC2 (26.8 %)") +
+  labs(x = "PC1", y = "PC2") +
   ggtitle("Protein-level PCA plot") +
   xlim(-100, 100) +
   ylim(-100, 100) +
@@ -3283,10 +3238,10 @@ In the next code chunk, we use the `decideTests` function to determine how many
 proteins are significantly up- and down- regulated in the treated compared to control
 HEK293 cells. We tell this function to classify the significance of each
 t-statistic based on a BH-adjusted p-value of 0.01. If we had not used TMT
-labels and wished to include a logFC threshold, we could have included `lfc = `
-as an argument. The function will then output a numerical matrix containing
-either -1, 0, or 1 for each protein in each condition, where a value of -1
-indicates significant downregulation, 0 not significant and 1 significant
+labels and wished to include a logFC threshold, we could have included the `lfc` argument
+and passed our desired logFC threshold. The function will then output a numerical
+matrix containing either -1, 0, or 1 for each protein in each condition, where a
+value of -1 indicates significant downregulation, 0 not significant and 1 significant
 upregulation. To simplify interpretation, we print a `summary` of this matrix.
 
 ```{r summary_of_significant_changes}
@@ -3555,7 +3510,7 @@ user-friendly pipeline for both new and experienced proteomics data analysts.
 
 The workflows provided involve use of functions from many different
 R/Bioconductor packages. The `sessionInfo` function provides an easy way to
-summarize all packages and corresponding their versions used to generate this
+summarize all packages and the corresponding versions used to generate this
 document. Should software updates lead to the generation of errors or different
 results to those demonstrated here, such changes should be easily traced.
 
