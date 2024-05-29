@@ -31,13 +31,13 @@
 \newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
 \newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
 \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
-\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{#1}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
 \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
 \newcommand{\BuiltInTok}[1]{#1}
 \newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
 \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
 \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
-\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
 \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
 \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
 \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
@@ -45,7 +45,7 @@
 \newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
 \newcommand{\ExtensionTok}[1]{#1}
 \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
-\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
 \newcommand{\ImportTok}[1]{#1}
 \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
 \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
@@ -54,7 +54,7 @@
 \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
 \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
 \newcommand{\RegionMarkerTok}[1]{#1}
-\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
 \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
 \newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
 \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
@@ -138,12 +138,11 @@ limma
 \clearpage
 \pagestyle{main}
 
-\textbf{R version}: R version 4.3.0 (2023-04-21)
+\textbf{R version}: R version 4.4.0 (2024-04-24)
 
-\textbf{Bioconductor version}: 3.17
+\textbf{Bioconductor version}: 3.19
 
-\hypertarget{introduction}{%
-\section{Introduction}\label{introduction}}
+\section{Introduction}\label{introduction}
 
 Proteins are responsible for carrying out a multitude of biological tasks,
 implementing cellular functionality and determining phenotype. Mass spectrometry
@@ -200,8 +199,7 @@ state-of-the-art packages from the open-source, open-development Bioconductor
 project \citep{Huber2015} to analyze use-case expression proteomics datasets
 \citep{HutchingsData} from both LFQ and label-based technologies.
 
-\hypertarget{package-installation}{%
-\subsection{Package installation}\label{package-installation}}
+\subsection{Package installation}\label{package-installation}
 
 In this workflow we make use of open-source software from the
 \href{https://www.r-project.org}{R} \href{https://bioconductor.org}{Bioconductor}
@@ -264,11 +262,9 @@ Here we load all packages included in this workflow.
 \end{Highlighting}
 \end{Shaded}
 
-\hypertarget{methods}{%
-\section{Methods}\label{methods}}
+\section{Methods}\label{methods}
 
-\hypertarget{the-use-case-exploring-changes-in-protein-abundance-in-hek293-cells-upon-perturbation}{%
-\subsection{The use-case: exploring changes in protein abundance in HEK293 cells upon perturbation}\label{the-use-case-exploring-changes-in-protein-abundance-in-hek293-cells-upon-perturbation}}
+\subsection{The use-case: exploring changes in protein abundance in HEK293 cells upon perturbation}\label{the-use-case-exploring-changes-in-protein-abundance-in-hek293-cells-upon-perturbation}
 
 As a use-case, we analyze two quantitative proteomics datasets derived from a
 single experiment. The aim of the experiment was to reveal the differential
@@ -317,19 +313,17 @@ Importantly, however, the experimental aim will influence data-guided decisions
 and the considerations discussed here likely differ from those of spatial proteomics,
 for example.
 
-\hypertarget{downloading-the-data}{%
-\subsection{Downloading the data}\label{downloading-the-data}}
+\subsection{Downloading the data}\label{downloading-the-data}
 
 The files required for this workflow can be found deposited to the ProteomeXchange
 Consortium via the PRIDE \citep{PerezRiverol2021, Deutsch2022} partner repository
-with the dataset identifier PXD041794, Zenodo at \url{http://doi.org/10.5281/zenodo.7837375}
+with the dataset identifier PXD041794, Zenodo at \url{http://doi.org/10.5281/zenodo.11196770}
 and at the Github repository \url{https://github.com/CambridgeCentreForProteomics/f1000_expression_proteomics/}.
 Users are advised to download these files into their current working directory.
 In R the \texttt{setwd} function can be used to specify a working directory, or if
 using RStudio one can use the Session -\textgreater{} Set Working Directory menu.
 
-\hypertarget{the-infrastructure-qfeatures-and-summarizedexperiments}{%
-\subsection{\texorpdfstring{The infrastructure: \texttt{QFeatures} and \texttt{SummarizedExperiment}s}{The infrastructure: QFeatures and SummarizedExperiments}}\label{the-infrastructure-qfeatures-and-summarizedexperiments}}
+\subsection{\texorpdfstring{The infrastructure: \texttt{QFeatures} and \texttt{SummarizedExperiment}s}{The infrastructure: QFeatures and SummarizedExperiments}}\label{the-infrastructure-qfeatures-and-summarizedexperiments}
 
 To be able to conveniently track each step of this workflow, users should make
 use of the Quantitative features for mass spectrometry package, or
@@ -384,8 +378,7 @@ be produced using base R.
 \caption{A graphic representation of the \texttt{QFeatures} object structure showing the relationship between assays. Figure modified from the \texttt{QFeatures} \citep{QFeat} vignette with permission.}\label{fig:qfeatures}
 \end{figure}
 
-\hypertarget{processing-and-analysing-quantitative-tmt-data}{%
-\section{Processing and analysing quantitative TMT data}\label{processing-and-analysing-quantitative-tmt-data}}
+\section{Processing and analysing quantitative TMT data}\label{processing-and-analysing-quantitative-tmt-data}
 
 First, we provide a workflow for the processing and quality control of
 quantitative TMT-labelled data. As outlined above, the cell pellet fractions of
@@ -415,8 +408,7 @@ S6 & Control & 3 & TMT130\\
 \end{tabular}
 \end{table}
 
-\hypertarget{identification-search-of-raw-data}{%
-\subsection{Identification search of raw data}\label{identification-search-of-raw-data}}
+\subsection{Identification search of raw data}\label{identification-search-of-raw-data}
 
 The first processing step in any MS-based proteomics experiment involves an
 identification search using the raw data. The aim of this search is to identify
@@ -436,36 +428,27 @@ using publicly available data without detailed knowledge of the identification
 search parameters. For now, we simply export the PSM-level \texttt{.txt} file from the
 Proteome Discoverer output.
 
-\hypertarget{data-import-housekeeping-and-exploration}{%
-\subsection{Data import, housekeeping and exploration}\label{data-import-housekeeping-and-exploration}}
+\subsection{Data import, housekeeping and exploration}\label{data-import-housekeeping-and-exploration}
 
-\hypertarget{importing-data-into-r-and-creating-a-qfeatures-object}{%
-\subsubsection{Importing data into R and creating a QFeatures object}\label{importing-data-into-r-and-creating-a-qfeatures-object}}
+\subsubsection{Importing data into R and creating a QFeatures object}\label{importing-data-into-r-and-creating-a-qfeatures-object}
 
 Data cleaning, exploration and filtering at the PSM-level is performed in R
-using \texttt{QFeatures}. The function \texttt{readQFeatures} is used to import the PSM-level
-\texttt{.txt} file. As the cell pellet TMT data we will use is derived from one
-TMT6plex, only one PSM-level \texttt{.txt} file needs to be imported. This file should
-be stored within the users working directory.
-
-The columns containing quantitative data also need to be identified before
-import. To check the column names we use \texttt{names} and \texttt{read.delim} (the equivalent
-for a \texttt{.csv} file would be \texttt{read.csv}). In the current experiment the order of
-TMT labels was randomized in an attempt to minimize the effect of TMT channel
-leakage. For ease of grouping and simplification of downstream visualization,
-samples are re-ordered during the import step. This is done by creating a vector
-containing the sample column names in their correct order. If samples are
-already in the desired order, the vector can be created by simply indexing the
-quantitative columns.
+using \texttt{QFeatures}. First, data is imported from our PSM-level \texttt{.txt} file into a
+\texttt{data.frame} using the base R \texttt{read.delim} function (the equivalent for \texttt{.csv}
+files would be \texttt{read.csv}). This file should be stored within the users working
+directory. Next, we use the \texttt{names} function to inspect the column names and
+identify which columns contain quantitative data.
 
 \begin{Shaded}
 \begin{Highlighting}[]
 \DocumentationTok{\#\# Locate the PSM .txt file}
 \NormalTok{cp\_psm }\OtherTok{\textless{}{-}} \StringTok{"cell\_pellet\_tmt\_results\_psms.txt"}
 
+\DocumentationTok{\#\# Import into a dataframe}
+\NormalTok{cp\_df }\OtherTok{\textless{}{-}} \FunctionTok{read.delim}\NormalTok{(cp\_psm)}
+
 \DocumentationTok{\#\# Identify columns containing quantitative data}
-\NormalTok{cp\_psm }\SpecialCharTok{\%\textgreater{}\%}
-  \FunctionTok{read.delim}\NormalTok{() }\SpecialCharTok{\%\textgreater{}\%}
+\NormalTok{cp\_df }\SpecialCharTok{\%\textgreater{}\%}
   \FunctionTok{names}\NormalTok{()}
 \end{Highlighting}
 \end{Shaded}
@@ -504,31 +487,19 @@ quantitative columns.
 ## [61] "Percolator.SVMScore"
 \end{verbatim}
 
-\begin{Shaded}
-\begin{Highlighting}[]
-\DocumentationTok{\#\# Store location of quantitative columns in a vector in the desired order}
-\NormalTok{abundance\_ordered }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{"Abundance.128"}\NormalTok{,}
-                       \StringTok{"Abundance.127"}\NormalTok{,}
-                       \StringTok{"Abundance.131"}\NormalTok{,}
-                       \StringTok{"Abundance.129"}\NormalTok{,}
-                       \StringTok{"Abundance.126"}\NormalTok{,}
-                       \StringTok{"Abundance.130"}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
-Now that the necessary file and its quantitative data columns have been
-identified, we can pass this to the \texttt{readQFeatures} function and provide these
-two pieces of information. We also specify that the file is tab-delimited by
-including \texttt{sep\ =\ "\textbackslash{}t"} (similarly you would use \texttt{sep\ =\ ","} for a \texttt{.csv} file).
+Now that the quantitative data columns have been identified, we can pass our
+\texttt{data.frame} to the \texttt{readQFeatures} function and specify where our quantitative
+columns are. The latter is done by passing either a numeric or character vector
+to an argument called \texttt{quantCols} ( \texttt{ecols} in previous package versions).
 Of note, the \texttt{readQFeatures} function can also take \texttt{fnames} as an argument to
-specify a column to be used as the row names of the imported object. Whilst
-previous \texttt{QFeatures} vignettes used the ``Sequence'' or ``Annotated.Sequence'' as
-row names, we advise against this because of the presence of PSMs matched to the
-same peptide sequence with different modifications. In such cases, multiple rows
-would have the same name forcing the \texttt{readQFeatures} function to output a
-``making assay row names unique'' message and add an identifying number to the end
-of each duplicated row name. These sequences would then be considered as unique
-during the aggregation of PSM to peptide, thus resulting in two independent
+specify a column to be used as the row names of the imported
+object. Whilst previous \texttt{QFeatures} vignettes used the ``Sequence'' or
+``Annotated.Sequence'' as row names, we advise against this because of the presence
+of PSMs matched to the same peptide sequence with different modifications. In such
+cases, multiple rows would have the same name forcing the \texttt{readQFeatures} function
+to output a ``making assay row names unique'' message and add an identifying number
+to the end of each duplicated row name. These sequences would then be considered
+as unique during the aggregation of PSM to peptide, thus resulting in two independent
 peptide- level quantitation values rather than one. Therefore, we do not pass a
 \texttt{fnames} argument and the row names automatically become indices. Finally, we
 pass the \texttt{name} argument to indicate the type of data added.
@@ -536,15 +507,29 @@ pass the \texttt{name} argument to indicate the type of data added.
 \begin{Shaded}
 \begin{Highlighting}[]
 \DocumentationTok{\#\# Create QFeatures }
-\NormalTok{cp\_qf }\OtherTok{\textless{}{-}} \FunctionTok{readQFeatures}\NormalTok{(}\AttributeTok{table =}\NormalTok{ cp\_psm,}
-                       \AttributeTok{ecol =}\NormalTok{ abundance\_ordered,}
-                       \AttributeTok{sep =} \StringTok{"}\SpecialCharTok{\textbackslash{}t}\StringTok{"}\NormalTok{,}
+\NormalTok{cp\_qf }\OtherTok{\textless{}{-}} \FunctionTok{readQFeatures}\NormalTok{(}\AttributeTok{assayData =}\NormalTok{ cp\_df,}
+                       \AttributeTok{quantCols =} \DecValTok{49}\SpecialCharTok{:}\DecValTok{54}\NormalTok{,}
                        \AttributeTok{name =} \StringTok{"psms\_raw"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
-\hypertarget{accessing-the-qfeatures-infrastructure}{%
-\subsubsection{\texorpdfstring{Accessing the \texttt{QFeatures} infrastructure}{Accessing the QFeatures infrastructure}}\label{accessing-the-qfeatures-infrastructure}}
+\begin{verbatim}
+## Checking arguments.
+\end{verbatim}
+
+\begin{verbatim}
+## Loading data as a 'SummarizedExperiment' object.
+\end{verbatim}
+
+\begin{verbatim}
+## Formatting sample annotations (colData).
+\end{verbatim}
+
+\begin{verbatim}
+## Formatting data as a 'QFeatures' object.
+\end{verbatim}
+
+\subsubsection{\texorpdfstring{Accessing the \texttt{QFeatures} infrastructure}{Accessing the QFeatures infrastructure}}\label{accessing-the-qfeatures-infrastructure}
 
 As outlined above, a \texttt{QFeatures} data object is a list of \texttt{SummarizedExperiment}
 objects. As such, an individual \texttt{SummarizedExperiment} can be accessed using
@@ -566,8 +551,8 @@ below.
 ## rownames(48832): 1 2 ... 48831 48832
 ## rowData names(55): PSMs.Workflow.ID PSMs.Peptide.ID ... Percolator.PEP
 ##   Percolator.SVMScore
-## colnames(6): Abundance.128 Abundance.127 ... Abundance.126
-##   Abundance.130
+## colnames(6): Abundance.126 Abundance.127 ... Abundance.130
+##   Abundance.131
 ## colData names(0):
 \end{verbatim}
 
@@ -586,8 +571,8 @@ below.
 ## rownames(48832): 1 2 ... 48831 48832
 ## rowData names(55): PSMs.Workflow.ID PSMs.Peptide.ID ... Percolator.PEP
 ##   Percolator.SVMScore
-## colnames(6): Abundance.128 Abundance.127 ... Abundance.126
-##   Abundance.130
+## colnames(6): Abundance.126 Abundance.127 ... Abundance.130
+##   Abundance.131
 ## colData names(0):
 \end{verbatim}
 
@@ -615,32 +600,76 @@ it is necessary to convert to a \texttt{data.frame} or \texttt{tibble}.
 ## 1      13281497.
 \end{verbatim}
 
-\hypertarget{adding-metadata}{%
-\subsubsection{Adding metadata}\label{adding-metadata}}
-
-Having imported the data, each sample is first annotated with its TMT label,
-sample reference and condition. As this information is experimental metadata, it
-is added to the \texttt{colData} slot. It is also useful to clean up sample names such
-that they are short, intuitive and informative. This is done by editing the
-\texttt{colnames}. These steps may not always be necessary depending upon the
-identification search output.
+To ensure that quantitative data has been correctly imported in as a numeric
+variable, we can look at the \texttt{assay} slot.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\DocumentationTok{\#\# Clean sample names}
-\FunctionTok{colnames}\NormalTok{(cp\_qf[[}\StringTok{"psms\_raw"}\NormalTok{]]) }\OtherTok{\textless{}{-}} \FunctionTok{paste0}\NormalTok{(}\StringTok{"S"}\NormalTok{, }\DecValTok{1}\SpecialCharTok{:}\DecValTok{6}\NormalTok{)}
+\DocumentationTok{\#\# Look at top 6 rows of the assay (quantitative data)}
+\NormalTok{cp\_qf[[}\StringTok{"psms\_raw"}\NormalTok{]] }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{assay}\NormalTok{() }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{head}\NormalTok{() }
+\end{Highlighting}
+\end{Shaded}
 
+\begin{verbatim}
+##   Abundance.126 Abundance.127 Abundance.128 Abundance.129 Abundance.130
+## 1            NA            NA            NA            NA            NA
+## 2            NA            NA            NA            NA            NA
+## 3            NA            NA            NA            NA            NA
+## 4          14.1          18.1          11.8           9.4          18.9
+## 5            NA           2.5            NA           3.4           3.2
+## 6          16.7          26.2          18.7          22.4          25.3
+##   Abundance.131
+## 1            NA
+## 2            NA
+## 3            NA
+## 4          13.5
+## 5            NA
+## 6          17.2
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DocumentationTok{\#\# Confirm numeric assay}
+\NormalTok{cp\_qf[[}\StringTok{"psms\_raw"}\NormalTok{]] }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{assay}\NormalTok{() }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{type}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "double"
+\end{verbatim}
+
+Our \texttt{assay} contains data of type \texttt{double}, a sub-type of numeric data in R. If
+users find that their quantitative data is of type \texttt{character}, it is necessary
+to correct this before moving on with the rest of the workflow.
+
+\subsubsection{Adding metadata}\label{adding-metadata}
+
+Having imported the data, each sample is first annotated with its TMT label,
+sample reference and condition. As this information is experimental metadata, it
+is added to the \texttt{colData} slot. It is important for users check that the \texttt{colData}
+annotations correspond to their correct samples, particularly if the column order
+in the imported results file does not align with the sample order. This is the
+case for the use-case data since TMT labels were randomized in an attempt to
+minimze the effect of TMT channel leakage.
+
+\begin{Shaded}
+\begin{Highlighting}[]
 \DocumentationTok{\#\# Add sample info as colData to QFeatures object}
-\NormalTok{cp\_qf}\SpecialCharTok{$}\NormalTok{label }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{"TMT128"}\NormalTok{,}
+\NormalTok{cp\_qf}\SpecialCharTok{$}\NormalTok{label }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{"TMT126"}\NormalTok{,}
                  \StringTok{"TMT127"}\NormalTok{,}
-                 \StringTok{"TMT131"}\NormalTok{,}
+                 \StringTok{"TMT128"}\NormalTok{,}
                  \StringTok{"TMT129"}\NormalTok{,}
-                 \StringTok{"TMT126"}\NormalTok{,}
-                 \StringTok{"TMT130"}\NormalTok{)}
+                 \StringTok{"TMT130"}\NormalTok{,}
+                 \StringTok{"TMT131"}\NormalTok{)}
 
-\NormalTok{cp\_qf}\SpecialCharTok{$}\NormalTok{sample }\OtherTok{\textless{}{-}} \FunctionTok{paste0}\NormalTok{(}\StringTok{"S"}\NormalTok{, }\DecValTok{1}\SpecialCharTok{:}\DecValTok{6}\NormalTok{)}
+\NormalTok{cp\_qf}\SpecialCharTok{$}\NormalTok{sample }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{"S5"}\NormalTok{, }\StringTok{"S2"}\NormalTok{, }\StringTok{"S1"}\NormalTok{, }\StringTok{"S4"}\NormalTok{, }\StringTok{"S6"}\NormalTok{, }\StringTok{"S3"}\NormalTok{)}
 
-\NormalTok{cp\_qf}\SpecialCharTok{$}\NormalTok{condition }\OtherTok{\textless{}{-}} \FunctionTok{rep}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\StringTok{"Treated"}\NormalTok{, }\StringTok{"Control"}\NormalTok{), }\AttributeTok{each =} \DecValTok{3}\NormalTok{)}
+\NormalTok{cp\_qf}\SpecialCharTok{$}\NormalTok{condition }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{"Control"}\NormalTok{, }\StringTok{"Treated"}\NormalTok{, }\StringTok{"Treated"}\NormalTok{,}
+                     \StringTok{"Control"}\NormalTok{, }\StringTok{"Control"}\NormalTok{, }\StringTok{"Treated"}\NormalTok{)}
 
 \DocumentationTok{\#\# Verify}
 \FunctionTok{colData}\NormalTok{(cp\_qf)}
@@ -649,14 +678,14 @@ identification search output.
 
 \begin{verbatim}
 ## DataFrame with 6 rows and 3 columns
-##          label      sample   condition
-##    <character> <character> <character>
-## S1      TMT128          S1     Treated
-## S2      TMT127          S2     Treated
-## S3      TMT131          S3     Treated
-## S4      TMT129          S4     Control
-## S5      TMT126          S5     Control
-## S6      TMT130          S6     Control
+##                     label      sample   condition
+##               <character> <character> <character>
+## Abundance.126      TMT126          S5     Control
+## Abundance.127      TMT127          S2     Treated
+## Abundance.128      TMT128          S1     Treated
+## Abundance.129      TMT129          S4     Control
+## Abundance.130      TMT130          S6     Control
+## Abundance.131      TMT131          S3     Treated
 \end{verbatim}
 
 \begin{Shaded}
@@ -666,8 +695,18 @@ identification search output.
 \end{Highlighting}
 \end{Shaded}
 
-\hypertarget{preliminary-data-exploration}{%
-\subsubsection{Preliminary data exploration}\label{preliminary-data-exploration}}
+It is also useful to clean up sample names such that they are short, intuitive
+and informative. This is done by editing the \texttt{colnames}. These steps may not
+always be necessary depending upon the identification search output.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DocumentationTok{\#\# Clean sample names}
+\FunctionTok{colnames}\NormalTok{(cp\_qf[[}\StringTok{"psms\_raw"}\NormalTok{]]) }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{"S5"}\NormalTok{, }\StringTok{"S2"}\NormalTok{, }\StringTok{"S1"}\NormalTok{, }\StringTok{"S4"}\NormalTok{, }\StringTok{"S6"}\NormalTok{, }\StringTok{"S3"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\subsubsection{Preliminary data exploration}\label{preliminary-data-exploration}
 
 As well as cleaning and annotating the data, it is always advisable to check
 that the import worked and that the data looks as expected. Further, preliminary
@@ -849,15 +888,13 @@ knowledge about the identification search parameters.
 ## 48832
 \end{verbatim}
 
-\hypertarget{experimental-quality-control-checks}{%
-\subsection{Experimental quality control checks}\label{experimental-quality-control-checks}}
+\subsection{Experimental quality control checks}\label{experimental-quality-control-checks}
 
 Experimental quality control of TMT-labelled quantitive proteomics data takes
 place in two steps: (1) assessment of the raw mass spectrometry data, and (2)
 evaluation of TMT labelling efficiency.
 
-\hypertarget{quality-control-of-the-raw-mass-spectrometry-data}{%
-\subsubsection{Quality control of the raw mass spectrometry data}\label{quality-control-of-the-raw-mass-spectrometry-data}}
+\subsubsection{Quality control of the raw mass spectrometry data}\label{quality-control-of-the-raw-mass-spectrometry-data}
 
 Having taken an initial look at the output of the identification search, it is
 possible to create some simple plots to inspect the raw mass spectrometry data.
@@ -975,8 +1012,7 @@ The four plots that we have generated look relatively standard with no obvious
 problems indicated. Therefore, we continue by evaluating the quality of the
 processed data.
 
-\hypertarget{checking-the-efficiency-of-tmt-labelling}{%
-\subsubsection{Checking the efficiency of TMT labelling}\label{checking-the-efficiency-of-tmt-labelling}}
+\subsubsection{Checking the efficiency of TMT labelling}\label{checking-the-efficiency-of-tmt-labelling}
 
 The most fundamental data quality control step in a TMT experiment is to check
 the TMT labelling efficiency. TMT labels react with amine groups present at the
@@ -995,18 +1031,22 @@ To demonstrate how to check for TMT labelling efficiency, only two of the eight
 fractions were utilized for this search.
 
 As we will only look at TMT efficiency at the PSM-level, here we upload the \texttt{.txt}
-file directly as a \texttt{SummarizedExperiment} rather than a \texttt{QFeatures} object.
-This is done using the \texttt{readSummarizedExperiment} function and the same arguments
-as those in \texttt{readQFeatures}.
+into a \texttt{data.frame} to format into a \texttt{SummarizedExperiment} object. This is done
+using the \texttt{readSummarizedExperiment} function and the same arguments as those
+in \texttt{readQFeatures}. The reason for this is that we only need the PSM-level data,
+so do not need to generate a \texttt{QFeatures} object with the function of holding
+multiple \texttt{SummarizedExperiments} across different levels.
 
 \begin{Shaded}
 \begin{Highlighting}[]
 \DocumentationTok{\#\# Locate the PSM .txt file}
 \NormalTok{tmt\_psm }\OtherTok{\textless{}{-}} \StringTok{"cell\_pellet\_tmt\_efficiency\_psms.txt"}
 
+\DocumentationTok{\#\# Import into a data.frame}
+\NormalTok{tmt\_df }\OtherTok{\textless{}{-}} \FunctionTok{read.delim}\NormalTok{(tmt\_psm)}
+
 \DocumentationTok{\#\# Identify columns containing quantitative data}
-\NormalTok{tmt\_psm }\SpecialCharTok{\%\textgreater{}\%}
-  \FunctionTok{read.delim}\NormalTok{() }\SpecialCharTok{\%\textgreater{}\%}
+\NormalTok{tmt\_df }\SpecialCharTok{\%\textgreater{}\%}
   \FunctionTok{names}\NormalTok{()}
 \end{Highlighting}
 \end{Shaded}
@@ -1048,24 +1088,24 @@ as those in \texttt{readQFeatures}.
 \begin{Shaded}
 \begin{Highlighting}[]
 \DocumentationTok{\#\# Read in as a SummarizedExperiment}
-\NormalTok{tmt\_se }\OtherTok{\textless{}{-}} \FunctionTok{readSummarizedExperiment}\NormalTok{(}\AttributeTok{table =}\NormalTok{ tmt\_psm,}
-                                   \AttributeTok{ecol =}\NormalTok{ abundance\_ordered,}
-                                   \AttributeTok{sep =} \StringTok{"}\SpecialCharTok{\textbackslash{}t}\StringTok{"}\NormalTok{)}
+\NormalTok{tmt\_se }\OtherTok{\textless{}{-}} \FunctionTok{readSummarizedExperiment}\NormalTok{(}\AttributeTok{assayData =}\NormalTok{ tmt\_df,}
+                                   \AttributeTok{quantCols =} \DecValTok{49}\SpecialCharTok{:}\DecValTok{54}\NormalTok{)}
 
 \DocumentationTok{\#\# Clean sample names}
-\FunctionTok{colnames}\NormalTok{(tmt\_se) }\OtherTok{\textless{}{-}} \FunctionTok{paste0}\NormalTok{(}\StringTok{"S"}\NormalTok{, }\DecValTok{1}\SpecialCharTok{:}\DecValTok{6}\NormalTok{)}
+\FunctionTok{colnames}\NormalTok{(tmt\_se) }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{"S5"}\NormalTok{, }\StringTok{"S2"}\NormalTok{, }\StringTok{"S1"}\NormalTok{, }\StringTok{"S4"}\NormalTok{, }\StringTok{"S6"}\NormalTok{, }\StringTok{"S3"}\NormalTok{)}
 
 \DocumentationTok{\#\# Add sample info as colData to QFeatures object}
-\NormalTok{tmt\_se}\SpecialCharTok{$}\NormalTok{label }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{"TMT128"}\NormalTok{,}
+\NormalTok{tmt\_se}\SpecialCharTok{$}\NormalTok{label }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{"TMT126"}\NormalTok{,}
                   \StringTok{"TMT127"}\NormalTok{, }
-                  \StringTok{"TMT131"}\NormalTok{, }
+                  \StringTok{"TMT128"}\NormalTok{, }
                   \StringTok{"TMT129"}\NormalTok{,}
-                  \StringTok{"TMT126"}\NormalTok{,}
-                  \StringTok{"TMT130"}\NormalTok{)}
+                  \StringTok{"TMT130"}\NormalTok{,}
+                  \StringTok{"TMT131"}\NormalTok{)}
 
-\NormalTok{tmt\_se}\SpecialCharTok{$}\NormalTok{sample }\OtherTok{\textless{}{-}} \FunctionTok{paste0}\NormalTok{(}\StringTok{"S"}\NormalTok{, }\DecValTok{1}\SpecialCharTok{:}\DecValTok{6}\NormalTok{)}
+\NormalTok{tmt\_se}\SpecialCharTok{$}\NormalTok{sample }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{"S5"}\NormalTok{, }\StringTok{"S2"}\NormalTok{, }\StringTok{"S1"}\NormalTok{, }\StringTok{"S4"}\NormalTok{, }\StringTok{"S6"}\NormalTok{, }\StringTok{"S3"}\NormalTok{)}
 
-\NormalTok{tmt\_se}\SpecialCharTok{$}\NormalTok{condition }\OtherTok{\textless{}{-}} \FunctionTok{rep}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\StringTok{"Treated"}\NormalTok{, }\StringTok{"Control"}\NormalTok{), }\AttributeTok{each =} \DecValTok{3}\NormalTok{)}
+\NormalTok{tmt\_se}\SpecialCharTok{$}\NormalTok{condition }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{"Control"}\NormalTok{, }\StringTok{"Treated"}\NormalTok{, }\StringTok{"Treated"}\NormalTok{,}
+                      \StringTok{"Control"}\NormalTok{, }\StringTok{"Control"}\NormalTok{, }\StringTok{"Treated"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1080,12 +1120,12 @@ as those in \texttt{readQFeatures}.
 ## DataFrame with 6 rows and 3 columns
 ##          label      sample   condition
 ##    <character> <character> <character>
-## S1      TMT128          S1     Treated
-## S2      TMT127          S2     Treated
-## S3      TMT131          S3     Treated
-## S4      TMT129          S4     Control
 ## S5      TMT126          S5     Control
+## S2      TMT127          S2     Treated
+## S1      TMT128          S1     Treated
+## S4      TMT129          S4     Control
 ## S6      TMT130          S6     Control
+## S3      TMT131          S3     Treated
 \end{verbatim}
 
 Information about the presence of labels is stored within the `Modifications'
@@ -1186,8 +1226,7 @@ N-term efficiency & K efficiency & Suggested search method\\
 \end{tabular}
 \end{table}
 
-\hypertarget{basic-data-cleaning}{%
-\subsection{Basic data cleaning}\label{basic-data-cleaning}}
+\subsection{Basic data cleaning}\label{basic-data-cleaning}
 
 Being confident that the experiment and identification search were successful,
 we can now begin with some basic data cleaning. However, we also want to keep a
@@ -1235,8 +1274,7 @@ the ``psms\_filtered'' level, we specify this by using the \texttt{i\ =} argumen
 argument is not used, \texttt{filterFeatures} will remove features from all assays
 within a \texttt{QFeatures} object.
 
-\hypertarget{removing-psms-not-matched-to-a-master-protein}{%
-\subsubsection{Removing PSMs not matched to a master protein}\label{removing-psms-not-matched-to-a-master-protein}}
+\subsubsection{Removing PSMs not matched to a master protein}\label{removing-psms-not-matched-to-a-master-protein}
 
 The first common cleaning step we carry out is the removal of PSMs that have not
 been assigned to a master protein during the identification search. This can
@@ -1297,8 +1335,7 @@ Instead, the decision to do so is left to the user.
 \end{Highlighting}
 \end{Shaded}
 
-\hypertarget{removing-psms-matched-to-a-contaminant-protein}{%
-\subsubsection{Removing PSMs matched to a contaminant protein}\label{removing-psms-matched-to-a-contaminant-protein}}
+\subsubsection{Removing PSMs matched to a contaminant protein}\label{removing-psms-matched-to-a-contaminant-protein}
 
 Next we remove PSMs corresponding to contaminant proteins. Such proteins can be
 introduced intentionally as reagents during sample preparation, as is the case
@@ -1375,8 +1412,7 @@ fasta file (here, the human proteome or contaminant database) a PSM is derived
 from. In such cases, filtering can be simplified by removing PSMs annotated as
 contaminants in the output file.
 
-\hypertarget{removing-psms-which-lack-quantitative-data}{%
-\subsubsection{Removing PSMs which lack quantitative data}\label{removing-psms-which-lack-quantitative-data}}
+\subsubsection{Removing PSMs which lack quantitative data}\label{removing-psms-which-lack-quantitative-data}
 
 Now that we are left with only PSMs matched to proteins of interest, we filter
 out PSMs which cannot be used for quantitation. This includes some PSMs which
@@ -1446,8 +1482,7 @@ the pre-set threshold) or leave them in (disregard the threshold).
 In the above code chunk we see there are no remaining annotations in the
 ``Quan.Info'' column so we can continue.
 
-\hypertarget{removing-psms-which-are-not-unique-to-a-protein}{%
-\subsubsection{Removing PSMs which are not unique to a protein}\label{removing-psms-which-are-not-unique-to-a-protein}}
+\subsubsection{Removing PSMs which are not unique to a protein}\label{removing-psms-which-are-not-unique-to-a-protein}
 
 The next step is to consider which PSMs are to be used for quantitation. There
 are two ways in which a PSM can be considered as unique. The first and most pure
@@ -1497,8 +1532,7 @@ We again use the \texttt{filterFeatures} function to retain PSMs linked to only
 \end{Highlighting}
 \end{Shaded}
 
-\hypertarget{additional-considerations-regarding-protein-isoforms}{%
-\paragraph{Additional considerations regarding protein isoforms}\label{additional-considerations-regarding-protein-isoforms}}
+\paragraph{Additional considerations regarding protein isoforms}\label{additional-considerations-regarding-protein-isoforms}
 
 Users searching against a database that includes protein isoforms must take
 extra caution when defining `unique' PSMs. A PSM that corresponds to a single
@@ -1512,8 +1546,7 @@ expanded to multiple proteins and one protein group. Users should be aware of
 these possibilities and select their filtering strategy based on the biological
 question of interest.
 
-\hypertarget{removing-psms-that-are-not-rank-1}{%
-\subsubsection{Removing PSMs that are not rank 1}\label{removing-psms-that-are-not-rank-1}}
+\subsubsection{Removing PSMs that are not rank 1}\label{removing-psms-that-are-not-rank-1}
 
 Another filter that is important for quantitation is that of PSM rank. Since
 individual spectra can have multiple candidate peptide matches, Proteome
@@ -1581,10 +1614,9 @@ PSMs that have a search engine rank of 1.
 \end{Highlighting}
 \end{Shaded}
 
-\hypertarget{removing-ambiguous-psms}{%
-\subsubsection{Removing ambiguous PSMs}\label{removing-ambiguous-psms}}
+\subsubsection{Removing ambiguous PSMs}\label{removing-ambiguous-psms}
 
-Finally, we retain only unambiguous PSMs. Since there are several candidate
+We also retain only unambiguous PSMs. Since there are several candidate
 peptides for each spectra, Proteome Discoverer allocates each PSM a level of
 ambiguity to indicate whether it was possible to determine a definite PSM or
 whether one had to be selected from a number of candidates. The allocation of
@@ -1640,8 +1672,208 @@ proceeding with the data.
 \end{Highlighting}
 \end{Shaded}
 
-\hypertarget{assessing-the-impact-of-non-specific-data-cleaning}{%
-\subsubsection{Assessing the impact of non-specific data cleaning}\label{assessing-the-impact-of-non-specific-data-cleaning}}
+\subsubsection{Controlling false discovery rate}\label{controlling-false-discovery-rate}
+
+Finally, it is necessary to control the false discovery rate. During a database
+search, peptide spectrum matches (PSMs) are generated by matching raw mass spectra
+to peptide sequences. However, only a number of these PSMs will be true positive
+matches, whilst the rest are false positives, or `false discoveries'. Most third
+party software contain internal algorithms to determine the number of false
+discoveries and the probability of a given feature (PSM, peptide or protein)
+being a false discovery. This information can then be used to control the false
+discovery rate (FDR), typically to keep this below 5\% for exploratory analyses or
+1\% for stringent analyses.
+
+During the database search of the use-case data, only high confidence PSMs with
+an FDR \textless{} 1\% were retained.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{cp\_qf[[}\StringTok{"psms\_filtered"}\NormalTok{]] }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{rowData}\NormalTok{() }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{as\_tibble}\NormalTok{() }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{pull}\NormalTok{(Confidence) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{table}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## .
+##  High 
+## 43153
+\end{verbatim}
+
+Importantly, however, FDR becomes inflated as you aggregate up from PSM to
+peptide and then from peptide to protein. Therefore, a 1\% FDR at PSM-level does
+not ensure a 1\% FDR at protein-level. To access information about protein-level
+FDR, we have to import the protein-level \texttt{.txt} file from our database search.
+As before, users should store this file in their working directory.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DocumentationTok{\#\# Import protein{-}level data}
+\NormalTok{protein\_cp }\OtherTok{\textless{}{-}} \FunctionTok{read.delim}\NormalTok{(}\AttributeTok{file =} \StringTok{"cell\_pellet\_tmt\_results\_proteins.txt"}\NormalTok{)}
+
+\DocumentationTok{\#\# Check column names}
+\NormalTok{protein\_cp }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{names}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##  [1] "Proteins.Unique.Sequence.ID"                    
+##  [2] "Checked"                                        
+##  [3] "Tags"                                           
+##  [4] "Protein.FDR.Confidence.Combined"                
+##  [5] "Master"                                         
+##  [6] "Protein.Group.IDs"                              
+##  [7] "Accession"                                      
+##  [8] "Description"                                    
+##  [9] "Sequence"                                       
+## [10] "FASTA.Title.Lines"                              
+## [11] "Exp.q.value.Combined"                           
+## [12] "Sum.PEP.Score"                                  
+## [13] "Number.of.Decoy.Protein.Combined"               
+## [14] "Coverage.in.Percent"                            
+## [15] "Number.of.Peptides"                             
+## [16] "Number.of.PSMs"                                 
+## [17] "Number.of.Protein.Unique.Peptides"              
+## [18] "Number.of.Unique.Peptides"                      
+## [19] "Number.of.AAs"                                  
+## [20] "MW.in.kDa"                                      
+## [21] "calc.pI"                                        
+## [22] "Score.Sequest.HT.Sequest.HT"                    
+## [23] "Coverage.in.Percent.by.Search.Engine.Sequest.HT"
+## [24] "Number.of.PSMs.by.Search.Engine.Sequest.HT"     
+## [25] "Number.of.Peptides.by.Search.Engine.Sequest.HT" 
+## [26] "Abundance.F1.126.Sample"                        
+## [27] "Abundance.F1.127.Sample"                        
+## [28] "Abundance.F1.128.Sample"                        
+## [29] "Abundance.F1.129.Sample"                        
+## [30] "Abundance.F1.130.Sample"                        
+## [31] "Abundance.F1.131.Sample"                        
+## [32] "Abundances.Count.F1.126.Sample"                 
+## [33] "Abundances.Count.F1.127.Sample"                 
+## [34] "Abundances.Count.F1.128.Sample"                 
+## [35] "Abundances.Count.F1.129.Sample"                 
+## [36] "Abundances.Count.F1.130.Sample"                 
+## [37] "Abundances.Count.F1.131.Sample"                 
+## [38] "Found.in.Fraction.F11"                          
+## [39] "Found.in.Fraction.F12"                          
+## [40] "Found.in.Fraction.F13"                          
+## [41] "Found.in.Fraction.F14"                          
+## [42] "Found.in.Fraction.F15"                          
+## [43] "Found.in.Fraction.F16"                          
+## [44] "Found.in.Fraction.F17"                          
+## [45] "Found.in.Fraction.F18"                          
+## [46] "Found.in.Sample.in.S1.F1.126.Sample"            
+## [47] "Found.in.Sample.in.S2.F1.127.Sample"            
+## [48] "Found.in.Sample.in.S3.F1.128.Sample"            
+## [49] "Found.in.Sample.in.S4.F1.129.Sample"            
+## [50] "Found.in.Sample.in.S5.F1.130.Sample"            
+## [51] "Found.in.Sample.in.S6.F1.131.Sample"            
+## [52] "Found.in.Sample.Group.in.S1.F1.126.Sample"      
+## [53] "Found.in.Sample.Group.in.S2.F1.127.Sample"      
+## [54] "Found.in.Sample.Group.in.S3.F1.128.Sample"      
+## [55] "Found.in.Sample.Group.in.S4.F1.129.Sample"      
+## [56] "Found.in.Sample.Group.in.S5.F1.130.Sample"      
+## [57] "Found.in.Sample.Group.in.S6.F1.131.Sample"      
+## [58] "Number.of.Protein.Groups"
+\end{verbatim}
+
+The FDR information is contained in a column called \texttt{Protein.FDR.Confidence.Combined}.
+We can get an overview of the data in this column by using the \texttt{table} function.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{protein\_cp }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{pull}\NormalTok{(Protein.FDR.Confidence.Combined) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{table}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## .
+##   High    Low Medium 
+##   4824     75    467
+\end{verbatim}
+
+We see proteins that are annotated as high confidence = FDR \textless{} 1\%, medium
+confidence = FDR \textless{} 5\% and low confidence = FDR \textgreater{} 5\%.
+
+In order to use the \texttt{filterFeatures} function to remove PSMs corresponding to
+proteins which do not pass our FDR threshold (1\%), we first need to add this
+annotation to the \texttt{rowData} of our \texttt{"psms\_filtered"} experiment. To do this, we
+first extract the master protein accessions from our PSM-level data. Next, we
+extract these proteins from our protein-level search output along with their
+corresponding confidence ratings.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DocumentationTok{\#\# Extract master protein accessions from our PSM{-}level data}
+\NormalTok{proteins\_in\_data }\OtherTok{\textless{}{-}}\NormalTok{ cp\_qf[[}\StringTok{"psms\_filtered"}\NormalTok{]] }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{rowData}\NormalTok{() }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{as\_tibble}\NormalTok{() }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{select}\NormalTok{(Master.Protein.Accessions)}
+
+\DocumentationTok{\#\# Extract protein accessions and corresponding confidence from search output file}
+\NormalTok{protein\_search\_output }\OtherTok{\textless{}{-}}\NormalTok{ protein\_cp }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{select}\NormalTok{(Accession, Protein.FDR.Confidence.Combined)}
+\end{Highlighting}
+\end{Shaded}
+
+Now we can use the \texttt{left\_join} function to merge these two datasets.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DocumentationTok{\#\# Combine data}
+\NormalTok{protein\_fdr }\OtherTok{\textless{}{-}} \FunctionTok{left\_join}\NormalTok{(}\AttributeTok{x =}\NormalTok{ proteins\_in\_data, }
+                         \AttributeTok{y =}\NormalTok{ protein\_search\_output, }
+                         \AttributeTok{by =} \FunctionTok{c}\NormalTok{(}\StringTok{"Master.Protein.Accessions"} \OtherTok{=} \StringTok{"Accession"}\NormalTok{))}
+
+\NormalTok{protein\_fdr }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{head}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 6 x 2
+##   Master.Protein.Accessions Protein.FDR.Confidence.Combined
+##   <chr>                     <chr>                          
+## 1 Q92597                    High                           
+## 2 Q9UGP4                    High                           
+## 3 Q9BRX2                    High                           
+## 4 P14868                    High                           
+## 5 O00154                    High                           
+## 6 P48651                    High
+\end{verbatim}
+
+Finally, we add the annotations from our \texttt{"Protein.FDR.Confidence.Combined"}
+column to the \texttt{rowData} of our \texttt{"psms\_filtered"} experiment.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{rowData}\NormalTok{(cp\_qf[[}\StringTok{"psms\_filtered"}\NormalTok{]])}\SpecialCharTok{$}\NormalTok{Protein.Confidence }\OtherTok{\textless{}{-}}\NormalTok{ protein\_fdr}\SpecialCharTok{$}\NormalTok{Protein.FDR.Confidence.Combined}
+\end{Highlighting}
+\end{Shaded}
+
+We can now use \texttt{filterFeatures} to remove PSMs corresponding to low or medium
+confidence master proteins.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{cp\_qf }\OtherTok{\textless{}{-}}\NormalTok{ cp\_qf }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{filterFeatures}\NormalTok{(}\SpecialCharTok{\textasciitilde{}}\NormalTok{ Protein.Confidence }\SpecialCharTok{==} \StringTok{"High"}\NormalTok{, }\AttributeTok{i =} \StringTok{"psms\_filtered"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 'Protein.Confidence' found in 1 out of 2 assay(s)
+## No filter applied to the following assay(s) because one or more filtering variables are missing in the rowData: psms_raw.
+## You can control whether to remove or keep the features using the 'keep' argument (see '?filterFeature').
+\end{verbatim}
+
+\subsubsection{Assessing the impact of non-specific data cleaning}\label{assessing-the-impact-of-non-specific-data-cleaning}
 
 Now that we have finished the non-specific data cleaning, we can pause and check
 to see what this has done to the data. We determine the number and proportion of
@@ -1703,13 +1935,12 @@ PSMs, peptides, and proteins lost from the original dataset.
 
 \begin{verbatim}
 ##    Feature Number.lost Percentage.lost
-## 1     PSMs        5679           11.63
-## 2 Peptides        1565            6.03
-## 3 Proteins         452            8.97
+## 1     PSMs        6066           12.42
+## 2 Peptides        1925            7.41
+## 3 Proteins         812           16.11
 \end{verbatim}
 
-\hypertarget{psm-quality-control-filtering}{%
-\subsection{PSM quality control filtering}\label{psm-quality-control-filtering}}
+\subsection{PSM quality control filtering}\label{psm-quality-control-filtering}
 
 The next step is to take a look at the data and make informed decisions about
 in-depth filtering. Here, we focus on three key quality control filters for TMT
@@ -1726,8 +1957,7 @@ means that the thresholds used for such filtering will likely depend upon the
 initial quality of the data and the number of PSMs, as well as the experimental
 goal being stringent or exploratory.
 
-\hypertarget{quality-control-average-reporter-ion-signal-to-noise}{%
-\subsubsection{Quality control: Average reporter ion signal-to-noise}\label{quality-control-average-reporter-ion-signal-to-noise}}
+\subsubsection{Quality control: Average reporter ion signal-to-noise}\label{quality-control-average-reporter-ion-signal-to-noise}
 
 Intensity measurements derived from a small number of ions tend to be more
 variable and less accurate. Therefore, reporter ion spectra with peaks generated
@@ -1757,7 +1987,7 @@ to show where this threshold would be on the data distribution.
 
 \begin{verbatim}
 ##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA's 
-##     0.3    84.2   215.8   321.8   450.3  3008.2     140
+##     0.3    84.3   216.4   322.1   451.1  3008.2     138
 \end{verbatim}
 
 \begin{Shaded}
@@ -1798,9 +2028,9 @@ S/N since their quality cannot be guaranteed. This is done by including \texttt{
 ## # A tibble: 3 x 2
 ##   `Average.Reporter.SN < 10`     n
 ##   <lgl>                      <int>
-## 1 FALSE                      42066
-## 2 TRUE                         947
-## 3 NA                           140
+## 1 FALSE                      41696
+## 2 TRUE                         932
+## 3 NA                           138
 \end{verbatim}
 
 \begin{Shaded}
@@ -1813,8 +2043,7 @@ S/N since their quality cannot be guaranteed. This is done by including \texttt{
 \end{Highlighting}
 \end{Shaded}
 
-\hypertarget{quality-control-isolation-interference}{%
-\subsubsection{Quality control: Isolation interference}\label{quality-control-isolation-interference}}
+\subsubsection{Quality control: Isolation interference}\label{quality-control-isolation-interference}
 
 A second data-dependent quality control parameter which should be considered is
 the isolation interference. The first type of interference that occurs during a
@@ -1850,7 +2079,7 @@ Again, we get a \texttt{summary} and visualize the data using the code chunk bel
 
 \begin{verbatim}
 ##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-##   0.000   0.000   8.385  12.637  21.053  84.379
+##   0.000   0.000   8.365  12.623  21.035  84.379
 \end{verbatim}
 
 \begin{Shaded}
@@ -1893,8 +2122,8 @@ more stringent thresholding should be considered.
 ## # A tibble: 2 x 2
 ##   `Isolation.Interference.in.Percent > 75`     n
 ##   <lgl>                                    <int>
-## 1 FALSE                                    42007
-## 2 TRUE                                        59
+## 1 FALSE                                    41638
+## 2 TRUE                                        58
 \end{verbatim}
 
 \begin{Shaded}
@@ -1907,8 +2136,7 @@ more stringent thresholding should be considered.
 \end{Highlighting}
 \end{Shaded}
 
-\hypertarget{quality-control-sps-mass-match}{%
-\subsubsection{Quality control: SPS mass match}\label{quality-control-sps-mass-match}}
+\subsubsection{Quality control: SPS mass match}\label{quality-control-sps-mass-match}
 
 The final quality control filter that we will apply is a percentage SPS mass
 match threshold. SPS mass match is a metric which has been introduced by
@@ -1940,7 +2168,7 @@ using the code chunk below.
 
 \begin{verbatim}
 ##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-##    0.00   50.00   70.00   64.31   80.00  100.00
+##    0.00   50.00   70.00   64.46   80.00  100.00
 \end{verbatim}
 
 \begin{Shaded}
@@ -1983,8 +2211,8 @@ standard threshold of 65\%.
 ## # A tibble: 2 x 2
 ##   `SPS.Mass.Matches.in.Percent < 65`     n
 ##   <lgl>                              <int>
-## 1 FALSE                              21697
-## 2 TRUE                               20310
+## 1 FALSE                              21631
+## 2 TRUE                               20007
 \end{verbatim}
 
 \begin{Shaded}
@@ -1997,8 +2225,7 @@ standard threshold of 65\%.
 \end{Highlighting}
 \end{Shaded}
 
-\hypertarget{assessing-the-impact-of-data-specific-filtering}{%
-\subsubsection{Assessing the impact of data-specific filtering}\label{assessing-the-impact-of-data-specific-filtering}}
+\subsubsection{Assessing the impact of data-specific filtering}\label{assessing-the-impact-of-data-specific-filtering}
 
 As we did after the non-specific cleaning steps, we check to see how many PSMs,
 peptides and proteins have been removed throughout the in-depth data-specific
@@ -2058,13 +2285,12 @@ filtering.
 
 \begin{verbatim}
 ##    Feature Number.lost Percentage.lost
-## 1     PSMs       21456           43.94
-## 2 Peptides       10162           39.13
-## 3 Proteins        1299           25.77
+## 1     PSMs       21135           43.28
+## 2 Peptides        9861           37.97
+## 3 Proteins         998           19.80
 \end{verbatim}
 
-\hypertarget{managing-missing-data}{%
-\subsection{Managing missing data}\label{managing-missing-data}}
+\subsection{Managing missing data}\label{managing-missing-data}
 
 Having finished the data cleaning at the PSM-level, the final step is to deal
 with missing data. Missing values represent a common challenge in quantitative
@@ -2096,16 +2322,15 @@ such steps at the peptide- or protein-level, we advise management of missing
 values at the lowest data level to minimize the effect of implicit imputation
 during aggregation.
 
-\hypertarget{exploring-the-presence-of-missing-values}{%
-\subsubsection{Exploring the presence of missing values}\label{exploring-the-presence-of-missing-values}}
+\subsubsection{Exploring the presence of missing values}\label{exploring-the-presence-of-missing-values}
 
 First, to determine the presence of missing values in the PSM-level data we use
 the \texttt{nNA} function within the \texttt{QFeatures} infrastructure. This function will
-return the absolute number and percentage of missing values both per sample and
-as an average. Importantly, alternative third-party software may output missing
-values in formats other than NA, such as zero, or infinite. In such cases,
-missing values can be converted directly into NA values through use of the
-\texttt{zeroIsNA} or \texttt{infIsNA} functions within the \texttt{QFeatures} infrastructure.
+return the absolute number (nNA) and proportion (pNA) of missing values both per
+sample and as an average. Importantly, alternative third-party software may
+output missing values in formats other than NA, such as zero, or infinite. In
+such cases, missing values can be converted directly into NA values through use
+of the \texttt{zeroIsNA} or \texttt{infIsNA} functions within the \texttt{QFeatures} infrastructure.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -2131,12 +2356,12 @@ missing values can be converted directly into NA values through use of the
 \begin{verbatim}
 ## $nNA
 ## DataFrame with 1 row and 2 columns
-##         nNA        pNA
-##   <integer>  <numeric>
-## 1         4 0.00307262
+##         nNA       pNA
+##   <integer> <numeric>
+## 1         4 3.082e-05
 ## 
 ## $nNArows
-## DataFrame with 21697 rows and 3 columns
+## DataFrame with 21631 rows and 3 columns
 ##              name       nNA       pNA
 ##       <character> <integer> <numeric>
 ## 1              13         0         0
@@ -2145,43 +2370,42 @@ missing values can be converted directly into NA values through use of the
 ## 4              26         0         0
 ## 5              29         0         0
 ## ...           ...       ...       ...
-## 21693       48786         0         0
-## 21694       48792         0         0
-## 21695       48797         0         0
-## 21696       48810         0         0
-## 21697       48819         0         0
+## 21627       48786         0         0
+## 21628       48792         0         0
+## 21629       48797         0         0
+## 21630       48810         0         0
+## 21631       48819         0         0
 ## 
 ## $nNAcols
 ## DataFrame with 6 rows and 3 columns
-##          name       nNA        pNA
-##   <character> <integer>  <numeric>
-## 1          S1         0 0.00000000
-## 2          S2         2 0.00921786
-## 3          S3         0 0.00000000
-## 4          S4         1 0.00460893
-## 5          S5         1 0.00460893
-## 6          S6         0 0.00000000
+##          name       nNA         pNA
+##   <character> <integer>   <numeric>
+## 1          S5         1 4.62299e-05
+## 2          S2         2 9.24599e-05
+## 3          S1         0 0.00000e+00
+## 4          S4         1 4.62299e-05
+## 5          S6         0 0.00000e+00
+## 6          S3         0 0.00000e+00
 \end{verbatim}
 
-We can see that the data only contains 0.003\%
-missing values, corresponding to 4 NA
-values. This low proportion is due to a combination of the TMT labelling
-strategy and the stringent PSM quality control filtering. In particular,
-co-isolation interference when using TMT labels often results in very low
-quantification values for peptides which should actually be missing or `NA'.
-Nevertheless, we continue and check for sample-specific bias in the distribution
-of NAs by plotting a simple histogram. We also use colour to indicate the
-condition of each sample as to check for condition-specific bias.
+We can see that the proportion of missing values in our data is only 3e-05, corresponding to 4 NA values. This low proportion is due to a
+combination of the TMT labelling strategy and the stringent PSM quality control
+filtering. In particular, co-isolation interference when using TMT labels often
+results in very low quantification values for peptides which should actually be
+missing or `NA'. Nevertheless, we continue and check for sample-specific bias in
+the distribution of NAs by plotting a simple histogram. We will plot percentage
+instead of proportion as this is easier to visualise. We also use colour to
+indicate the condition of each sample as to check for condition-specific bias.
 
 \begin{Shaded}
 \begin{Highlighting}[]
 \DocumentationTok{\#\# Plot histogram to visualize the distribution of NAs}
 \FunctionTok{nNA}\NormalTok{(cp\_qf[[}\StringTok{"psms\_filtered"}\NormalTok{]])}\SpecialCharTok{$}\NormalTok{nNAcols }\SpecialCharTok{\%\textgreater{}\%}
   \FunctionTok{as\_tibble}\NormalTok{() }\SpecialCharTok{\%\textgreater{}\%}
-  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{Condition =} \FunctionTok{rep}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\StringTok{"Treated"}\NormalTok{, }\StringTok{"Control"}\NormalTok{), }\AttributeTok{each =} \DecValTok{3}\NormalTok{)) }\SpecialCharTok{\%\textgreater{}\%}
-  \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ name, }\AttributeTok{y =}\NormalTok{ pNA, }\AttributeTok{group =}\NormalTok{ Condition, }\AttributeTok{fill =}\NormalTok{ Condition)) }\SpecialCharTok{+}
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{Condition =} \FunctionTok{c}\NormalTok{(}\StringTok{"Control"}\NormalTok{, }\StringTok{"Treated"}\NormalTok{, }\StringTok{"Treated"}\NormalTok{,}
+                       \StringTok{"Control"}\NormalTok{, }\StringTok{"Control"}\NormalTok{, }\StringTok{"Treated"}\NormalTok{)) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ name, }\AttributeTok{y =}\NormalTok{ (pNA }\SpecialCharTok{*} \DecValTok{100}\NormalTok{ ), }\AttributeTok{group =}\NormalTok{ Condition, }\AttributeTok{fill =}\NormalTok{ Condition)) }\SpecialCharTok{+}
   \FunctionTok{geom\_bar}\NormalTok{(}\AttributeTok{stat =} \StringTok{"identity"}\NormalTok{, }\AttributeTok{position =} \StringTok{"dodge"}\NormalTok{) }\SpecialCharTok{+}
-  \FunctionTok{geom\_hline}\NormalTok{(}\AttributeTok{yintercept =} \FloatTok{0.002}\NormalTok{, }\AttributeTok{linetype =} \StringTok{"dashed"}\NormalTok{, }\AttributeTok{color =} \StringTok{"red"}\NormalTok{) }\SpecialCharTok{+}
   \FunctionTok{labs}\NormalTok{(}\AttributeTok{x =} \StringTok{"Sample"}\NormalTok{, }\AttributeTok{y =} \StringTok{"Missing values (\%)"}\NormalTok{) }\SpecialCharTok{+}
   \FunctionTok{theme\_bw}\NormalTok{()}
 \end{Highlighting}
@@ -2189,7 +2413,7 @@ condition of each sample as to check for condition-specific bias.
 
 \begin{center}\includegraphics[height=0.4\textheight]{workflow_expressions_files/figure-latex/tmt_missing_data_2-1} \end{center}
 
-The percentage of missing values is sufficiently low that none of the samples
+The proportion of missing values is sufficiently low that none of the samples
 need be removed. Further, there is no sample- or condition-specific bias in the
 data. We can get more information about the PSMs with NA values using the code
 below.
@@ -2205,7 +2429,7 @@ below.
 \begin{verbatim}
 ## .
 ##     0     1 
-## 21693     4
+## 21627     4
 \end{verbatim}
 
 From this output we can see that the maximum number of NA values per PSM is one.
@@ -2226,15 +2450,14 @@ next step.
 \end{Shaded}
 
 \begin{verbatim}
-##         S1   S2   S3   S4   S5   S6
-## 12087 11.0 17.0 13.3 22.1   NA 30.6
-## 30824 45.0   NA 43.1 66.7 69.7 62.1
-## 30846 34.3   NA 47.9 56.8 65.5 57.2
-## 44791 22.8 28.7 19.6   NA  3.8 12.2
+##         S5   S2   S1   S4   S6   S3
+## 12087   NA 17.0 11.0 22.1 30.6 13.3
+## 30824 69.7   NA 45.0 66.7 62.1 43.1
+## 30846 65.5   NA 34.3 56.8 57.2 47.9
+## 44791  3.8 28.7 22.8   NA 12.2 19.6
 \end{verbatim}
 
-\hypertarget{filtering-out-missing-values}{%
-\subsubsection{Filtering out missing values}\label{filtering-out-missing-values}}
+\subsubsection{Filtering out missing values}\label{filtering-out-missing-values}
 
 First we apply some standard filtering. Typically, it is desirable to remove
 features, here PSMs, with greater than 20\% missing values. We can do this using
@@ -2247,19 +2470,19 @@ proportion of NA values to allow.
 \DocumentationTok{\#\# Check how many PSMs we will remove}
 \FunctionTok{nNA}\NormalTok{(cp\_qf[[}\StringTok{"psms\_filtered"}\NormalTok{]])}\SpecialCharTok{$}\NormalTok{nNArows }\SpecialCharTok{\%\textgreater{}\%}
   \FunctionTok{as\_tibble}\NormalTok{() }\SpecialCharTok{\%\textgreater{}\%}
-\NormalTok{  dplyr}\SpecialCharTok{::}\FunctionTok{count}\NormalTok{(pNA }\SpecialCharTok{\textgreater{}=} \DecValTok{20}\NormalTok{)}
+\NormalTok{  dplyr}\SpecialCharTok{::}\FunctionTok{count}\NormalTok{(pNA }\SpecialCharTok{\textgreater{}=} \FloatTok{0.2}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{verbatim}
 ## # A tibble: 1 x 2
-##   `pNA >= 20`     n
-##   <lgl>       <int>
-## 1 FALSE       21697
+##   `pNA >= 0.2`     n
+##   <lgl>        <int>
+## 1 FALSE        21631
 \end{verbatim}
 
-Although the use-case data does not contain any PSMs with \textgreater20\% missing values,
-we demonstrate how to apply the desired filter below.
+Although the use-case data does not contain any PSMs with a higher proportion
+of missing values than 0.2, we demonstrate how to apply the desired filter below.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -2281,8 +2504,7 @@ case, for example, if one condition was transfected to express proteins of
 interest whilst the control condition lacked these proteins. Filtering of both
 conditions together could, therefore, lead to the removal of proteins of interest.
 
-\hypertarget{imputation-optional}{%
-\subsubsection{Imputation (optional)}\label{imputation-optional}}
+\subsubsection{Imputation (optional)}\label{imputation-optional}
 
 The final step is to consider whether to impute the remaining missing values
 within the data. Imputation refers to the replacement of missing values with
@@ -2292,8 +2514,7 @@ imputation. This is reasonable given that we only have 3 missing values at the
 PSM-level, and that some of these will likely be removed by aggregation. A more
 in-depth discussion of imputation will be provided below in the workflow.
 
-\hypertarget{summary-of-psm-data-cleaning}{%
-\subsection{Summary of PSM data cleaning}\label{summary-of-psm-data-cleaning}}
+\subsection{Summary of PSM data cleaning}\label{summary-of-psm-data-cleaning}
 
 Thus far we have checked that the experimental data we are using is of high
 quality by visualizing the raw data and calculating TMT labelling efficiency. We
@@ -2354,13 +2575,12 @@ processing steps.
 
 \begin{verbatim}
 ##    Feature Number.lost Percentage.lost Number.remaining
-## 1     PSMs       27135           55.57            21697
-## 2 Peptides       11727           45.16            14242
-## 3 Proteins        1751           34.74             3289
+## 1     PSMs       27201           55.70            21631
+## 2 Peptides       11786           45.38            14183
+## 3 Proteins        1810           35.91             3230
 \end{verbatim}
 
-\hypertarget{logarithmic-transformation-of-quantitative-data}{%
-\subsection{Logarithmic transformation of quantitative data}\label{logarithmic-transformation-of-quantitative-data}}
+\subsection{Logarithmic transformation of quantitative data}\label{logarithmic-transformation-of-quantitative-data}
 
 Once satisfied that the PSM-level data is clean and of high quality, the PSM-level
 quantitative data is log transformed. log2 transformation is a standard
@@ -2388,12 +2608,11 @@ function, as per the below code chunk.
 \begin{verbatim}
 ## An instance of class QFeatures containing 3 assays:
 ##  [1] psms_raw: SummarizedExperiment with 48832 rows and 6 columns 
-##  [2] psms_filtered: SummarizedExperiment with 21697 rows and 6 columns 
-##  [3] log_psms: SummarizedExperiment with 21697 rows and 6 columns
+##  [2] psms_filtered: SummarizedExperiment with 21631 rows and 6 columns 
+##  [3] log_psms: SummarizedExperiment with 21631 rows and 6 columns
 \end{verbatim}
 
-\hypertarget{aggregation-of-psms-to-proteins}{%
-\subsection{Aggregation of PSMs to proteins}\label{aggregation-of-psms-to-proteins}}
+\subsection{Aggregation of PSMs to proteins}\label{aggregation-of-psms-to-proteins}
 
 For the aggregation itself we use the \texttt{aggregateFeatures} function and provide
 the base level from which we wish to aggregate, the log PSM-level data in this
@@ -2423,8 +2642,7 @@ Users should also be aware that some methods have specific input requirements.
 For example, \texttt{robustSummary} assumes that intensities have already been log
 transformed.
 
-\hypertarget{aggregating-using-robust-summarization}{%
-\subsubsection{Aggregating using robust summarization}\label{aggregating-using-robust-summarization}}
+\subsubsection{Aggregating using robust summarization}\label{aggregating-using-robust-summarization}
 
 Here, we use \texttt{robustSummary} to aggregate from PSM to peptide-level. This method
 is currently considered to be state-of-the-art as it is more robust against
@@ -2460,9 +2678,9 @@ summarization.
 \begin{verbatim}
 ## An instance of class QFeatures containing 4 assays:
 ##  [1] psms_raw: SummarizedExperiment with 48832 rows and 6 columns 
-##  [2] psms_filtered: SummarizedExperiment with 21697 rows and 6 columns 
-##  [3] log_psms: SummarizedExperiment with 21697 rows and 6 columns 
-##  [4] log_peptides: SummarizedExperiment with 14242 rows and 6 columns
+##  [2] psms_filtered: SummarizedExperiment with 21631 rows and 6 columns 
+##  [3] log_psms: SummarizedExperiment with 21631 rows and 6 columns 
+##  [4] log_peptides: SummarizedExperiment with 14183 rows and 6 columns
 \end{verbatim}
 
 We are now left with a \texttt{QFeatures} object holding the PSM and peptide-level data
@@ -2470,8 +2688,7 @@ in their own \texttt{SummarizedExperiment}s. Importantly, an explicit link has b
 maintained between the two levels and this makes it possible to gain information
 about all PSMs that were aggregated into a peptide.
 
-\hypertarget{considerations-for-aggregating-non-imputed-data}{%
-\subsubsection{Considerations for aggregating non-imputed data}\label{considerations-for-aggregating-non-imputed-data}}
+\subsubsection{Considerations for aggregating non-imputed data}\label{considerations-for-aggregating-non-imputed-data}
 
 If users did not impute prior to aggregation, NA values within the PSM-level
 data may have propagated into NaN values. This is because peptides only
@@ -2492,7 +2709,7 @@ downstream processing.
 \begin{verbatim}
 ## .
 ## FALSE 
-## 85452
+## 85098
 \end{verbatim}
 
 \begin{Shaded}
@@ -2543,17 +2760,16 @@ than individual proteins.
 \begin{verbatim}
 ## An instance of class QFeatures containing 5 assays:
 ##  [1] psms_raw: SummarizedExperiment with 48832 rows and 6 columns 
-##  [2] psms_filtered: SummarizedExperiment with 21697 rows and 6 columns 
-##  [3] log_psms: SummarizedExperiment with 21697 rows and 6 columns 
-##  [4] log_peptides: SummarizedExperiment with 14242 rows and 6 columns 
-##  [5] log_proteins: SummarizedExperiment with 3289 rows and 6 columns
+##  [2] psms_filtered: SummarizedExperiment with 21631 rows and 6 columns 
+##  [3] log_psms: SummarizedExperiment with 21631 rows and 6 columns 
+##  [4] log_peptides: SummarizedExperiment with 14183 rows and 6 columns 
+##  [5] log_proteins: SummarizedExperiment with 3230 rows and 6 columns
 \end{verbatim}
 
-Following aggregation, we have a total of 3289
+Following aggregation, we have a total of 3230
 proteins remaining within the data.
 
-\hypertarget{normalization-of-quantitative-data}{%
-\subsection{Normalization of quantitative data}\label{normalization-of-quantitative-data}}
+\subsection{Normalization of quantitative data}\label{normalization-of-quantitative-data}
 
 After transforming the data, we normalize the protein-level abundances.
 Normalization is a process of correction whereby quantitative data is returned
@@ -2660,12 +2876,12 @@ can be found in the \texttt{QFeatures} documentation, please type \texttt{help("
 \begin{verbatim}
 ## An instance of class QFeatures containing 7 assays:
 ##  [1] psms_raw: SummarizedExperiment with 48832 rows and 6 columns 
-##  [2] psms_filtered: SummarizedExperiment with 21697 rows and 6 columns 
-##  [3] log_psms: SummarizedExperiment with 21697 rows and 6 columns 
-##  [4] log_peptides: SummarizedExperiment with 14242 rows and 6 columns 
-##  [5] log_proteins: SummarizedExperiment with 3289 rows and 6 columns 
-##  [6] proteins_direct: SummarizedExperiment with 3289 rows and 6 columns 
-##  [7] log_norm_proteins: SummarizedExperiment with 3289 rows and 6 columns
+##  [2] psms_filtered: SummarizedExperiment with 21631 rows and 6 columns 
+##  [3] log_psms: SummarizedExperiment with 21631 rows and 6 columns 
+##  [4] log_peptides: SummarizedExperiment with 14183 rows and 6 columns 
+##  [5] log_proteins: SummarizedExperiment with 3230 rows and 6 columns 
+##  [6] proteins_direct: SummarizedExperiment with 3230 rows and 6 columns 
+##  [7] log_norm_proteins: SummarizedExperiment with 3230 rows and 6 columns
 \end{verbatim}
 
 To evaluate the effect of normalization we plot a simple boxplot.
@@ -2677,7 +2893,8 @@ To evaluate the effect of normalization we plot a simple boxplot.
   \FunctionTok{assay}\NormalTok{() }\SpecialCharTok{\%\textgreater{}\%}
   \FunctionTok{longFormat}\NormalTok{() }\SpecialCharTok{\%\textgreater{}\%}
   \FunctionTok{mutate}\NormalTok{(}\AttributeTok{Condition =} \FunctionTok{ifelse}\NormalTok{(colname }\SpecialCharTok{\%in\%} \FunctionTok{c}\NormalTok{(}\StringTok{"S1"}\NormalTok{, }\StringTok{"S2"}\NormalTok{, }\StringTok{"S3"}\NormalTok{),}
-                            \StringTok{"Treated"}\NormalTok{, }\StringTok{"Control"}\NormalTok{)) }\SpecialCharTok{\%\textgreater{}\%}
+                            \StringTok{"Treated"}\NormalTok{, }\StringTok{"Control"}\NormalTok{),}
+         \AttributeTok{colname =} \FunctionTok{factor}\NormalTok{(colname, }\AttributeTok{levels =} \FunctionTok{paste0}\NormalTok{(}\StringTok{"S"}\NormalTok{, }\DecValTok{1}\SpecialCharTok{:}\DecValTok{6}\NormalTok{))) }\SpecialCharTok{\%\textgreater{}\%}
   \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ colname, }\AttributeTok{y =}\NormalTok{ value, }\AttributeTok{fill =}\NormalTok{ Condition)) }\SpecialCharTok{+}
   \FunctionTok{geom\_boxplot}\NormalTok{() }\SpecialCharTok{+}
   \FunctionTok{labs}\NormalTok{(}\AttributeTok{x =} \StringTok{"Sample"}\NormalTok{, }\AttributeTok{y =} \StringTok{"log2(abundance)"}\NormalTok{, }\AttributeTok{title =} \StringTok{"Pre{-}normalization"}\NormalTok{) }\SpecialCharTok{+}
@@ -2687,7 +2904,8 @@ To evaluate the effect of normalization we plot a simple boxplot.
   \FunctionTok{assay}\NormalTok{() }\SpecialCharTok{\%\textgreater{}\%}
   \FunctionTok{longFormat}\NormalTok{() }\SpecialCharTok{\%\textgreater{}\%}
   \FunctionTok{mutate}\NormalTok{(}\AttributeTok{Condition =} \FunctionTok{ifelse}\NormalTok{(colname }\SpecialCharTok{\%in\%} \FunctionTok{c}\NormalTok{(}\StringTok{"S1"}\NormalTok{, }\StringTok{"S2"}\NormalTok{, }\StringTok{"S3"}\NormalTok{),}
-                            \StringTok{"Treated"}\NormalTok{, }\StringTok{"Control"}\NormalTok{)) }\SpecialCharTok{\%\textgreater{}\%}
+                            \StringTok{"Treated"}\NormalTok{, }\StringTok{"Control"}\NormalTok{),}
+         \AttributeTok{colname =} \FunctionTok{factor}\NormalTok{(colname, }\AttributeTok{levels =} \FunctionTok{paste0}\NormalTok{(}\StringTok{"S"}\NormalTok{, }\DecValTok{1}\SpecialCharTok{:}\DecValTok{6}\NormalTok{))) }\SpecialCharTok{\%\textgreater{}\%}
   \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ colname, }\AttributeTok{y =}\NormalTok{ value, }\AttributeTok{fill =}\NormalTok{ Condition)) }\SpecialCharTok{+}
   \FunctionTok{geom\_boxplot}\NormalTok{() }\SpecialCharTok{+}
   \FunctionTok{labs}\NormalTok{(}\AttributeTok{x =} \StringTok{"Sample"}\NormalTok{, }\AttributeTok{y =} \StringTok{"log2(abundance)"}\NormalTok{, }\AttributeTok{title =} \StringTok{"Post{-}normalization"}\NormalTok{) }\SpecialCharTok{+}
@@ -2728,11 +2946,9 @@ transformation and normalization has done to the data. This is done using the
 
 \begin{center}\includegraphics[width=0.9\linewidth]{workflow_expressions_files/figure-latex/tmt_transformations-1} \end{center}
 
-\hypertarget{exploration-of-data-using-qfeatures-links}{%
-\subsection{Exploration of data using QFeatures links}\label{exploration-of-data-using-qfeatures-links}}
+\subsection{Exploration of data using QFeatures links}\label{exploration-of-data-using-qfeatures-links}
 
-\hypertarget{creating-assay-links}{%
-\subsection{Creating assay links}\label{creating-assay-links}}
+\subsection{Creating assay links}\label{creating-assay-links}
 
 After completing all data pre-processing, we now add explicit links between our
 final protein-level data and the raw PSM-level data which we created as an
@@ -2759,11 +2975,10 @@ the \texttt{AssayLink} function along with the assay of interest (\texttt{i\ =})
 
 \begin{verbatim}
 ## AssayLink for assay <log_norm_proteins>
-## [from:psms_raw|fcol:Master.Protein.Accessions|hits:42678]
+## [from:psms_raw|fcol:Master.Protein.Accessions|hits:42604]
 \end{verbatim}
 
-\hypertarget{visualizing-aggregation}{%
-\subsubsection{visualizing aggregation}\label{visualizing-aggregation}}
+\subsubsection{visualizing aggregation}\label{visualizing-aggregation}
 
 One of the characteristic attributes of the \texttt{QFeatures} infrastructure is that
 explicit links have been maintained throughout the aggregation process. This
@@ -2832,8 +3047,7 @@ the protein data prior to transformation.
 
 \begin{center}\includegraphics[width=0.8\linewidth]{workflow_expressions_files/figure-latex/qfeatures_links_plots-1} \end{center}
 
-\hypertarget{determining-psm-and-peptide-support}{%
-\subsubsection{Determining PSM and peptide support}\label{determining-psm-and-peptide-support}}
+\subsubsection{Determining PSM and peptide support}\label{determining-psm-and-peptide-support}
 
 Another benefit of the explicit links maintained within a \texttt{QFeatures} object is
 the ease at which we can determine PSM and peptide support per protein. When
@@ -2894,8 +3108,7 @@ based on PSM and/or peptide support per protein. Given the extensive quality
 control filtering already applied in this workflow, we decide not to remove
 additional proteins based on PSM or peptide support.
 
-\hypertarget{data-export}{%
-\subsection{Data export}\label{data-export}}
+\subsection{Data export}\label{data-export}
 
 Finally, we save the protein-level data and export the \texttt{QFeatures} object into
 an \texttt{.rda} file so that we can re-load it later at convenience.
@@ -2910,8 +3123,7 @@ an \texttt{.rda} file so that we can re-load it later at convenience.
 \end{Highlighting}
 \end{Shaded}
 
-\hypertarget{label-free-data-processing-workflow}{%
-\section{Label-free data processing workflow}\label{label-free-data-processing-workflow}}
+\section{Label-free data processing workflow}\label{label-free-data-processing-workflow}
 
 Having discussed the processing of quantitative TMT-labelled data, we now move
 on to consider that of label-free quantitative (LFQ) data. As described
@@ -2924,8 +3136,7 @@ also applies to label-free data, we only discuss steps which are different to
 those previously described. Readers are advised to refer to the TMT processing
 workflow for a more in-depth explanation of any shared steps.
 
-\hypertarget{identification-search-using-proteome-discoverer}{%
-\subsection{Identification search using Proteome Discoverer}\label{identification-search-using-proteome-discoverer}}
+\subsection{Identification search using Proteome Discoverer}\label{identification-search-using-proteome-discoverer}
 
 As was the case for TMT labelled cell pellets, raw LFQ data from supernatant
 samples was searched using Proteome Discoverer 2.5. The workflows for this
@@ -2934,8 +3145,7 @@ additional explanation of key parameters in the appendix. To begin processing
 LFQ data, users should export a peptide-level \texttt{.txt} file from the results of
 their identification search.
 
-\hypertarget{data-import-housekeeping-and-exploration-1}{%
-\subsection{Data import, housekeeping and exploration}\label{data-import-housekeeping-and-exploration-1}}
+\subsection{Data import, housekeeping and exploration}\label{data-import-housekeeping-and-exploration-1}
 
 Unlike the TMT-labelled use-case data which was processed from the PSM-level, the
 label-free use-case data can only be considered from the peptide-level up. This
@@ -2944,10 +3154,9 @@ was applied to the PSM-level data. This means that peptides can be identified in
 samples even without a corresponding PSM, simply by sharing feature information
 across runs.
 
-\hypertarget{importing-data-into-a-qfeatures-object}{%
-\subsubsection{Importing data into a QFeatures object}\label{importing-data-into-a-qfeatures-object}}
+\subsubsection{Importing data into a QFeatures object}\label{importing-data-into-a-qfeatures-object}
 
-We locate the PeptideGroups \texttt{.txt} file and upload this into a \texttt{QFeatures} data
+We locate the PeptideGroups \texttt{.txt} file and upload this into a \texttt{data.frame}
 container in the same way as before. Since the samples are already stored in the
 correct order, we simply identify the quantitative columns by their indices.
 
@@ -2956,9 +3165,11 @@ correct order, we simply identify the quantitative columns by their indices.
 \DocumentationTok{\#\# Locate the PeptideGroups .txt file}
 \NormalTok{sn\_peptide }\OtherTok{\textless{}{-}} \StringTok{"supernatant\_lfq\_results\_peptides.txt"}
 
+\DocumentationTok{\#\# Import into a data.frame}
+\NormalTok{sn\_df }\OtherTok{\textless{}{-}} \FunctionTok{read.delim}\NormalTok{(sn\_peptide)}
+
 \DocumentationTok{\#\# Identify columns containing quantitative data}
-\NormalTok{sn\_peptide }\SpecialCharTok{\%\textgreater{}\%}
-  \FunctionTok{read.delim}\NormalTok{() }\SpecialCharTok{\%\textgreater{}\%}
+\NormalTok{sn\_df }\SpecialCharTok{\%\textgreater{}\%}
   \FunctionTok{names}\NormalTok{()}
 \end{Highlighting}
 \end{Shaded}
@@ -3033,19 +3244,37 @@ correct order, we simply identify the quantitative columns by their indices.
 ## [67] "Top.Apex.RT.in.min"
 \end{verbatim}
 
-In the code chunk below, we again use the \texttt{readQFeatures} function to import our
-data into R and create a \texttt{QFeatures} object. We find the abundance data is
-located in columns 21 to 26 and thus pass this to \texttt{ecol}. After import we
-annotate the \texttt{colData}.
+In the code chunk below, we again use the \texttt{readQFeatures} function to create a
+\texttt{QFeatures} object. We find the abundance data is located in columns 21 to 26
+and thus pass this to \texttt{quantCols}. After import we annotate the \texttt{colData}.
 
 \begin{Shaded}
 \begin{Highlighting}[]
 \DocumentationTok{\#\# Create QFeatures object }
-\NormalTok{sn\_qf }\OtherTok{\textless{}{-}} \FunctionTok{readQFeatures}\NormalTok{(}\AttributeTok{table =}\NormalTok{ sn\_peptide,}
-                       \AttributeTok{ecol =} \DecValTok{21}\SpecialCharTok{:}\DecValTok{26}\NormalTok{,}
-                       \AttributeTok{sep =} \StringTok{"}\SpecialCharTok{\textbackslash{}t}\StringTok{"}\NormalTok{,}
+\NormalTok{sn\_qf }\OtherTok{\textless{}{-}} \FunctionTok{readQFeatures}\NormalTok{(}\AttributeTok{assayData =}\NormalTok{ sn\_df,}
+                       \AttributeTok{quantCols =} \DecValTok{21}\SpecialCharTok{:}\DecValTok{26}\NormalTok{,}
                        \AttributeTok{name =} \StringTok{"peptides\_raw"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
 
+\begin{verbatim}
+## Checking arguments.
+\end{verbatim}
+
+\begin{verbatim}
+## Loading data as a 'SummarizedExperiment' object.
+\end{verbatim}
+
+\begin{verbatim}
+## Formatting sample annotations (colData).
+\end{verbatim}
+
+\begin{verbatim}
+## Formatting data as a 'QFeatures' object.
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
 \DocumentationTok{\#\# Clean sample names}
 \FunctionTok{colnames}\NormalTok{(sn\_qf[[}\StringTok{"peptides\_raw"}\NormalTok{]]) }\OtherTok{\textless{}{-}} \FunctionTok{paste0}\NormalTok{(}\StringTok{"S"}\NormalTok{, }\DecValTok{1}\SpecialCharTok{:}\DecValTok{6}\NormalTok{)}
 
@@ -3077,8 +3306,7 @@ annotate the \texttt{colData}.
 \end{Highlighting}
 \end{Shaded}
 
-\hypertarget{preliminary-data-exploration-1}{%
-\subsubsection{Preliminary data exploration}\label{preliminary-data-exploration-1}}
+\subsubsection{Preliminary data exploration}\label{preliminary-data-exploration-1}
 
 Next, we check the names of the features within the peptide-level \texttt{rowData}.
 These features differ from those found at the PSM-level and users should be
@@ -3299,11 +3527,9 @@ limited access to parameter settings.
 The preliminary data is as expected so we continue on to evaluate the quality
 of the raw data.
 
-\hypertarget{experimental-quality-control-checks-1}{%
-\subsection{Experimental quality control checks}\label{experimental-quality-control-checks-1}}
+\subsection{Experimental quality control checks}\label{experimental-quality-control-checks-1}
 
-\hypertarget{quality-control-of-the-raw-mass-spectrometry-data-1}{%
-\subsubsection{Quality control of the raw mass spectrometry data}\label{quality-control-of-the-raw-mass-spectrometry-data-1}}
+\subsubsection{Quality control of the raw mass spectrometry data}\label{quality-control-of-the-raw-mass-spectrometry-data-1}
 
 To briefly assess the quality of the raw mass spectrometry data from which the
 search results were derived, we create simple plots. In contrast to the previous
@@ -3354,8 +3580,7 @@ For a more in-depth discussion of these plots users should refer back to the TMT
 processing workflow. Since neither plot indicates any major problems with the MS
 runs, we continue on to basic data cleaning.
 
-\hypertarget{basic-data-cleaning-1}{%
-\subsection{Basic data cleaning}\label{basic-data-cleaning-1}}
+\subsection{Basic data cleaning}\label{basic-data-cleaning-1}
 
 As discussed in detail above, there are several basic data cleaning steps which
 are non-specific and should be applied to all quantitative datasets, regardless
@@ -3377,6 +3602,8 @@ are as follows:
   Removal of features not allocated rank 1 during the identification search
 \item
   Removal of features not annotated as unambiguous
+\item
+  Control of FDR to 1\% protein-level FDR
 \end{enumerate}
 
 In addition to these standard steps, LFQ data should be filtered to remove
@@ -3467,8 +3694,77 @@ As before, we check to see whether additional annotations remain within the
 ## 17999
 \end{verbatim}
 
-\hypertarget{assessing-the-impact-of-non-specific-data-cleaning-1}{%
-\subsubsection{Assessing the impact of non-specific data cleaning}\label{assessing-the-impact-of-non-specific-data-cleaning-1}}
+Again, we need to import the protein-level data in order to complete FDR filtering
+at the highest possible level.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{protein\_sn }\OtherTok{\textless{}{-}} \FunctionTok{read.delim}\NormalTok{(}\AttributeTok{file =} \StringTok{"supernatant\_lfq\_results\_proteins.txt"}\NormalTok{)}
+
+\DocumentationTok{\#\# Extract master protein accessions from our PSM{-}level data}
+\NormalTok{proteins\_in\_data }\OtherTok{\textless{}{-}}\NormalTok{ sn\_qf[[}\StringTok{"peptides\_filtered"}\NormalTok{]] }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{rowData}\NormalTok{() }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{as\_tibble}\NormalTok{() }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{select}\NormalTok{(Master.Protein.Accessions)}
+
+\DocumentationTok{\#\# Extract protein accessions and corresponding confidence from search output file}
+\NormalTok{protein\_search\_output }\OtherTok{\textless{}{-}}\NormalTok{ protein\_sn }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{select}\NormalTok{(Accession, Protein.FDR.Confidence.Combined)}
+\end{Highlighting}
+\end{Shaded}
+
+Now we can use the \texttt{left\_join} function to merge these two datasets.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DocumentationTok{\#\# Combine data}
+\NormalTok{protein\_fdr }\OtherTok{\textless{}{-}} \FunctionTok{left\_join}\NormalTok{(}\AttributeTok{x =}\NormalTok{ proteins\_in\_data, }
+                         \AttributeTok{y =}\NormalTok{ protein\_search\_output, }
+                         \AttributeTok{by =} \FunctionTok{c}\NormalTok{(}\StringTok{"Master.Protein.Accessions"} \OtherTok{=} \StringTok{"Accession"}\NormalTok{))}
+
+\NormalTok{protein\_fdr }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{head}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 6 x 2
+##   Master.Protein.Accessions Protein.FDR.Confidence.Combined
+##   <chr>                     <chr>                          
+## 1 P55011                    High                           
+## 2 O60341                    High                           
+## 3 P36578                    High                           
+## 4 A6NIH7                    High                           
+## 5 Q9P258                    High                           
+## 6 Q9P258                    High
+\end{verbatim}
+
+Finally, we add the annotations from our \texttt{"Protein.FDR.Confidence.Combined"}
+column to the \texttt{rowData} of our \texttt{"psms\_filtered"} experiment.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{rowData}\NormalTok{(sn\_qf[[}\StringTok{"peptides\_filtered"}\NormalTok{]])}\SpecialCharTok{$}\NormalTok{Protein.Confidence }\OtherTok{\textless{}{-}}\NormalTok{ protein\_fdr}\SpecialCharTok{$}\NormalTok{Protein.FDR.Confidence.Combined}
+\end{Highlighting}
+\end{Shaded}
+
+We can now use \texttt{filterFeatures} to remove PSMs corresponding to low or medium
+confidence master proteins.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{sn\_qf }\OtherTok{\textless{}{-}}\NormalTok{ sn\_qf }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{filterFeatures}\NormalTok{(}\SpecialCharTok{\textasciitilde{}}\NormalTok{ Protein.Confidence }\SpecialCharTok{==} \StringTok{"High"}\NormalTok{, }\AttributeTok{i =} \StringTok{"peptides\_filtered"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 'Protein.Confidence' found in 1 out of 2 assay(s)
+## No filter applied to the following assay(s) because one or more filtering variables are missing in the rowData: peptides_raw.
+## You can control whether to remove or keep the features using the 'keep' argument (see '?filterFeature').
+\end{verbatim}
+
+\subsubsection{Assessing the impact of non-specific data cleaning}\label{assessing-the-impact-of-non-specific-data-cleaning-1}
 
 As in the previous example, we assess the impact that cleaning has had on the
 data. Specifically, we determine the number and proportion of PSMs, peptides and
@@ -3531,13 +3827,12 @@ unique peptide sequences, not those that differ in their modifications.
 
 \begin{verbatim}
 ##    Feature Number.lost Percentage.lost Number.remaining
-## 1     PSMs       28140           19.50           116162
-## 2 Peptides        3767           18.55            16545
-## 3 Proteins         690           17.51             3251
+## 1     PSMs       28367           19.66           115935
+## 2 Peptides        3876           19.08            16436
+## 3 Proteins         799           20.27             3142
 \end{verbatim}
 
-\hypertarget{peptide-quality-control-filtering}{%
-\subsection{Peptide quality control filtering}\label{peptide-quality-control-filtering}}
+\subsection{Peptide quality control filtering}\label{peptide-quality-control-filtering}
 
 When extracting data from the peptide-level \texttt{.txt} file rather than aggregating
 up from a PSM file, additional parameters exist within the peptide \texttt{rowData}.
@@ -3546,8 +3841,7 @@ similar scoring parameters provided by the search engine. Although we will not
 complete additional filtering based on these parameters in this workflow, users
 may wish to explore this option.
 
-\hypertarget{managing-missing-data-1}{%
-\subsection{Managing missing data}\label{managing-missing-data-1}}
+\subsection{Managing missing data}\label{managing-missing-data-1}
 
 Having cleaned the peptide-level data we now move onto the management of missing
 data. This is of particular importance for LFQ workflows where the missing value
@@ -3556,8 +3850,7 @@ before, the management of missing data can be divided into three steps: 1)
 exploring the presence and distribution of missing values, (2) filtering out
 missing values, and (3) optional imputation.
 
-\hypertarget{exploring-the-presence-of-missing-values-1}{%
-\subsubsection{Exploring the presence of missing values}\label{exploring-the-presence-of-missing-values-1}}
+\subsubsection{Exploring the presence of missing values}\label{exploring-the-presence-of-missing-values-1}
 
 The aim of the first step is to determine how many missing values are present
 within the data, and how they are distributed between samples and/or conditions.
@@ -3588,41 +3881,42 @@ within the data, and how they are distributed between samples and/or conditions.
 ## DataFrame with 1 row and 2 columns
 ##         nNA       pNA
 ##   <integer> <numeric>
-## 1     15863   14.6888
+## 1     15742  0.146655
 ## 
 ## $nNArows
-## DataFrame with 17999 rows and 3 columns
+## DataFrame with 17890 rows and 3 columns
 ##              name       nNA       pNA
 ##       <character> <integer> <numeric>
-## 1               1         4   66.6667
-## 2               2         1   16.6667
-## 3               3         0    0.0000
-## 4               4         1   16.6667
-## 5               5         0    0.0000
+## 1               1         4  0.666667
+## 2               2         1  0.166667
+## 3               3         0  0.000000
+## 4               4         1  0.166667
+## 5               5         0  0.000000
 ## ...           ...       ...       ...
-## 17995       23371         0         0
-## 17996       23372         0         0
-## 17997       23373         0         0
-## 17998       23374         0         0
-## 17999       23375         0         0
+## 17886       23371         0         0
+## 17887       23372         0         0
+## 17888       23373         0         0
+## 17889       23374         0         0
+## 17890       23375         0         0
 ## 
 ## $nNAcols
 ## DataFrame with 6 rows and 3 columns
 ##          name       nNA       pNA
 ##   <character> <integer> <numeric>
-## 1          S1      3699   20.5511
-## 2          S2      1945   10.8062
-## 3          S3      2048   11.3784
-## 4          S4      3674   20.4122
-## 5          S5      2673   14.8508
-## 6          S6      1824   10.1339
+## 1          S1      3674  0.205366
+## 2          S2      1936  0.108217
+## 3          S3      2030  0.113471
+## 4          S4      3648  0.203913
+## 5          S5      2650  0.148127
+## 6          S6      1804  0.100838
 \end{verbatim}
 
 As expected, the LFQ data contains a higher proportion of missing values as
-compared to the TMT-labelled data. There are 15863
+compared to the TMT-labelled data. There are 15742
 missing (NA) values within the data, which corresponds to
-15\%. We check for
-sample- and condition- specific biases in the distribution of these NA values.
+0.1 of the data.
+We check for sample- and condition- specific biases in the distribution of these
+NA values, again plotting percentage (proportion multiplied by 100).
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -3630,9 +3924,8 @@ sample- and condition- specific biases in the distribution of these NA values.
 \FunctionTok{nNA}\NormalTok{(sn\_qf[[}\StringTok{"peptides\_filtered"}\NormalTok{]])}\SpecialCharTok{$}\NormalTok{nNAcols }\SpecialCharTok{\%\textgreater{}\%}
   \FunctionTok{as\_tibble}\NormalTok{() }\SpecialCharTok{\%\textgreater{}\%}
   \FunctionTok{mutate}\NormalTok{(}\AttributeTok{Condition =} \FunctionTok{rep}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\StringTok{"Treated"}\NormalTok{, }\StringTok{"Control"}\NormalTok{), }\AttributeTok{each =} \DecValTok{3}\NormalTok{)) }\SpecialCharTok{\%\textgreater{}\%}
-  \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ name, }\AttributeTok{y =}\NormalTok{ pNA, }\AttributeTok{group =}\NormalTok{ Condition, }\AttributeTok{fill =}\NormalTok{ Condition)) }\SpecialCharTok{+}
+  \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ name, }\AttributeTok{y =}\NormalTok{ (pNA }\SpecialCharTok{*} \DecValTok{100}\NormalTok{), }\AttributeTok{group =}\NormalTok{ Condition, }\AttributeTok{fill =}\NormalTok{ Condition)) }\SpecialCharTok{+}
   \FunctionTok{geom\_bar}\NormalTok{(}\AttributeTok{stat =} \StringTok{"identity"}\NormalTok{) }\SpecialCharTok{+}
-  \FunctionTok{geom\_hline}\NormalTok{(}\AttributeTok{yintercept =} \FloatTok{14.7}\NormalTok{, }\AttributeTok{linetype =} \StringTok{"dashed"}\NormalTok{, }\AttributeTok{color =} \StringTok{"red"}\NormalTok{) }\SpecialCharTok{+}
   \FunctionTok{labs}\NormalTok{(}\AttributeTok{x =} \StringTok{"Sample"}\NormalTok{, }\AttributeTok{y =} \StringTok{"Missing values (\%)"}\NormalTok{) }\SpecialCharTok{+}
   \FunctionTok{theme\_bw}\NormalTok{()}
 \end{Highlighting}
@@ -3644,8 +3937,7 @@ Whilst S1 and S4 have a slightly higher proportion of missing values, all of the
 samples are within an acceptable range to continue. Again, there is no evidence
 of a condition-specific bias in the data.
 
-\hypertarget{filtering-out-missing-values-1}{%
-\subsubsection{Filtering out missing values}\label{filtering-out-missing-values-1}}
+\subsubsection{Filtering out missing values}\label{filtering-out-missing-values-1}
 
 We next filter out features, here peptides, which comprise 20\% or more missing
 values.
@@ -3653,13 +3945,13 @@ values.
 \begin{Shaded}
 \begin{Highlighting}[]
 \DocumentationTok{\#\# Check how many peptides we will remove}
-\FunctionTok{which}\NormalTok{(}\FunctionTok{nNA}\NormalTok{(sn\_qf[[}\StringTok{"peptides\_filtered"}\NormalTok{]])}\SpecialCharTok{$}\NormalTok{nNArows}\SpecialCharTok{$}\NormalTok{pNA }\SpecialCharTok{\textgreater{}=} \DecValTok{20}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+\FunctionTok{which}\NormalTok{(}\FunctionTok{nNA}\NormalTok{(sn\_qf[[}\StringTok{"peptides\_filtered"}\NormalTok{]])}\SpecialCharTok{$}\NormalTok{nNArows}\SpecialCharTok{$}\NormalTok{pNA }\SpecialCharTok{\textgreater{}=} \FloatTok{0.2}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
   \FunctionTok{length}\NormalTok{()}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{verbatim}
-## [1] 4364
+## [1] 4332
 \end{verbatim}
 
 \begin{Shaded}
@@ -3671,8 +3963,7 @@ values.
 \end{Highlighting}
 \end{Shaded}
 
-\hypertarget{imputation-optional-1}{%
-\subsubsection{Imputation (optional)}\label{imputation-optional-1}}
+\subsubsection{Imputation (optional)}\label{imputation-optional-1}
 
 Finally, we check how many missing values remain in the data before making a
 decision as to whether imputation is required.
@@ -3687,10 +3978,10 @@ decision as to whether imputation is required.
 ## DataFrame with 1 row and 2 columns
 ##         nNA       pNA
 ##   <integer> <numeric>
-## 1      2452   2.99719
+## 1      2430 0.0298717
 \end{verbatim}
 
-There are 2452 missing values remaining.
+There are 2430 missing values remaining.
 The presence of proteins with single or low peptide support means that some of
 these NA values will likely be propagated upward during aggregation. Whilst NA
 values were traditionally problematic during the application of downstream
@@ -3800,13 +4091,13 @@ imputation.
 \begin{verbatim}
 ## # A tibble: 6 x 4
 ##   colname sum_intensity max_intensity median_intensity
-##   <chr>           <dbl>         <dbl>            <dbl>
-## 1 S1       98919496611.   1477162278.         1948794.
-## 2 S2      155722262777.   1678988256.         3553168.
-## 3 S3      145509803642.   1804842981.         3251578.
-## 4 S4       94892286529.   1087946291.         1873948.
-## 5 S5      121590387110.   1307181986          2503109 
-## 6 S6      143538084562.   1608003894.         3282077.
+##   <fct>           <dbl>         <dbl>            <dbl>
+## 1 S1       98618011197.   1477162278.         1950392.
+## 2 S2      155288272302.   1678988256.         3567233.
+## 3 S3      145083815203.   1804842981.         3255696.
+## 4 S4       94532147208.   1087946291.         1880489.
+## 5 S5      121223290798.   1307181986          2511748.
+## 6 S6      143149276808.   1608003894.         3288965.
 \end{verbatim}
 
 \begin{Shaded}
@@ -3818,13 +4109,13 @@ imputation.
 \begin{verbatim}
 ## # A tibble: 6 x 4
 ##   colname sum_intensity max_intensity median_intensity
-##   <chr>           <dbl>         <dbl>            <dbl>
-## 1 S1       99811359317.   1477162278.         1812200.
-## 2 S2      156124619343.   1678988256.         3478920.
-## 3 S3      145754574641.   1804842981.         3201591 
-## 4 S4       96201734159.   1087946291.         1720642.
-## 5 S5      122113590867.   1307181986          2440628.
-## 6 S6      143994721088.   1608003894.         3199278.
+##   <fct>           <dbl>         <dbl>            <dbl>
+## 1 S1       99501169413.   1477162278.         1814576.
+## 2 S2      155691649219.   1678988256.         3493145.
+## 3 S3      145325835653.   1804842981.         3210018.
+## 4 S4       95867237989.   1087946291.         1726081.
+## 5 S5      121738595609.   1307181986          2446493.
+## 6 S6      143619358837.   1608003894.         3216396.
 \end{verbatim}
 
 Comparison of the two tables reveals minimal change within the data. However, we
@@ -3832,8 +4123,7 @@ find that S1 and S4 display greater differences between pre- and post-imputation
 statistics because of the higher number of missing values which required
 imputation.
 
-\hypertarget{logarithmic-transformation-of-quantitative-data-1}{%
-\subsection{Logarithmic transformation of quantitative data}\label{logarithmic-transformation-of-quantitative-data-1}}
+\subsection{Logarithmic transformation of quantitative data}\label{logarithmic-transformation-of-quantitative-data-1}
 
 In the following code chunk we log2 transform the peptide-level data to generate
 a near-normal distribution within the quantitative data. This is necessary prior
@@ -3855,13 +4145,12 @@ to the use of \texttt{robustSummary} aggregation.
 \begin{verbatim}
 ## An instance of class QFeatures containing 4 assays:
 ##  [1] peptides_raw: SummarizedExperiment with 23375 rows and 6 columns 
-##  [2] peptides_filtered: SummarizedExperiment with 13635 rows and 6 columns 
-##  [3] peptides_imputed: SummarizedExperiment with 13635 rows and 6 columns 
-##  [4] log_peptides: SummarizedExperiment with 13635 rows and 6 columns
+##  [2] peptides_filtered: SummarizedExperiment with 13558 rows and 6 columns 
+##  [3] peptides_imputed: SummarizedExperiment with 13558 rows and 6 columns 
+##  [4] log_peptides: SummarizedExperiment with 13558 rows and 6 columns
 \end{verbatim}
 
-\hypertarget{aggregation-of-peptide-to-protein}{%
-\subsection{Aggregation of peptide to protein}\label{aggregation-of-peptide-to-protein}}
+\subsection{Aggregation of peptide to protein}\label{aggregation-of-peptide-to-protein}
 
 Now that we are happy with the peptide-level data, we aggregate upward to
 proteins using the \texttt{aggregateFeatures} function.
@@ -3894,14 +4183,13 @@ proteins using the \texttt{aggregateFeatures} function.
 \begin{verbatim}
 ## An instance of class QFeatures containing 5 assays:
 ##  [1] peptides_raw: SummarizedExperiment with 23375 rows and 6 columns 
-##  [2] peptides_filtered: SummarizedExperiment with 13635 rows and 6 columns 
-##  [3] peptides_imputed: SummarizedExperiment with 13635 rows and 6 columns 
-##  [4] log_peptides: SummarizedExperiment with 13635 rows and 6 columns 
-##  [5] log_proteins: SummarizedExperiment with 2837 rows and 6 columns
+##  [2] peptides_filtered: SummarizedExperiment with 13558 rows and 6 columns 
+##  [3] peptides_imputed: SummarizedExperiment with 13558 rows and 6 columns 
+##  [4] log_peptides: SummarizedExperiment with 13558 rows and 6 columns 
+##  [5] log_proteins: SummarizedExperiment with 2760 rows and 6 columns
 \end{verbatim}
 
-\hypertarget{normalization-of-quantitative-data-1}{%
-\subsection{Normalization of quantitative data}\label{normalization-of-quantitative-data-1}}
+\subsection{Normalization of quantitative data}\label{normalization-of-quantitative-data-1}
 
 Finally, we complete the data processing by normalizing quantitation between
 samples. This is done using the \texttt{"center.median"} method via the \texttt{normalize}
@@ -3923,14 +4211,14 @@ function.
 \begin{verbatim}
 ## An instance of class QFeatures containing 6 assays:
 ##  [1] peptides_raw: SummarizedExperiment with 23375 rows and 6 columns 
-##  [2] peptides_filtered: SummarizedExperiment with 13635 rows and 6 columns 
-##  [3] peptides_imputed: SummarizedExperiment with 13635 rows and 6 columns 
-##  [4] log_peptides: SummarizedExperiment with 13635 rows and 6 columns 
-##  [5] log_proteins: SummarizedExperiment with 2837 rows and 6 columns 
-##  [6] log_norm_proteins: SummarizedExperiment with 2837 rows and 6 columns
+##  [2] peptides_filtered: SummarizedExperiment with 13558 rows and 6 columns 
+##  [3] peptides_imputed: SummarizedExperiment with 13558 rows and 6 columns 
+##  [4] log_peptides: SummarizedExperiment with 13558 rows and 6 columns 
+##  [5] log_proteins: SummarizedExperiment with 2760 rows and 6 columns 
+##  [6] log_norm_proteins: SummarizedExperiment with 2760 rows and 6 columns
 \end{verbatim}
 
-The final dataset is comprised of 2837 proteins.
+The final dataset is comprised of 2760 proteins.
 We will save the protein-level \texttt{SummarizedExperiment} file as well as exporting
 the final \texttt{QFeatures} object.
 
@@ -3944,16 +4232,14 @@ the final \texttt{QFeatures} object.
 \end{Highlighting}
 \end{Shaded}
 
-\hypertarget{exploration-of-protein-data}{%
-\section{Exploration of protein data}\label{exploration-of-protein-data}}
+\section{Exploration of protein data}\label{exploration-of-protein-data}
 
 Having described the processing steps for quantitative proteomics data, we next
 demonstrate how to explore the protein-level data prior to statistical analysis.
 For this we will utilize the TMT-labelled cell pellet dataset since it contains
 a greater number of proteins.
 
-\hypertarget{correlation-plots}{%
-\subsection{Correlation plots}\label{correlation-plots}}
+\subsection{Correlation plots}\label{correlation-plots}
 
 We will first generate correlation plots between pairs of samples. To do this we
 use the \href{https://cran.r-project.org/web/packages/corrplot/vignettes/corrplot-intro.html}{\texttt{corrplot}}
@@ -3980,13 +4266,13 @@ we use the \texttt{as.data.frame} function.
 \end{Shaded}
 
 \begin{verbatim}
-##           S1        S2        S3        S4        S5        S6
-## S1 1.0000000 0.9863382 0.9927432 0.9447089 0.9627190 0.9628944
-## S2 0.9863382 1.0000000 0.9886960 0.9206049 0.9535162 0.9501522
-## S3 0.9927432 0.9886960 1.0000000 0.9344640 0.9551061 0.9548680
-## S4 0.9447089 0.9206049 0.9344640 1.0000000 0.9822722 0.9867422
-## S5 0.9627190 0.9535162 0.9551061 0.9822722 1.0000000 0.9928376
-## S6 0.9628944 0.9501522 0.9548680 0.9867422 0.9928376 1.0000000
+##           S5        S2        S1        S4        S6        S3
+## S5 1.0000000 0.9540226 0.9634202 0.9821489 0.9927946 0.9558386
+## S2 0.9540226 1.0000000 0.9862036 0.9207314 0.9508941 0.9886243
+## S1 0.9634202 0.9862036 1.0000000 0.9451292 0.9637123 0.9926604
+## S4 0.9821489 0.9207314 0.9451292 1.0000000 0.9864988 0.9348920
+## S6 0.9927946 0.9508941 0.9637123 0.9864988 1.0000000 0.9557268
+## S3 0.9558386 0.9886243 0.9926604 0.9348920 0.9557268 1.0000000
 \end{verbatim}
 
 Now we can visualize the correlation data using pairwise scatter plots and a
@@ -4055,8 +4341,7 @@ the majority of proteins remaining at similar levels regardless of cellular
 perturbation. Users are directed to \citep{Darbani2014} for additional information
 regarding how to determine the calculation of experimental reproducibility.
 
-\hypertarget{principal-component-analysis}{%
-\subsection{Principal Component Analysis}\label{principal-component-analysis}}
+\subsection{Principal Component Analysis}\label{principal-component-analysis}
 
 Principal Component Analysis (PCA) is a dimensionality reduction method which
 aims to simplify complex datasets and facilitate the visualization of
@@ -4091,10 +4376,10 @@ on the results of the PCA.
 
 \begin{verbatim}
 ## Importance of components:
-##                            PC1     PC2     PC3      PC4      PC5       PC6
-## Standard deviation     42.4845 26.7522 18.1650 15.15893 14.44395 5.474e-14
-## Proportion of Variance  0.5488  0.2176  0.1003  0.06987  0.06343 0.000e+00
-## Cumulative Proportion   0.5488  0.7664  0.8667  0.93657  1.00000 1.000e+00
+##                           PC1     PC2     PC3      PC4     PC5       PC6
+## Standard deviation     42.035 26.5522 18.1232 14.97317 14.3323 4.334e-14
+## Proportion of Variance  0.547  0.2183  0.1017  0.06941  0.0636 0.000e+00
+## Cumulative Proportion   0.547  0.7653  0.8670  0.93640  1.0000 1.000e+00
 \end{verbatim}
 
 Finally, we create a PCA plot. For additional PCA exploration and visualization
@@ -4128,8 +4413,7 @@ tools users are directed to the \href{https://cran.r-project.org/web/packages/fa
 
 \begin{center}\includegraphics[height=0.4\textheight]{workflow_expressions_files/figure-latex/protein_pca_plot-1} \end{center}
 
-\hypertarget{exploring-potential-batch-effects}{%
-\subsubsection{Exploring potential batch effects}\label{exploring-potential-batch-effects}}
+\subsubsection{Exploring potential batch effects}\label{exploring-potential-batch-effects}
 
 Before carrying out differential expression analysis, it is first necessary to
 explore the presence of batch effects within the data. Batch effects are derived
@@ -4150,8 +4434,7 @@ incorporated into downstream analyses. For example, users can apply the
 \href{https://rdrr.io/bioc/limma/man/removeBatchEffect.html}{\texttt{removeBatchEffect}}
 function from the \texttt{limma} package.
 
-\hypertarget{discovery-and-biological-interpretation-of-differentially-abundant-proteins}{%
-\section{Discovery and biological interpretation of differentially abundant proteins}\label{discovery-and-biological-interpretation-of-differentially-abundant-proteins}}
+\section{Discovery and biological interpretation of differentially abundant proteins}\label{discovery-and-biological-interpretation-of-differentially-abundant-proteins}
 
 The last section of this workflow demonstrates how to gain biological insights
 from the resulting list of proteins. Again we will utilize the TMT-labelled cell
@@ -4164,8 +4447,7 @@ Given that there are a number of Bioconductor packages available for each of the
 remaining steps (statistical analysis and interpretation), users are prompted to
 install packages at the where required, at the beginning of each step.
 
-\hypertarget{extracting-and-organising-protein-level-data}{%
-\subsection{Extracting and organising protein-level data}\label{extracting-and-organising-protein-level-data}}
+\subsection{Extracting and organising protein-level data}\label{extracting-and-organising-protein-level-data}
 
 We first extract the protein-level \texttt{SummarizedExperiment} from the cell pellet
 TMT \texttt{QFeatures} object and specify the study factors. Here we are interested in
@@ -4191,7 +4473,7 @@ control controls.
 \end{Shaded}
 
 \begin{verbatim}
-## [1] Treated Treated Treated Control Control Control
+## [1] Control Treated Treated Control Control Treated
 ## Levels: Control Treated
 \end{verbatim}
 
@@ -4201,8 +4483,7 @@ control controls.
 \end{Highlighting}
 \end{Shaded}
 
-\hypertarget{differential-expression-analysis-using-limma}{%
-\subsection{\texorpdfstring{Differential expression analysis using \texttt{limma}}{Differential expression analysis using limma}}\label{differential-expression-analysis-using-limma}}
+\subsection{\texorpdfstring{Differential expression analysis using \texttt{limma}}{Differential expression analysis using limma}}\label{differential-expression-analysis-using-limma}
 
 Bioconductor contains several packages dedicated to the statistical analysis of
 proteomics data. For example, \href{https://bioconductor.org/packages/3.15/bioc/html/MSstats.html}{\texttt{MSstats}}
@@ -4253,12 +4534,12 @@ method users are directed to \citep{Law2014}.
 
 \begin{verbatim}
 ##   (Intercept) cp_proteins$conditionTreated
-## 1           1                            1
+## 1           1                            0
 ## 2           1                            1
 ## 3           1                            1
 ## 4           1                            0
 ## 5           1                            0
-## 6           1                            0
+## 6           1                            1
 ## attr(,"assign")
 ## [1] 0 1
 ## attr(,"contrasts")
@@ -4348,14 +4629,14 @@ suitability, we take an initial look at the outputs.
 
 \begin{verbatim}
 ## # A tibble: 6 x 8
-##   Protein logFC AveExpr     t  P.Value   adj.P.Val     B TP   
-##   <chr>   <dbl>   <dbl> <dbl>    <dbl>       <dbl> <dbl> <lgl>
-## 1 Q9C0G0   2.97  -0.814  33.7 1.81e-10 0.000000596  14.1 FALSE
-## 2 Q01581   1.50   0.588  28.4 7.87e-10 0.00000129   13.0 FALSE
-## 3 P15104   1.32   1.36   23.7 3.69e- 9 0.00000404   11.7 FALSE
-## 4 Q9UK41   1.46  -1.49   22.0 7.05e- 9 0.00000553   11.1 FALSE
-## 5 P37268   1.32  -0.678  21.1 9.80e- 9 0.00000553   10.8 FALSE
-## 6 P04183   1.29   0.939  21.1 1.01e- 8 0.00000553   10.8 FALSE
+##   Protein logFC AveExpr     t  P.Value  adj.P.Val     B TP   
+##   <chr>   <dbl>   <dbl> <dbl>    <dbl>      <dbl> <dbl> <lgl>
+## 1 Q01581   1.50   0.592  28.4 6.35e-10 0.00000205  13.1 FALSE
+## 2 P15104   1.32   1.36   23.2 3.63e- 9 0.00000558  11.7 FALSE
+## 3 Q9UK41   1.46  -1.49   21.7 6.36e- 9 0.00000558  11.2 FALSE
+## 4 P37268   1.32  -0.674  21.0 8.58e- 9 0.00000558  10.9 FALSE
+## 5 P04183   1.29   0.943  21.0 8.64e- 9 0.00000558  10.9 FALSE
+## 6 Q9UHI8   2.45   0.368  18.8 2.21e- 8 0.0000119   10.0 FALSE
 \end{verbatim}
 
 The results table contains several important pieces of information. Each master
@@ -4402,16 +4683,16 @@ apply a fold change threshold here.
 \end{Shaded}
 
 \begin{verbatim}
-## tibble [3,289 x 10] (S3: tbl_df/tbl/data.frame)
-##  $ Protein     : chr [1:3289] "Q9C0G0" "Q01581" "P15104" "Q9UK41" ...
-##  $ logFC       : num [1:3289] 2.97 1.5 1.32 1.46 1.32 ...
-##  $ AveExpr     : num [1:3289] -0.814 0.588 1.359 -1.489 -0.678 ...
-##  $ t           : num [1:3289] 33.7 28.4 23.7 22 21.1 ...
-##  $ P.Value     : num [1:3289] 1.81e-10 7.87e-10 3.69e-09 7.05e-09 9.80e-09 ...
-##  $ adj.P.Val   : num [1:3289] 5.96e-07 1.29e-06 4.04e-06 5.53e-06 5.53e-06 ...
-##  $ B           : num [1:3289] 14.1 13 11.7 11.1 10.8 ...
-##  $ TP          : logi [1:3289] FALSE FALSE FALSE FALSE FALSE FALSE ...
-##  $ direction   : Factor w/ 2 levels "down","up": 2 2 2 2 2 2 2 1 1 2 ...
+## tibble [3,230 x 10] (S3: tbl_df/tbl/data.frame)
+##  $ Protein     : chr [1:3230] "Q01581" "P15104" "Q9UK41" "P37268" ...
+##  $ logFC       : num [1:3230] 1.5 1.32 1.46 1.32 1.29 ...
+##  $ AveExpr     : num [1:3230] 0.592 1.363 -1.485 -0.674 0.943 ...
+##  $ t           : num [1:3230] 28.4 23.2 21.7 21 21 ...
+##  $ P.Value     : num [1:3230] 6.35e-10 3.63e-09 6.36e-09 8.58e-09 8.64e-09 ...
+##  $ adj.P.Val   : num [1:3230] 2.05e-06 5.58e-06 5.58e-06 5.58e-06 5.58e-06 ...
+##  $ B           : num [1:3230] 13.1 11.7 11.2 10.9 10.9 ...
+##  $ TP          : logi [1:3230] FALSE FALSE FALSE FALSE FALSE FALSE ...
+##  $ direction   : Factor w/ 2 levels "down","up": 2 2 2 2 2 2 1 2 1 2 ...
 ##  $ significance: Factor w/ 2 levels "not.sig","sig": 2 2 2 2 2 2 2 2 2 2 ...
 \end{verbatim}
 
@@ -4437,13 +4718,13 @@ upregulation. To simplify interpretation, we print a \texttt{summary} of this ma
 
 \begin{verbatim}
 ##        (Intercept) cp_proteins$conditionTreated
-## Down          1448                          395
-## NotSig         414                         2569
-## Up            1427                          325
+## Down          1423                          381
+## NotSig         404                         2536
+## Up            1403                          313
 \end{verbatim}
 
-From this table we can see that 395 proteins were downregulated
-in treated HEK293 cells compared to the control group whilst 325
+From this table we can see that 381 proteins were downregulated
+in treated HEK293 cells compared to the control group whilst 313
 were upregulated. Given that no logFC threshold was applied some of the significant
 differences in abundance may be small. Further, these results mean little without
 any information about which proteins these were and what roles they play within
@@ -4461,11 +4742,10 @@ further.
 \end{Shaded}
 
 \begin{verbatim}
-## [1] 720
+## [1] 694
 \end{verbatim}
 
-\hypertarget{visualizing-differentially-abundant-proteins}{%
-\subsection{Visualizing differentially abundant proteins}\label{visualizing-differentially-abundant-proteins}}
+\subsection{Visualizing differentially abundant proteins}\label{visualizing-differentially-abundant-proteins}
 
 Before looking deeper into which proteins have differential abundance, we first
 create some simple plots to visualize the results. Volcano plots and MA plots
@@ -4500,6 +4780,15 @@ on BH- adjusted p-values, as is shown in the code chunk below.
 \end{Highlighting}
 \end{Shaded}
 
+\begin{verbatim}
+## Warning: A numeric `legend.position` argument in `theme()` was deprecated in ggplot2
+## 3.5.0.
+## i Please use the `legend.position.inside` argument of `theme()` instead.
+## This warning is displayed once every 8 hours.
+## Call `lifecycle::last_lifecycle_warnings()` to see where this warning was
+## generated.
+\end{verbatim}
+
 \begin{center}\includegraphics[height=0.4\textheight]{workflow_expressions_files/figure-latex/volcano_plot-1} \end{center}
 
 \begin{Shaded}
@@ -4531,8 +4820,7 @@ on BH- adjusted p-values, as is shown in the code chunk below.
 
 \begin{center}\includegraphics[height=0.4\textheight]{workflow_expressions_files/figure-latex/MA_plot-1} \end{center}
 
-\hypertarget{gene-ontology-enrichment-analysis}{%
-\subsection{Gene Ontology enrichment analysis}\label{gene-ontology-enrichment-analysis}}
+\subsection{Gene Ontology enrichment analysis}\label{gene-ontology-enrichment-analysis}
 
 The final step in the processing workflow is to apply Gene Ontology (GO) enrichment
 analyses to gain a biological understanding of the proteins which were either up
@@ -4617,20 +4905,20 @@ FDR control and set p-value, BH-adjusted p-value, and q-value thresholds of
 ## #...@organism     Homo sapiens 
 ## #...@ontology     GOALL 
 ## #...@keytype      UNIPROT 
-## #...@gene     chr [1:325] "Q9C0G0" "Q01581" "P15104" "Q9UK41" "P37268" "P04183" "Q9UHI8" ...
+## #...@gene     chr [1:313] "Q01581" "P15104" "Q9UK41" "P37268" "P04183" "Q9UHI8" "Q13907" ...
 ## #...pvalues adjusted by 'BH' with cutoff <0.05 
 ## #...2 enriched terms found
 ## 'data.frame':    2 obs. of  10 variables:
 ##  $ ONTOLOGY   : chr  "CC" "CC"
 ##  $ ID         : chr  "GO:0005758" "GO:0031970"
 ##  $ Description: chr  "mitochondrial intermembrane space" "organelle envelope lumen"
-##  $ GeneRatio  : chr  "15/319" "15/319"
-##  $ BgRatio    : chr  "45/3228" "49/3228"
-##  $ pvalue     : num  1.32e-05 4.18e-05
-##  $ p.adjust   : num  0.00507 0.008
-##  $ qvalue     : num  0.00506 0.00798
-##  $ geneID     : chr  "CHCHD2/TIMM9/AK2/TIMM8B/COA4/COA6/MIX23/TIMM8A/DIABLO/TIMM13/TIMM10/TRIAP1/CYCS/COX17/CAT" "CHCHD2/TIMM9/AK2/TIMM8B/COA4/COA6/MIX23/TIMM8A/DIABLO/TIMM13/TIMM10/TRIAP1/CYCS/COX17/CAT"
-##  $ Count      : int  15 15
+##  $ GeneRatio  : chr  "13/308" "13/308"
+##  $ BgRatio    : chr  "40/3176" "44/3176"
+##  $ pvalue     : num  5.59e-05 1.68e-04
+##  $ p.adjust   : num  0.0208 0.0313
+##  $ qvalue     : num  0.0207 0.0312
+##  $ geneID     : chr  "CHCHD2/TIMM9/AK2/TIMM8B/COA4/COA6/MIX23/TIMM8A/DIABLO/TIMM13/TIMM10/TRIAP1/CYCS" "CHCHD2/TIMM9/AK2/TIMM8B/COA4/COA6/MIX23/TIMM8A/DIABLO/TIMM13/TIMM10/TRIAP1/CYCS"
+##  $ Count      : int  13 13
 ## #...Citation
 ##  T Wu, E Hu, S Xu, M Chen, P Guo, Z Dai, T Feng, L Zhou, W Tang, L Zhan, X Fu, S Liu, X Bo, and G Yu.
 ##  clusterProfiler 4.0: A universal enrichment tool for interpreting omics data.
@@ -4666,27 +4954,27 @@ the downregulated proteins.
 ## #...@organism     Homo sapiens 
 ## #...@ontology     GOALL 
 ## #...@keytype      UNIPROT 
-## #...@gene     chr [1:395] "Q53EL6" "P08243" "P35716" "Q92878" "P26583" "Q92522" "O43657" ...
+## #...@gene     chr [1:381] "Q53EL6" "P08243" "P35716" "Q92878" "P26583" "Q92522" "O43657" ...
 ## #...pvalues adjusted by 'BH' with cutoff <0.05 
-## #...69 enriched terms found
-## 'data.frame':    69 obs. of  10 variables:
+## #...61 enriched terms found
+## 'data.frame':    61 obs. of  10 variables:
 ##  $ ONTOLOGY   : chr  "BP" "BP" "BP" "BP" ...
-##  $ ID         : chr  "GO:0006310" "GO:0006520" "GO:0000725" "GO:0006302" ...
-##  $ Description: chr  "DNA recombination" "amino acid metabolic process" "recombinational repair" "double-strand break repair" ...
-##  $ GeneRatio  : chr  "36/378" "35/378" "22/378" "31/378" ...
-##  $ BgRatio    : chr  "94/3166" "112/3166" "55/3166" "98/3166" ...
-##  $ pvalue     : num  2.27e-11 2.48e-08 8.41e-08 1.20e-07 1.01e-06 ...
-##  $ p.adjust   : num  5.66e-08 3.09e-05 7.00e-05 7.48e-05 5.06e-04 ...
-##  $ qvalue     : num  5.37e-08 2.93e-05 6.63e-05 7.09e-05 4.80e-04 ...
-##  $ geneID     : chr  "RAD50/HMGB2/H1-10/RADX/MRE11/H1-0/H1-2/ZMYND8/HMGB3/MCM5/NUCKS1/RAD21/PRKDC/SFPQ/MCM4/XRCC6/H1-3/MCM7/TFRC/XRCC"| __truncated__ "ASNS/PHGDH/SDSL/SARS1/YARS1/AARS2/HMGCL/IARS2/GARS1/AARS1/HIBADH/PYCR1/MCCC2/ACADSB/DHFR/MARS1/SLC25A12/ETFA/PS"| __truncated__ "RADX/MRE11/ZMYND8/MCM5/NUCKS1/RAD21/SFPQ/MCM4/XRCC6/MCM7/XRCC5/PPP4R2/POGZ/YY1/MCM3/MCM2/VPS72/PARP1/BRD8/MCM6/FUS/RECQL" "RAD50/HMGB2/RADX/MRE11/DEK/ZMYND8/MCM5/NUCKS1/RAD21/PRKDC/TP53/SFPQ/SMARCC2/MCM4/XRCC6/HPF1/MCM7/XRCC5/HMGB1/PP"| __truncated__ ...
-##  $ Count      : int  36 35 22 31 20 56 57 18 14 56 ...
+##  $ ID         : chr  "GO:0006310" "GO:0000725" "GO:0006302" "GO:0006520" ...
+##  $ Description: chr  "DNA recombination" "recombinational repair" "double-strand break repair" "amino acid metabolic process" ...
+##  $ GeneRatio  : chr  "37/366" "23/366" "32/366" "33/366" ...
+##  $ BgRatio    : chr  "95/3121" "58/3121" "101/3121" "113/3121" ...
+##  $ pvalue     : num  3.61e-12 3.61e-08 4.54e-08 2.48e-07 4.46e-07 ...
+##  $ p.adjust   : num  8.65e-09 3.62e-05 3.62e-05 1.48e-04 2.14e-04 ...
+##  $ qvalue     : num  8.33e-09 3.48e-05 3.48e-05 1.43e-04 2.06e-04 ...
+##  $ geneID     : chr  "RAD50/HMGB2/H1-10/RADX/MRE11/H1-0/H1-2/ZMYND8/MCM5/HMGB3/NUCKS1/RAD21/PRKDC/SFPQ/MCM4/XRCC6/HTATSF1/H1-3/MCM7/T"| __truncated__ "RADX/MRE11/ZMYND8/MCM5/NUCKS1/RAD21/SFPQ/MCM4/XRCC6/HTATSF1/MCM7/XRCC5/PPP4R2/POGZ/YY1/MCM3/MCM2/VPS72/PARP1/BR"| __truncated__ "RAD50/HMGB2/RADX/MRE11/DEK/ZMYND8/MCM5/NUCKS1/RAD21/PRKDC/TP53/SMARCC2/SFPQ/MCM4/XRCC6/HPF1/HTATSF1/MCM7/XRCC5/"| __truncated__ "ASNS/PHGDH/SDSL/SARS1/YARS1/AARS2/HMGCL/GARS1/IARS2/AARS1/HIBADH/PYCR1/ACADSB/DHFR/MCCC2/SLC25A12/MARS1/PSAT1/S"| __truncated__ ...
+##  $ Count      : int  37 23 32 33 21 14 55 14 14 44 ...
 ## #...Citation
 ##  T Wu, E Hu, S Xu, M Chen, P Guo, Z Dai, T Feng, L Zhou, W Tang, L Zhan, X Fu, S Liu, X Bo, and G Yu.
 ##  clusterProfiler 4.0: A universal enrichment tool for interpreting omics data.
 ##  The Innovation. 2021, 2(3):100141
 \end{verbatim}
 
-The downregulated proteins contain 69 significantly enriched GO
+The downregulated proteins contain 61 significantly enriched GO
 terms. There are many ways in which users can represent these results visually.
 Here, we create a barplot using the \texttt{barplot} function from the \href{https://bioconductor.org/packages/release/bioc/html/enrichplot.html}{\texttt{enrichplot} package}
 \citep{enrichplot}. Users are directed to the vignette of the \texttt{enrichplot} package
@@ -4707,8 +4995,7 @@ i.e.~the 10 GO terms with the greatest enrichment.
 
 \begin{center}\includegraphics[height=0.4\textheight]{workflow_expressions_files/figure-latex/GO_enrichment_plot-1} \end{center}
 
-\hypertarget{writing-and-exporting-data}{%
-\section{Writing and exporting data}\label{writing-and-exporting-data}}
+\section{Writing and exporting data}\label{writing-and-exporting-data}
 
 Finally, we export the results of our statistical analyses as \texttt{.csv} files.
 
@@ -4730,8 +5017,7 @@ Finally, we export the results of our statistical analyses as \texttt{.csv} file
 Users can also use the \href{https://www.rdocumentation.org/packages/ggplot2/versions/0.9.0/topics/ggsave}{\texttt{ggsave}}
 function to export any of the figures generated.
 
-\hypertarget{discussion-and-conclusion}{%
-\section{Discussion and conclusion}\label{discussion-and-conclusion}}
+\section{Discussion and conclusion}\label{discussion-and-conclusion}
 
 Expression proteomics is becoming an increasingly important tool in modern
 molecular biology. As more researchers participate in expression proteomics,
@@ -4768,8 +5054,7 @@ that combine data from multiple TMTplexes, although the code provided could
 easily be expanded to include such a scenario. This workflow provides an in-depth
 user-friendly pipeline for both new and experienced proteomics data analysts.
 
-\hypertarget{session-information-and-getting-help}{%
-\section{Session information and getting help}\label{session-information-and-getting-help}}
+\section{Session information and getting help}\label{session-information-and-getting-help}
 
 The workflows provided involve use of functions from many different
 R/Bioconductor packages. The \texttt{sessionInfo} function provides an easy way to
@@ -4785,16 +5070,16 @@ results to those demonstrated here, such changes should be easily traced.
 \end{Shaded}
 
 \begin{verbatim}
-## R version 4.3.0 (2023-04-21)
-## Platform: x86_64-apple-darwin20 (64-bit)
-## Running under: macOS Ventura 13.4
+## R version 4.4.0 (2024-04-24)
+## Platform: aarch64-apple-darwin20
+## Running under: macOS Ventura 13.2
 ## 
 ## Matrix products: default
-## BLAS:   /Library/Frameworks/R.framework/Versions/4.3-x86_64/Resources/lib/libRblas.0.dylib 
-## LAPACK: /Library/Frameworks/R.framework/Versions/4.3-x86_64/Resources/lib/libRlapack.dylib;  LAPACK version 3.11.0
+## BLAS:   /Library/Frameworks/R.framework/Versions/4.4-arm64/Resources/lib/libRblas.0.dylib 
+## LAPACK: /Library/Frameworks/R.framework/Versions/4.4-arm64/Resources/lib/libRlapack.dylib;  LAPACK version 3.12.0
 ## 
 ## locale:
-## [1] en_GB.UTF-8/en_GB.UTF-8/en_GB.UTF-8/C/en_GB.UTF-8/en_GB.UTF-8
+## [1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
 ## 
 ## time zone: Europe/London
 ## tzcode source: internal
@@ -4804,68 +5089,60 @@ results to those demonstrated here, such changes should be easily traced.
 ## [8] base     
 ## 
 ## other attached packages:
-##  [1] patchwork_1.1.2             enrichplot_1.20.0          
-##  [3] clusterProfiler_4.8.1       org.Hs.eg.db_3.17.0        
-##  [5] AnnotationDbi_1.62.1        limma_3.56.2               
-##  [7] Biostrings_2.68.1           XVector_0.40.0             
-##  [9] corrplot_0.92               NormalyzerDE_1.18.0        
-## [11] tibble_3.2.1                dplyr_1.1.2                
-## [13] stringr_1.5.0               ggplot2_3.4.2              
-## [15] QFeatures_1.10.0            MultiAssayExperiment_1.26.0
-## [17] SummarizedExperiment_1.30.2 Biobase_2.60.0             
-## [19] GenomicRanges_1.52.0        GenomeInfoDb_1.36.0        
-## [21] IRanges_2.34.0              S4Vectors_0.38.1           
-## [23] BiocGenerics_0.46.0         MatrixGenerics_1.12.2      
-## [25] matrixStats_1.0.0          
+##  [1] patchwork_1.2.0             enrichplot_1.24.0          
+##  [3] clusterProfiler_4.12.0      org.Hs.eg.db_3.19.1        
+##  [5] AnnotationDbi_1.66.0        limma_3.60.0               
+##  [7] Biostrings_2.72.0           XVector_0.44.0             
+##  [9] corrplot_0.92               NormalyzerDE_1.22.0        
+## [11] tibble_3.2.1                dplyr_1.1.4                
+## [13] stringr_1.5.1               ggplot2_3.5.1              
+## [15] QFeatures_1.14.0            MultiAssayExperiment_1.30.1
+## [17] SummarizedExperiment_1.34.0 Biobase_2.64.0             
+## [19] GenomicRanges_1.56.0        GenomeInfoDb_1.40.0        
+## [21] IRanges_2.38.0              S4Vectors_0.42.0           
+## [23] BiocGenerics_0.50.0         MatrixGenerics_1.16.0      
+## [25] matrixStats_1.3.0          
 ## 
 ## loaded via a namespace (and not attached):
-##   [1] splines_4.3.0            bitops_1.0-7             ggplotify_0.1.0         
-##   [4] cellranger_1.1.0         polyclip_1.10-4          preprocessCore_1.62.1   
-##   [7] rpart_4.1.19             lifecycle_1.0.3          lattice_0.21-8          
-##  [10] MASS_7.3-60              backports_1.4.1          magrittr_2.0.3          
-##  [13] Hmisc_5.1-0              rmarkdown_2.22           yaml_2.3.7              
-##  [16] sp_1.6-1                 cowplot_1.1.1            MsCoreUtils_1.12.0      
-##  [19] DBI_1.1.3                RColorBrewer_1.1-3       abind_1.4-5             
-##  [22] zlibbioc_1.46.0          purrr_1.0.1              AnnotationFilter_1.24.0 
-##  [25] ggraph_2.1.0             RCurl_1.98-1.12          yulab.utils_0.0.6       
-##  [28] nnet_7.3-19              tweenr_2.0.2             sandwich_3.0-2          
-##  [31] git2r_0.32.0             GenomeInfoDbData_1.2.10  ggrepel_0.9.3           
-##  [34] tidytree_0.4.2           terra_1.7-37             nortest_1.0-4           
-##  [37] codetools_0.2-19         DelayedArray_0.26.3      DOSE_3.26.1             
-##  [40] ggforce_0.4.1            tidyselect_1.2.0         RcmdrMisc_2.7-2         
-##  [43] aplot_0.1.10             raster_3.6-20            farver_2.1.1            
-##  [46] viridis_0.6.3            base64enc_0.1-3          jsonlite_1.8.5          
-##  [49] e1071_1.7-13             tidygraph_1.2.3          Formula_1.2-5           
-##  [52] tools_4.3.0              treeio_1.24.1            Rcpp_1.0.10             
-##  [55] glue_1.6.2               BiocBaseUtils_1.2.0      gridExtra_2.3           
-##  [58] xfun_0.39                qvalue_2.32.0            usethis_2.2.0           
-##  [61] withr_2.5.0              BiocManager_1.30.21      fastmap_1.1.1           
-##  [64] fansi_1.0.4              digest_0.6.31            R6_2.5.1                
-##  [67] gridGraphics_0.5-1       colorspace_2.1-0         GO.db_3.17.0            
-##  [70] RSQLite_2.3.1            utf8_1.2.3               tidyr_1.3.0             
-##  [73] generics_0.1.3           data.table_1.14.8        class_7.3-22            
-##  [76] graphlayouts_1.0.0       httr_1.4.6               htmlwidgets_1.6.2       
-##  [79] S4Arrays_1.0.4           scatterpie_0.2.1         pkgconfig_2.0.3         
-##  [82] gtable_0.3.3             blob_1.2.4               impute_1.74.1           
-##  [85] shadowtext_0.1.2         htmltools_0.5.5          carData_3.0-5           
-##  [88] bookdown_0.34            fgsea_1.26.0             ProtGenerics_1.32.0     
-##  [91] clue_0.3-64              scales_1.2.1             png_0.1-8               
-##  [94] ggfun_0.1.0              knitr_1.43               rstudioapi_0.14         
-##  [97] reshape2_1.4.4           nlme_3.1-162             checkmate_2.2.0         
-## [100] proxy_0.4-27             cachem_1.0.8             zoo_1.8-12              
-## [103] parallel_4.3.0           HDO.db_0.99.1            foreign_0.8-84          
-## [106] pillar_1.9.0             grid_4.3.0               vctrs_0.6.3             
-## [109] car_3.1-2                cluster_2.1.4            htmlTable_2.4.1         
-## [112] evaluate_0.21            cli_3.6.1                compiler_4.3.0          
-## [115] rlang_1.1.1              crayon_1.5.2             labeling_0.4.2          
-## [118] plyr_1.8.8               forcats_1.0.0            fs_1.6.2                
-## [121] stringi_1.7.12           viridisLite_0.4.2        BiocParallel_1.34.2     
-## [124] munsell_0.5.0            lazyeval_0.2.2           GOSemSim_2.26.0         
-## [127] Matrix_1.5-4.1           hms_1.1.3                bit64_4.0.5             
-## [130] KEGGREST_1.40.0          haven_2.5.2              igraph_1.5.0            
-## [133] memoise_2.0.1            BiocWorkflowTools_1.26.0 ggtree_3.8.0            
-## [136] fastmatch_1.1-3          bit_4.0.5                readxl_1.4.2            
-## [139] downloader_0.4           gson_0.1.0               ape_5.7-1
+##   [1] RColorBrewer_1.1-3       rstudioapi_0.16.0        jsonlite_1.8.8          
+##   [4] magrittr_2.0.3           farver_2.1.1             rmarkdown_2.26          
+##   [7] fs_1.6.4                 zlibbioc_1.50.0          vctrs_0.6.5             
+##  [10] memoise_2.0.1            ggtree_3.12.0            tinytex_0.51            
+##  [13] BiocBaseUtils_1.6.0      htmltools_0.5.8.1        S4Arrays_1.4.0          
+##  [16] usethis_2.2.3            gridGraphics_0.5-1       SparseArray_1.4.3       
+##  [19] plyr_1.8.9               impute_1.78.0            cachem_1.0.8            
+##  [22] igraph_2.0.3             lifecycle_1.0.4          pkgconfig_2.0.3         
+##  [25] gson_0.1.0               Matrix_1.7-0             R6_2.5.1                
+##  [28] fastmap_1.1.1            GenomeInfoDbData_1.2.12  clue_0.3-65             
+##  [31] digest_0.6.35            aplot_0.2.2              colorspace_2.1-0        
+##  [34] RSQLite_2.3.6            labeling_0.4.3           fansi_1.0.6             
+##  [37] httr_1.4.7               polyclip_1.10-6          abind_1.4-5             
+##  [40] compiler_4.4.0           bit64_4.0.5              withr_3.0.0             
+##  [43] BiocParallel_1.38.0      viridis_0.6.5            DBI_1.2.2               
+##  [46] ggforce_0.4.2            MASS_7.3-60.2            DelayedArray_0.30.1     
+##  [49] HDO.db_0.99.1            tools_4.4.0              scatterpie_0.2.2        
+##  [52] ape_5.8                  glue_1.7.0               nlme_3.1-164            
+##  [55] GOSemSim_2.30.0          shadowtext_0.1.3         grid_4.4.0              
+##  [58] cluster_2.1.6            reshape2_1.4.4           fgsea_1.30.0            
+##  [61] generics_0.1.3           gtable_0.3.5             preprocessCore_1.66.0   
+##  [64] tidyr_1.3.1              data.table_1.15.4        tidygraph_1.3.1         
+##  [67] utf8_1.2.4               ggrepel_0.9.5            pillar_1.9.0            
+##  [70] yulab.utils_0.1.4        BiocWorkflowTools_1.30.0 splines_4.4.0           
+##  [73] tweenr_2.0.3             treeio_1.28.0            lattice_0.22-6          
+##  [76] bit_4.0.5                tidyselect_1.2.1         GO.db_3.19.1            
+##  [79] knitr_1.46               git2r_0.33.0             gridExtra_2.3           
+##  [82] bookdown_0.39            ProtGenerics_1.36.0      xfun_0.43               
+##  [85] graphlayouts_1.1.1       statmod_1.5.0            stringi_1.8.4           
+##  [88] UCSC.utils_1.0.0         lazyeval_0.2.2           ggfun_0.1.4             
+##  [91] yaml_2.3.8               evaluate_0.23            codetools_0.2-20        
+##  [94] ggraph_2.2.1             MsCoreUtils_1.16.0       qvalue_2.36.0           
+##  [97] BiocManager_1.30.23      ggplotify_0.1.2          cli_3.6.2               
+## [100] munsell_0.5.1            Rcpp_1.0.12              png_0.1-8               
+## [103] parallel_4.4.0           blob_1.2.4               DOSE_3.30.0             
+## [106] AnnotationFilter_1.28.0  tidytree_0.4.6           viridisLite_0.4.2       
+## [109] scales_1.3.0             purrr_1.0.2              crayon_1.5.2            
+## [112] rlang_1.1.3              cowplot_1.1.3            fastmatch_1.1-4         
+## [115] KEGGREST_1.44.0
 \end{verbatim}
 
 Users are advised to update R itself as well as packages as required.
@@ -4881,8 +5158,7 @@ function, as shown below.
 \end{Highlighting}
 \end{Shaded}
 
-\hypertarget{data-availability}{%
-\section{Data availability}\label{data-availability}}
+\section{Data availability}\label{data-availability}
 
 This workflow is written in the R statistical programming language and uses
 freely available open-source software packages from \href{https://cran.r-project.org}{CRAN}
@@ -4892,11 +5168,10 @@ are shown in the Session information section.
 Raw mass spectrometry data is freely available online through the
 ProteomeXchange Consortium via the PRIDE repository with identifier PXD041794.
 All processed data is available at
-\url{http://doi.org/10.5281/zenodo.7837375},
+\url{http://doi.org/10.5281/zenodo.11196770},
 and at GitHub repository \url{https://github.com/CambridgeCentreForProteomics/f1000_expression_proteomics}.
 
-\hypertarget{author-contributions}{%
-\section{Author contributions}\label{author-contributions}}
+\section{Author contributions}\label{author-contributions}
 
 C. H. conceptualization, investigation, methodology, project administration,
 software, validation, writing -- original draft preparation, review and editing;
@@ -4905,13 +5180,11 @@ supervision, software, writing - review and editing; K. S. L. funding acquisitio
 supervision, writing - review and editing; L. M. B. conceptualization, methodology,
 supervision, writing - review and editing.
 
-\hypertarget{competing-interests}{%
-\section{Competing interests}\label{competing-interests}}
+\section{Competing interests}\label{competing-interests}
 
 No competing interests were disclosed.
 
-\hypertarget{grant-information}{%
-\section{Grant information}\label{grant-information}}
+\section{Grant information}\label{grant-information}
 
 C. H. is funded through a BBSRC CASE award with AstraZeneca (BB/W509929/1). C. S.
 D. is funded by a Herchel Smith Research Studentship at the University of
@@ -4924,18 +5197,15 @@ B. is funded by European Union Horizon 2020 program INFRAIA project EPIC-XS
 The funders had no role in study design, data collection and analysis, decision
 to publish, or preparation of the manuscript.
 
-\hypertarget{acknowledgements}{%
-\section{Acknowledgements}\label{acknowledgements}}
+\section{Acknowledgements}\label{acknowledgements}
 
 The authors would like to thank Savvas Kourtis from the Centre for Genomic
 Regulation, Barcelona, and Oliver M. Crook, from the Department of Statistics,
 Oxford University, UK, for trialing this workflow.
 
-\hypertarget{appendix}{%
-\section{Appendix}\label{appendix}}
+\section{Appendix}\label{appendix}
 
-\hypertarget{identification-search-with-proteome-discoverer}{%
-\subsection{Identification search with Proteome Discoverer}\label{identification-search-with-proteome-discoverer}}
+\subsection{Identification search with Proteome Discoverer}\label{identification-search-with-proteome-discoverer}
 
 The use-case data analyzed in this workflow was initially processed using
 \href{https://www.thermofisher.com/uk/en/home/industrial/mass-spectrometry/liquid-chromatography-mass-spectrometry-lc-ms/lc-ms-software/multi-omics-data-analysis/proteome-discoverer-software.html}{Proteome Discoverer}
