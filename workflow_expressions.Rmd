@@ -219,12 +219,16 @@ knitr::include_graphics("Images/experimental-method.png", error = FALSE)
 The cell pellet and supernatant datasets were handled independently and we take
 advantage of this to discuss the processing of TMT-labelled and LFQ proteomics 
 data. In both cases, the raw MS data were processed using Proteome Discoverer
-v2.5 (Thermo Fisher Scientific). While the focus in the workflow presented below 
-is differential protein expression analysis, the data processing and quality 
-control steps described here are applicable to any TMT or LFQ proteomics dataset.
-Importantly, however, the experimental aim will influence data-guided decisions 
-and the considerations discussed here likely differ from those of spatial proteomics, 
-for example.
+v2.5 (Thermo Fisher Scientific). As a result, this workflow uses the specific 
+columns and files output by Proteome Discoverer. Nevertheless, most third party
+software output similar data structures and this workflow can be adapted. As an
+example, information on how to adapt this workflow for data processed by MaxQuant
+is provided in the [appendix](https://github.com/CambridgeCentreForProteomics/f1000_expression_proteomics).
+While the focus in the workflow presented below is differential protein expression
+analysis, the data processing and quality control steps described here are 
+applicable to any TMT or LFQ proteomics dataset. Importantly, however, the 
+experimental aim will influence data-guided decisions and the considerations
+discussed here likely differ from those of spatial proteomics, for example.
 
 
 ## Downloading the data
@@ -2277,10 +2281,10 @@ workflow for a more in-depth explanation of any shared steps.
 
 As was the case for TMT labelled cell pellets, raw LFQ data from supernatant
 samples was searched using Proteome Discoverer 2.5. The workflows for this
-identification search are provided in the supplementary materials with an
-additional explanation of key parameters in the appendix. To begin processing
-LFQ data, users should export a peptide-level `.txt` file from the results of
-their identification search.
+identification search are provided in the supplementary materials with an additional
+explanation of key parameters in the appendix. To begin processing LFQ data, 
+users should export a peptide-level `.txt` file from the results of their 
+identification search.
 
 
 ## Data import, housekeeping and exploration
