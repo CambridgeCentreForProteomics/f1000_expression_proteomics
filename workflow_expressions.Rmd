@@ -1885,7 +1885,12 @@ Here, we use `robustSummary` to aggregate from PSM to peptide-level. This method
 is currently considered to be state-of-the-art as it is more robust against
 outliers than other aggregation methods [@Sticker2020; @Goeminne2016]. We also 
 include `na.rm = TRUE` to exclude any NA values prior to completing the
-summarization.
+summarization. For simplicity, we here aggregate all PSMs corresponding to the 
+same stripped peptide sequence, regardless of whether they contain different 
+modifications. If users are interested in exploring differential expression of
+protein isoforms or have reason to believe that post-translational modifications
+may be important in answering their question, PSMs could also be aggregated by 
+`"Annotated.Sequence"` to preserve this information.
 
 ```{r tmt_psm_to_peptide, messages = FALSE, results = "hide", warning = FALSE}
 ## Aggregate PSM to peptide
