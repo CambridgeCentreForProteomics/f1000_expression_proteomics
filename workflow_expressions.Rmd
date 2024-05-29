@@ -141,7 +141,7 @@ if (!require("BiocManager", quietly = TRUE)) {
 
 BiocManager::install(c("QFeatures",
                        "ggplot2",
-                       "stringr"
+                       "stringr",
                        "NormalyzerDE",
                        "corrplot",
                        "Biostrings",
@@ -1002,7 +1002,7 @@ derived from a search in which N-terminal TMT modifications were dynamic, the
 data does include this annotation. Users are reminded that column names are 
 typically software-specific as the "Quan.Info" column is found only in outputs
 derived from Proteome Discoverer. However, the majority of alternative third 
-party softwares will have an equivalent column containing the same information.
+party software will have an equivalent column containing the same information.
 
 ```{r tmt_no_quant_1, message = FALSE}
 ## Find out how many PSMs we expect to lose
@@ -1603,8 +1603,8 @@ prots_removed_prop_2 <- ((prots_removed_2 / original_prots) * 100) %>%
 
 ## Print as a table
 data.frame("Feature" = c("PSMs",
-                         "Peptides",
-                         "Proteins"),
+                         "Peptides (stripped)",
+                         "Protein groups"),
            "Number lost" = c(psms_removed_2,
                              peps_removed_2,
                              prots_removed_2),
@@ -1810,8 +1810,8 @@ prots_removed_total_prop <- ((prots_removed_total / original_prots) * 100) %>%
 
 ## Print as table
 data.frame("Feature" = c("PSMs",
-                         "Peptides",
-                         "Proteins"),
+                         "Peptides (stripped)",
+                         "Protein groups"),
            "Number lost" = c(psms_removed_total,
                              peps_removed_total,
                              prots_removed_total),
@@ -2149,7 +2149,7 @@ Q01581
 ```
 
 We find that in this data the protein Q01581 has `r nrow(Q01581[["log_peptides"]])`
-peptides and `r nrow(Q01581[["psms_filtered"]])` supporting its  identification 
+peptides and `r nrow(Q01581[["psms_filtered"]])` PSMs supporting its identification 
 and quantitation. We also see that the original data prior to processing contained
 `r nrow(Q01581[["psms_raw"]])` PSMs in support of this protein.
 
@@ -2335,7 +2335,7 @@ These features differ from those found at the PSM-level and users should be
 aware that they have reduced post-search control over the quality of PSMs
 included in the peptide quantitation, and which method of aggregation is used to
 define these. Proteome Discoverer uses the sum of PSM quantitative values to
-calculate peptide-level values. Other third-party softwares may use different 
+calculate peptide-level values. Other third-party software may use different 
 methods.
 
 ```{r lfq_exploration_1}
@@ -2516,7 +2516,7 @@ sn_qf <- addAssay(x = sn_qf,
 sn_qf
 ```
 
-Here, cleaning is done is two steps. The first is the removal of contaminant 
+Here, cleaning is done in two steps. The first is the removal of contaminant 
 proteins using the self-defined `find_cont` function. Refer back to the TMT 
 processing workflow for more details.
 
@@ -2651,8 +2651,8 @@ prots_removed_prop <- ((prots_removed / original_prots) * 100) %>%
 
 ## Present in a table
 data.frame("Feature" = c("PSMs",
-                         "Peptides",
-                         "Proteins"),
+                         "Peptides (stripped)",
+                         "Protein groups"),
            "Number lost" = c(psms_removed,
                              peps_removed,
                              prots_removed),
@@ -3055,7 +3055,7 @@ pca_df %>%
   geom_hline(yintercept = 0, linetype = "dashed") +
   geom_vline(xintercept = 0, linetype = "dashed") +
   guides(colour = guide_legend(override.aes = list(size = 3))) +
-  labs(x = "PC1 (42.5 %)", y = "PC2 (26.8 %)") +
+  labs(x = "PC1", y = "PC2") +
   ggtitle("Protein-level PCA plot") +
   xlim(-100, 100) +
   ylim(-100, 100) +
@@ -3283,10 +3283,10 @@ In the next code chunk, we use the `decideTests` function to determine how many
 proteins are significantly up- and down- regulated in the treated compared to control
 HEK293 cells. We tell this function to classify the significance of each
 t-statistic based on a BH-adjusted p-value of 0.01. If we had not used TMT
-labels and wished to include a logFC threshold, we could have included `lfc = `
-as an argument. The function will then output a numerical matrix containing
-either -1, 0, or 1 for each protein in each condition, where a value of -1
-indicates significant downregulation, 0 not significant and 1 significant
+labels and wished to include a logFC threshold, we could have included the `lfc` argument
+and passed our desired logFC threshold. The function will then output a numerical
+matrix containing either -1, 0, or 1 for each protein in each condition, where a
+value of -1 indicates significant downregulation, 0 not significant and 1 significant
 upregulation. To simplify interpretation, we print a `summary` of this matrix.
 
 ```{r summary_of_significant_changes}
@@ -3555,7 +3555,7 @@ user-friendly pipeline for both new and experienced proteomics data analysts.
 
 The workflows provided involve use of functions from many different
 R/Bioconductor packages. The `sessionInfo` function provides an easy way to
-summarize all packages and corresponding their versions used to generate this
+summarize all packages and the corresponding versions used to generate this
 document. Should software updates lead to the generation of errors or different
 results to those demonstrated here, such changes should be easily traced.
 
