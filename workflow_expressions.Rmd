@@ -2166,31 +2166,12 @@ within the rowData of the new `SummarizedExperiment`. This column indicates how
 many lower-level features were aggregated into each new higher-level feature.
 Hence, `".n"` in the peptide-level data represents how many PSMs were aggregated
 into a peptide, whilst in the protein-level data it tells us how many peptides
-were grouped into a master protein. For ease of plotting, we will use the
-`"proteins_direct"` data generated above. Since this data was generated via
-direct aggregation of PSM to protein, `".n"` this will tell us PSM support per
-protein. We plot these data as simple histograms.
+were grouped into a master protein. As an example, we plot the a histogram of 
+`".n"` from the protein-level to explore peptide support per protein.
 
 ```{r support_plots, out.width = '100%', fig.align = 'center', warning = FALSE}
-## Plot PSM support per protein - .n in the proteins_direct SE
-psm_per_protein <- cp_qf[["proteins_direct"]] %>%
-  rowData() %>%
-  as_tibble() %>%
-  ggplot(aes(x = .n)) +
-  geom_histogram(binwidth = 1, boundary = 0.5) +
-  labs(x = "PSM support (shown up to 20)",
-       y = "Frequency") +
-  scale_x_continuous(expand = c(0, 0),
-                     limits = c(0, 20.5),
-                     breaks = seq(1, 20, 1)) +
-  scale_y_continuous(expand = c(0, 0),
-                     limits = c(0, 1000),
-                     breaks = seq(0, 1000, 100)) +
-  ggtitle("PSM support per protein") +
-  theme_bw()
-
 ## Plot peptide support per protein - .n in the proteins SE
-peptide_per_protein <- cp_qf[["log_proteins"]] %>%
+cp_qf[["log_proteins"]] %>%
   rowData() %>%
   as_tibble() %>%
   ggplot(aes(x = .n)) +
@@ -2206,7 +2187,6 @@ peptide_per_protein <- cp_qf[["log_proteins"]] %>%
   ggtitle("Peptide support per protein") +
   theme_bw()
 
-psm_per_protein + peptide_per_protein
 ```
 
 At this point, users may wish to include additional quality control filtering
