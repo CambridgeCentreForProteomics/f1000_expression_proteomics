@@ -13,12 +13,10 @@ author:
     affiliation: Cambridge Centre for Proteomics, Department of Biochemistry, University of Cambridge, UK
 abstract: | 
   \
-  **Background:** Expression proteomics involves the global evaluation of protein 
   abundances within a system. In turn, differential expression analysis can be 
   used to investigate changes in protein abundance upon perturbation to such a 
   system. 
   
-  **Methods:** Here, we provide a workflow for the processing, analysis and
   interpretation of quantitative mass spectrometry-based expression proteomics 
   data. This workflow utilizes open-source R software packages from the 
   Bioconductor project and guides users end-to-end and step-by-step through every
@@ -27,18 +25,19 @@ abstract: |
   cellular proteins labelled using tandem mass tag (TMT) technology and secreted
   proteins quantified using label-free quantitation (LFQ). 
   
-  **Results:** The workflow explains the software infrastructure before focusing 
   on data import, pre-processing and quality control. This is done individually 
   for TMT and LFQ datasets. The application of statistical differential 
   expression analysis is demonstrated, followed by interpretation via gene
   ontology enrichment analysis. 
   
-  **Conclusions:** A comprehensive workflow for the processing, analysis and
   interpretation of expression proteomics is presented. The workflow is a 
   valuable resource for the proteomics community and specifically beginners who
   are at least familiar with R who wish to understand and make data-driven 
   decisions with regards to their analyses.
-
+  **Background:** Expression proteomics involves the global evaluation of protein 
+  **Methods:** Here, we provide a workflow for the processing, analysis and
+  **Results:** The workflow explains the software infrastructure before focusing 
+  **Conclusions:** A comprehensive workflow for the processing, analysis and
 keywords: | 
   Bioconductor, QFeatures, proteomics, shotgun proteomics, bottom-up proteomics,
   differential expression, mass spectrometry, quality control, data processing, 
@@ -97,8 +96,8 @@ question being asked.
 Here, we provide a step-by-step workflow for processing, analysing and 
 interpreting expression proteomics data derived from a bottom-up experiment
 using DDA and either LFQ or TMT label-based peptide quantitation. We outline how
-to process the data starting from a peptide spectrum match (PSM)- or peptide-
-level `.txt` file. Such files are the outputs of most major third party search
+to process the data starting from a peptide spectrum match (PSM)- or peptide-level
+`.txt` file. Such files are the outputs of most major third party search
 software (e.g., Proteome Discoverer, MaxQuant, FragPipe). We begin with data 
 import and then guide users through the stages of data processing including data 
 cleaning, quality control filtering, management of missing values, imputation,
