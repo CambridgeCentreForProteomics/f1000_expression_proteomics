@@ -13,10 +13,11 @@ author:
     affiliation: Cambridge Centre for Proteomics, Department of Biochemistry, University of Cambridge, UK
 abstract: | 
   \
+  **Background:** Expression proteomics involves the global evaluation of protein 
   abundances within a system. In turn, differential expression analysis can be 
   used to investigate changes in protein abundance upon perturbation to such a 
-  system. 
-  
+  system.  
+  **Methods:** Here, we provide a workflow for the processing, analysis and
   interpretation of quantitative mass spectrometry-based expression proteomics 
   data. This workflow utilizes open-source R software packages from the 
   Bioconductor project and guides users end-to-end and step-by-step through every
@@ -24,20 +25,16 @@ abstract: |
   from HEK293 cells with and without a treatment. Of note, the experiment included 
   cellular proteins labelled using tandem mass tag (TMT) technology and secreted
   proteins quantified using label-free quantitation (LFQ). 
-  
+  **Results:** The workflow explains the software infrastructure before focusing
   on data import, pre-processing and quality control. This is done individually 
   for TMT and LFQ datasets. The application of statistical differential 
   expression analysis is demonstrated, followed by interpretation via gene
-  ontology enrichment analysis. 
-  
+  ontology enrichment analysis.  
+  **Conclusions:** A comprehensive workflow for the processing, analysis and
   interpretation of expression proteomics is presented. The workflow is a 
   valuable resource for the proteomics community and specifically beginners who
   are at least familiar with R who wish to understand and make data-driven 
   decisions with regards to their analyses.
-  **Background:** Expression proteomics involves the global evaluation of protein 
-  **Methods:** Here, we provide a workflow for the processing, analysis and
-  **Results:** The workflow explains the software infrastructure before focusing 
-  **Conclusions:** A comprehensive workflow for the processing, analysis and
 keywords: | 
   Bioconductor, QFeatures, proteomics, shotgun proteomics, bottom-up proteomics,
   differential expression, mass spectrometry, quality control, data processing, 
@@ -130,8 +127,7 @@ environment (IDE) which provides a graphical interface to
 Detailed instructions for the installation of Bioconductor packages are
 documented on the [Bioconductor Installation page](http://bioconductor.org/install/). 
 The main packages required for this workflow are installed using the code below.
-Additional packages required for downstream statistics and interpretation are
-installed as required.
+
 
 ```{r install_packages, eval = FALSE, message = FALSE}
 if (!require("BiocManager", quietly = TRUE)) {
@@ -320,8 +316,10 @@ their corresponding quantification data.
 The use-case data presented here was processed using Proteome Discoverer 2.5 and
 additional information about this search is provided in the appendix. Further,
 we provide template workflows for both the processing and consensus steps of the
-Proteome Discoverer identification run in the supplementary information. It is
-also possible to determine several of the key parameter settings during the
+Proteome Discoverer identification run in the supplementary information. We also
+provide details on how to adapt this workflow for data processed with MaxQuant in
+the [appendix](https://github.com/CambridgeCentreForProteomics/f1000_expression_proteomics).
+It is also possible to determine several of the key parameter settings during the
 preliminary data exploration. This step will be particularly important for those
 using publicly available data without detailed knowledge of the identification
 search parameters. For now, we simply export the PSM-level `.txt` file from the
@@ -352,11 +350,11 @@ cp_df %>%
 
 ```
 
-
+We see that our data contains six quantitative columns in positions 49 to 54.
 Now that the quantitative data columns have been identified, we can pass our
 `data.frame` to the `readQFeatures` function and specify where our quantitative
 columns are. The latter is done by passing either a numeric or character vector
-to an argument called `quantCols` ( `ecols` in previous package versions). 
+to an argument called `quantCols` (`ecols` in previous package versions). 
 Of note, the `readQFeatures` function can also take `fnames` as an argument to
 specify a column to be used as the row names of the imported
 object. Whilst previous `QFeatures` vignettes used the "Sequence" or 
@@ -408,7 +406,7 @@ cp_qf[["psms_raw"]] %>%
   summarise(mean_intensity = mean(Intensity))
 ```
 
-To ensure that quantitative data has been correctly imported in as a numeric
+To ensure that quantitative data has been correctly imported as a numeric
 variable, we can look at the `assay` slot.
 
 ```{r}
@@ -497,10 +495,10 @@ original_psms <- cp_qf[["psms_raw"]] %>%
 
 We can see that the original data includes `r nrow(cp_qf[["psms_raw"]])` PSMs
 across the 6 samples. It is also useful to make note of how many peptides and
-proteins the raw PSM data corresponds to, and to track how many we remove during 
+protein groups the raw PSM data corresponds to, and to track how many we remove during 
 the subsequent filtering steps. This can be done by checking how many unique entries
 are located within the "Sequence" and "Master.Protein.Accessions" for peptides
-and proteins, respectively. Of note, searching for unique peptide sequences means
+and protein groups, respectively. Of note, searching for unique peptide sequences means
 that the number of peptides does not include duplicated sequences with different
 modifications.
 
@@ -528,10 +526,10 @@ print(c(original_peps, original_prots))
 Hence, the output of the identification search contains 
 `r format(original_psms, scientific = FALSE)` PSMs corresponding to 
 `r format(original_peps, scientific = FALSE)` peptide sequences and 
-`r format(original_prots, scientific = FALSE)` master proteins. Finally, we
-confirm that the identification search was carried out as expected. For this, we
-print summaries of the key search parameters using the `table` function for
-discrete parameters and `summary` for those which are continuous. This is also
+`r format(original_prots, scientific = FALSE)` master proteins or protein groups.
+Finally, we confirm that the identification search was carried out as expected. 
+For this, we print summaries of the key search parameters using the `table` function 
+for discrete parameters and `summary` for those which are continuous. This is also
 helpful for users who are analyzing publicly available data and have limited
 knowledge about the identification search parameters.
 
@@ -810,8 +808,8 @@ categories, how to progress is ultimately decided by the user.
 Since the use-case data has a sufficiently high TMT labelling efficiency, we
 can continue to use the output of the identification search. This search
 considered TMT labelling of lysines as a static modification whilst N-terminal
-labelling was kept as dynamic, to investigate the presence of protein N-
-terminal modifications.
+labelling was kept as dynamic, to investigate the presence of protein N-terminal 
+modifications.
 
 ```{r table2, echo = FALSE}
 tabl2 <- data.frame(
@@ -870,8 +868,8 @@ determine how many rows, here PSMs, meet the conditions for removal. This is
 achieved by using the `dplyr::count` function. The unwanted rows are removed 
 using the `filterFeatures` function. Since we only wish to apply the filters to 
 the "psms_filtered" level, we specify this by using the `i = ` argument. If this
-argument is not used, `filterFeatures` will remove features from all assays 
-within a `QFeatures` object. 
+argument is not used, `filterFeatures` will remove features from all levels 
+(`SummarizedExperiments`) within a `QFeatures` object. 
 
 
 ### Removing PSMs not matched to a master protein
@@ -924,7 +922,7 @@ Next we remove PSMs corresponding to contaminant proteins. Such proteins can be
 introduced intentionally as reagents during sample preparation, as is the case
 for digestive enzymes, or accidentally, as seen with human keratins derived from
 skin and hair. Since these proteins do not contribute to the biological question
-being asked and it is standard practice to remove them from the data. This is
+being asked it is standard practice to remove them from the data. This is
 done by using a carefully curated, sample-specific contaminant database.
 Critically, the database used for filtering should be the same one that was used
 during the identification search. Whilst it is possible to remove contaminants
@@ -1039,7 +1037,7 @@ cp_qf[["psms_filtered"]] %>%
   table()
 ```
 
-In the above code chunk we see there are no remaining annotations in the
+In the above code chunk we see that there are no remaining annotations in the
 "Quan.Info" column so we can continue.
 
 
@@ -1238,7 +1236,7 @@ confidence = FDR < 5% and low confidence = FDR > 5%.
 In order to use the `filterFeatures` function to remove PSMs corresponding to 
 proteins which do not pass our FDR threshold (1%), we first need to add this
 annotation to the `rowData` of our `"psms_filtered"` experiment. To do this, we 
-first extract the master protein accessions from our PSM-level data. Next, we 
+extract the master protein accessions from our PSM-level data. Next, we 
 extract these proteins from our protein-level search output along with their
 corresponding confidence ratings. 
 
@@ -1249,7 +1247,7 @@ proteins_in_data <- cp_qf[["psms_filtered"]] %>%
   as_tibble() %>%
   select(Master.Protein.Accessions)
 
-## Extract protein accessions and corresponding confidence from search output file
+## Extract protein accessions and confidence from search output file
 protein_search_output <- protein_cp %>%
   select(Accession, Protein.FDR.Confidence.Combined)
 ```
@@ -1286,7 +1284,7 @@ cp_qf <- cp_qf %>%
 
 Now that we have finished the non-specific data cleaning, we can pause and check 
 to see what this has done to the data. We determine the number and proportion of
-PSMs, peptides, and proteins lost from the original dataset.
+PSMs, peptides, and protein groups lost from the original dataset.
 
 ```{r tmt_filtering_summary_1}
 ## Determine number and proportion of PSMs removed
@@ -1328,8 +1326,8 @@ prots_removed_prop <- ((prots_removed / original_prots) * 100) %>%
 ```{r tmt_filtering_summary_2}
 ## Print as a table
 data.frame("Feature" = c("PSMs",
-                         "Peptides",
-                         "Proteins"),
+                         "Peptides (stripped)",
+                         "Protein groups"),
            "Number lost" = c(psms_removed,
                              peps_removed,
                              prots_removed),
@@ -1563,7 +1561,7 @@ cp_qf <- cp_qf %>%
 ### Assessing the impact of data-specific filtering
 
 As we did after the non-specific cleaning steps, we check to see how many PSMs,
-peptides and proteins have been removed throughout the in-depth data-specific
+peptides and protein groups have been removed throughout the in-depth data-specific
 filtering.
 
 ```{r tmt_filtering_summary_3}
@@ -1766,7 +1764,8 @@ probable values. Since imputation requires complex assumptions and can have
 substantial effects on downstream statistical analysis, we here choose to skip
 imputation. This is reasonable given that we only have 3 missing values at the
 PSM-level, and that some of these will likely be removed by aggregation. A more
-in-depth discussion of imputation will be provided below in the workflow.
+in-depth discussion of imputation will be provided below in the label-free
+workflow.
 
 
 ## Summary of PSM data cleaning
@@ -1857,7 +1856,7 @@ For the aggregation itself we use the `aggregateFeatures` function and provide
 the base level from which we wish to aggregate, the log PSM-level data in this
 case. We also tell the function which column to aggregate which is specified by
 the `fcol` argument. We will first aggregate from PSM to peptide to create
-explicit `QFeatures` links. This means grouping by PSM "Sequence".
+explicit `QFeatures` links. This means grouping PSMs by "Sequence".
 
 As well as grouping PSMs according to their peptide sequence, the quantitative
 values for each PSM must be aggregated into a single peptide-level value. The
@@ -1972,8 +1971,8 @@ proteins remaining within the data.
 
 After transforming the data, we normalize the protein-level abundances.
 Normalization is a process of correction whereby quantitative data is returned
-to its original, or 'normal', state. In expression proteomics, the aim of post-
-acquisition data normalization is to minimize the biases that arises due to
+to its original, or 'normal', state. In expression proteomics, the aim of 
+post-acquisition data normalization is to minimize the biases that arises due to
 experimental error and technological variation. Specifically, the removal of
 random variation and batch effects will allow samples to be aligned prior to
 downstream analysis. Importantly, however, users must also be aware of any
@@ -1989,20 +1988,19 @@ By contrast, mean normalization is a method to be avoided since the mean is very
 sensitive to outliers and we often have such outliers in proteomics data.
 Similarly, quantile normalization is not recommended for quantitative proteomics 
 data due to complications imposed by the presence of missing values. For users
-wishing to explore and compare normalization methods, the [`NormalyzerDE`](https://www.bioconductor.org/packages/release/bioc/html/NormalyzerDE.html),
+wishing to explore and compare normalization methods, the [`NormalyzerDE`](https://www.bioconductor.org/packages/release/bioc/html/NormalyzerDE.html)
 package within Bioconductor can be used [@Willforss2018]. 
 
 Here, we will demonstrate the use of a center median normalization approach using 
-the `normalize` function within `QFeatures`.we will apply a center median
-approach. To do this, we pass the log transformed protein-level data to the
-`normalize` function in `QFeatures`. We specify the method of normalization that 
-we wish to apply i.e. `method = "center.median"` and name the new data level
-e.g. `name = "log_norm_proteins"`. Of note, for users who wish to apply VSN 
-normalization the raw protein data must be passed (prior to any log transformation)
-as the log transformation is done internally when specify `method = "vsn"`. All 
-other methods require users to explicitly perform log transformation on their
-data before use. More details can be found in the `QFeatures` documentation,
-please type `help("normalize,QFeatures-method")`.
+the `normalize` function within `QFeatures`. To do this, we pass the log transformed
+protein-level data to the `normalize` function in `QFeatures`. We specify the
+method of normalization that we wish to apply i.e. `method = "center.median"` and 
+name the new data level e.g., `name = "log_norm_proteins"`. Of note, for users who
+wish to apply VSN normalization the raw protein data must be passed (prior to any
+log transformation) as the log transformation is done internally when specify
+`method = "vsn"`. All other methods require users to explicitly perform log 
+transformation on their data before use. More details can be found in the
+`QFeatures` documentation, please type `help("normalize,QFeatures-method")`.
 
 ```{r tmt_normalization_1}
 ## normalize the log transformed peptide data
@@ -2075,7 +2073,7 @@ When doing this we get an idea of where the majority of the intensities lie. If,
 for example, all samples come from the same cells and our treatment/conditions
 don’t cause massive changes to the proteome, we expect the distributions of the 
 intensities to be roughly the same. Above, we see that the raw data before 
-normalization (left), log2 normalized (middle) and post normalization (right). 
+normalization (left), log2 transformed (middle) and post-normalization (right). 
 In the first two plots the curves/peaks are at different locations but after
 normalization (right) we see that we have shifted the curves according to their
 median and all peaks of samples are now overlapping.
@@ -2129,7 +2127,7 @@ and quantitation. We also see that the original data prior to processing contain
 
 Further, we can visualize the process of aggregation that has led to the protein-
 level abundance data for Q01581, as demonstrated below. Of note, this plot shows 
-the protein data prior to transformation.
+the protein data prior to normalization.
 
 ```{r qfeatures_links_plots, message = FALSE, warning = FALSE, out.width = '80%', fig.align = 'center'}
 ## Define conditions
@@ -2227,7 +2225,8 @@ workflow for a more in-depth explanation of any shared steps.
 As was the case for TMT labelled cell pellets, raw LFQ data from supernatant
 samples was searched using Proteome Discoverer 2.5. The workflows for this
 identification search are provided in the supplementary materials with an additional
-explanation of key parameters in the appendix. To begin processing LFQ data, 
+explanation of key parameters in the appendix along with details about how to 
+use this workflow with MaxQuant data. To begin processing LFQ data, 
 users should export a peptide-level `.txt` file from the results of their 
 identification search.
 
@@ -2242,9 +2241,8 @@ samples even without a corresponding PSM, simply by sharing feature information
 across runs.
 
 ### Importing data into a QFeatures object
-We locate the PeptideGroups `.txt` file and upload this into a `data.frame`
-container in the same way as before. Since the samples are already stored in the
-correct order, we simply identify the quantitative columns by their indices.
+We locate the PeptideGroups `.txt` file and import this into a `data.frame`
+container in the same way as before. 
 
 ```{r lfq_data_import_1, message = FALSE}
 ## Locate the PeptideGroups .txt file
@@ -2299,7 +2297,7 @@ sn_qf[["peptides_raw"]] %>%
   colnames()
 ```
 
-We also determine the number of PSMs, peptides and proteins represented within
+We also determine the number of PSMs, peptides and protein groups represented within
 the initial data. Since identical peptide sequences with different modifications
 are stored as separate entities, the output of `dim` will not tell us the number
 of peptides. Instead, we need to consider only unique peptide sequence entries,
@@ -2339,10 +2337,10 @@ original_prots
 
 Thus, the search identified `r format(original_psms, scientific = FALSE)` PSMs
 corresponding to `r format(original_peps, scientific = FALSE)` peptides and 
-`r original_prots` proteins. Finally, we take a look at some of the key
-parameters applied during the identification search. This is an important
-verification step, particularly for those using publicly available data with
-limited access to parameter settings.
+`r original_prots` master proteins or protein groups. Finally, we take a look at
+some of the key parameters applied during the identification search. This is an 
+important verification step, particularly for those using publicly available
+data with limited access to parameter settings.
 
 ```{r lfq_missed_cleavages}
 ## Check missed cleavages
@@ -2444,7 +2442,7 @@ contaminant
 4. (Optional) Removal of features which are not unique to a protein group
 5. Removal of features not allocated rank 1 during the identification search
 6. Removal of features not annotated as unambiguous
-7. Control of FDR to 1% protein-level FDR
+7. Control of FDR to 1% protein-level FDR (or 5% for more exploratory analyses)
 
 In addition to these standard steps, LFQ data should be filtered to remove
 peptides that were not quantified based on a monoisotopic peak. The monoisotopic
@@ -2515,7 +2513,7 @@ sn_qf[["peptides_filtered"]] %>%
 ```
 
 Again, we need to import the protein-level data in order to complete FDR filtering
-at the highest possible level.
+at the highest possible level. See above for more details.
 
 ```{r}
 protein_sn <- read.delim(file = "supernatant_lfq_results_proteins.txt")
@@ -2529,24 +2527,13 @@ proteins_in_data <- sn_qf[["peptides_filtered"]] %>%
 ## Extract protein accessions and corresponding confidence from search output file
 protein_search_output <- protein_sn %>%
   select(Accession, Protein.FDR.Confidence.Combined)
-```
 
-Now we can use the `left_join` function to merge these two datasets.
-
-```{r}
 ## Combine data
 protein_fdr <- left_join(x = proteins_in_data, 
                          y = protein_search_output, 
                          by = c("Master.Protein.Accessions" = "Accession"))
 
-protein_fdr %>%
-  head()
-```
 
-Finally, we add the annotations from our `"Protein.FDR.Confidence.Combined"`
-column to the `rowData` of our `"psms_filtered"` experiment.
-
-```{r}
 rowData(sn_qf[["peptides_filtered"]])$Protein.Confidence <- protein_fdr$Protein.FDR.Confidence.Combined
 ```
 
@@ -2563,7 +2550,7 @@ sn_qf <- sn_qf %>%
 
 As in the previous example, we assess the impact that cleaning has had on the
 data. Specifically, we determine the number and proportion of PSMs, peptides and
-proteins lost. Again, when we refer to the number of peptides we only consider
+protein groups lost. Again, when we refer to the number of peptides we only consider
 unique peptide sequences, not those that differ in their modifications.
 
 ```{r lfq_filtering_summary}
@@ -2708,11 +2695,11 @@ these NA values will likely be propagated upward during aggregation. Whilst NA
 values were traditionally problematic during the application of downstream
 statistical methods, there are now a number of algorithms that allow statistics
 to be completed on data containing missing values. For example, the 
-(`MSqRob2`)[https://www.bioconductor.org/packages/release/bioc/html/msqrob2.html] 
-[@Sticker2020, @Goeminne2020; @Goeminne2016] package facilitates statistical
+[`MSqRob2`](https://www.bioconductor.org/packages/release/bioc/html/msqrob2.html) 
+[@Sticker2020; @Goeminne2020; @Goeminne2016] package facilitates statistical
 differential expression analysis on datasets without the need for imputation and
 functions within the `QFeatures` infrastructure. Nevertheless, for the purpose of
-demonstration, we here choose to impute the raw intensity data. 
+demonstration, we here impute the raw intensity data. 
 
 As eluded to above, the most appropriate method to determine such probable
 values is dependent upon why the value is missing, that is whether it is MCAR or
@@ -3049,10 +3036,6 @@ supernatant protein list. Users are reminded that although referred to as
 differential 'expression' analysis, abundance is determined by both protein
 synthesis and degradation.
 
-Given that there are a number of Bioconductor packages available for each of the
-remaining steps (statistical analysis and interpretation), users are prompted to
-install packages at the where required, at the beginning of each step.
-
 
 ## Extracting and organising protein-level data
 
@@ -3063,7 +3046,7 @@ assigning these conditions to each sample, we can define the control group as th
 reference level such that differential abundance is reported relative to the
 control. This means that when we get the results of the statistical analysis,
 'upregulated' will refer to increased abundance in treated cells relative to
-control controls.
+controls.
 
 ```{r extract_tmt_protein_data}
 ## Extract protein-level data and associated colData
@@ -3282,7 +3265,7 @@ former, users are advised to plot raw p-values rather than their derivative
 BH-adjusted p-values. Point colours can be used to indicate significance based
 on BH- adjusted p-values, as is shown in the code chunk below.
 
-```{r volcano_plot, out.height = '40%', fig.align = 'center'}
+```{r volcano_plot, out.height = '40%', fig.align = 'center', warning = FALSE}
 ## Generate a volcano plot
 limma_results %>%
   ggplot(aes(x = logFC, y = -log10(P.Value))) +
@@ -3301,12 +3284,12 @@ limma_results %>%
         panel.background = element_rect(fill = "white"),
         axis.line = element_line(linewidth = 0.5, colour = "black"),
         plot.margin = margin(10, 10, 10, 10),
-        legend.position = c(0.25, 0.9)) +
+        legend.position.inside = c(0.25, 0.9)) +
   labs(x = "log2(FC)", y = "-log10(p-value)") +
   xlim(-3.1, 3.1)
 ```
 
-```{r MA_plot,  out.height = '40%', fig.align = 'center'}
+```{r MA_plot,  out.height = '40%', fig.align = 'center', warning = FALSE}
 ## Generate MA plot
 limma_results %>%
   ggplot(aes(x = AveExpr, y = logFC)) +
@@ -3325,7 +3308,7 @@ limma_results %>%
         panel.background = element_rect(fill = "white"),
         axis.line = element_line(linewidth = 0.5, colour = "black"),
         plot.margin = margin(10, 10, 10, 10),
-        legend.position = c(0.25, 0.9)) +
+        legend.position.inside = c(0.25, 0.9)) +
   xlab("log2(mean abundance)") +
   ylab("log2(FC)") +
   xlim(-5, 3.5)
