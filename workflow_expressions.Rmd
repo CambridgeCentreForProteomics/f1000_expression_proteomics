@@ -94,7 +94,7 @@ Here, we provide a step-by-step workflow for processing, analysing and
 interpreting expression proteomics data derived from a bottom-up experiment
 using DDA and either LFQ or TMT label-based peptide quantitation. We outline how
 to process the data starting from a peptide spectrum match (PSM)- or peptide-level
-`.txt` file. Such files are the outputs of most major third party search
+`.txt` file. Such files are the outputs of most major third-party search
 software (e.g., Proteome Discoverer, MaxQuant, FragPipe). We begin with data 
 import and then guide users through the stages of data processing including data 
 cleaning, quality control filtering, management of missing values, imputation,
@@ -215,7 +215,7 @@ The cell pellet and supernatant datasets were handled independently and we take
 advantage of this to discuss the processing of TMT-labelled and LFQ proteomics 
 data. In both cases, the raw MS data were processed using Proteome Discoverer
 v2.5 (Thermo Fisher Scientific). As a result, this workflow uses the specific 
-columns and files output by Proteome Discoverer. Nevertheless, most third party
+columns and files output by Proteome Discoverer. Nevertheless, most third-party
 software output similar data structures and this workflow can be adapted. As an
 example, information on how to adapt this workflow for data processed by MaxQuant
 is provided in the [appendix](https://github.com/CambridgeCentreForProteomics/f1000_expression_proteomics).
@@ -272,7 +272,7 @@ object before aggregating upward towards protein-level (Figure
 the hierarchical links between quantitative levels whilst allowing easy access
 to all data levels for individual proteins of interest. This key aspect of
 `QFeatures` will be exemplified throughout this workflow. Additional guidance on
-the use of `QFeatures` can be found in [@QFeat]. For visualization of the data,
+the use of `QFeatures` can be found in [@QFeat]. For visualisation of the data,
 all plots are generated using standard `ggplot` functionality, but could equally
 be produced using base R.
 
@@ -333,7 +333,7 @@ Proteome Discoverer output.
 Data cleaning, exploration and filtering at the PSM-level is performed in R
 using `QFeatures`. First, data is imported from our PSM-level `.txt` file into a 
 `data.frame` using the base R `read.delim` function (the equivalent for `.csv` 
-files would be `read.csv`). This file should be stored within the users working
+files would be `read.csv`). This file should be stored within the user's working
 directory. Next, we use the `names` function to inspect the column names and 
 identify which columns contain quantitative data. 
 
@@ -586,7 +586,7 @@ the mass spectrometry run but are far from extensive. Users who wish to carry
 out a more in-depth evaluation of the raw mass spectrometry data may benefit
 from use of the 
 [`Spectra` Bioconductor package](https://bioconductor.org/packages/release/bioc/html/Spectra.html) 
-which allows for visualization and exploration of raw chromatograms and spectra,
+which allows for visualisation and exploration of raw chromatograms and spectra,
 among other features [@Rainer2022].
 
 The first plot we generate looks at the delta precursor mass, that is the
@@ -686,7 +686,7 @@ The most fundamental data quality control step in a TMT experiment is to check
 the TMT labelling efficiency. TMT labels react with amine groups present at the 
 peptide N-terminus as well as the side chain of lysine (K) residues. Of note,
 lysine residues can be TMT modified regardless of whether they are present at the 
-C-terminus of a trypic peptide or internally following miscleavage.
+C-terminus of a tryptic peptide or internally following miscleavage.
 
 To evaluate the TMT labelling efficiency, a separate identification search of the
 raw data was completed with lysine (K) and peptide N-termini TMT labels
@@ -861,7 +861,7 @@ filtering.
 
 The cleaning steps included in this section are non-specific and should be applied
 to all quantitative proteomics datasets. The names of key parameters will vary in
-data outputs from alternative third party software, however, and users should 
+data outputs from alternative third-party software, however, and users should 
 remain aware of both terminology changes over time as well as the introduction
 of new filters. All data cleaning steps are completed in the same way. We first 
 determine how many rows, here PSMs, meet the conditions for removal. This is 
@@ -984,7 +984,7 @@ At this point, users can also remove any additional proteins which may not have
 been included in the contaminant database. For example, users may wish to remove
 human trypsin (accession P35050) should it appear in their data.
 
-Several third party software also have the option to directly annotate which 
+Several third-party software also have the option to directly annotate which 
 fasta file (here, the human proteome or contaminant database) a PSM is derived 
 from. In such cases, filtering can be simplified by removing PSMs annotated as
 contaminants in the output file.
@@ -1367,7 +1367,7 @@ ratio can be used to filter out quantification based on too few ions.
 
 To determine an appropriate reporter ion S/N threshold we need to understand the
 original, unfiltered data. Here, we print a `summary` of the average reporter
-S/N before plotting a simple histogram to visualize the data. The default
+S/N before plotting a simple histogram to visualise the data. The default
 threshold for average reporter ion S/N when filtering within Proteome Discoverer
 is 10, or 1 on the base-10 logarithmic scale displayed here. We include a line 
 to show where this threshold would be on the data distribution.
@@ -1441,7 +1441,7 @@ isolation interference value. As was the case for reporter ion S/N, Proteome
 Discoverer has a suggested default threshold for isolation interference - 50%
 for MS2 experiments and 75% for SPS-MS3 experiments.
 
-Again, we get a `summary` and visualize the data using the code chunk below.
+Again, we get a `summary` and visualise the data using the code chunk below.
 
 ```{r tmt_coisolation_1}
 ## Get summary information
@@ -1500,7 +1500,7 @@ fragments that can still be explicitly traced back to the precursor peptide.
 This parameter is of particular importance given that quantitation is based on
 the SPS-MS3 spectra. Unfortunately, the SPS Mass Match percentage is currently
 only a feature of Proteome Discoverer (2.3 and above) and will not be available
-to users of other third party software.
+to users of other third-party software.
 
 We follow the same format as before to investigate the SPS Mass Match (%)
 distribution of the data. The default threshold within Proteome Discoverer is a
@@ -1565,7 +1565,7 @@ peptides and protein groups have been removed throughout the in-depth data-speci
 filtering.
 
 ```{r tmt_filtering_summary_3}
-## Summarize the effect of data-specific filtering
+## Summarise the effect of data-specific filtering
 
 ## Determine the number and proportion of PSMs removed
 psms_remaining_2 <- cp_qf[["psms_filtered"]] %>%
@@ -1670,7 +1670,7 @@ cp_qf[["psms_filtered"]] %>%
   nNA()
 ```
 
-We can see that the proportion of missing values in our data is only `r format(nNA(cp_qf[["psms_filtered"]])$nNA$pNA, digits = 1)`, corresponding to `r nNA(cp_qf[["psms_filtered"]])$nNA$nNA` NA values. This low proportion is due to a
+We can see that the proportion of missing values in our data is only `r format(nNA(cp_qf[["psms_filtered"]])$nNA$pNA, digits = 1, scientific = FALSE)`, corresponding to `r nNA(cp_qf[["psms_filtered"]])$nNA$nNA` NA values. This low proportion is due to a
 combination of the TMT labelling strategy and the stringent PSM quality control
 filtering. In particular, co-isolation interference when using TMT labels often 
 results in very low quantification values for peptides which should actually be
@@ -1680,12 +1680,12 @@ instead of proportion as this is easier to visualise. We also use colour to
 indicate the condition of each sample as to check for condition-specific bias.
 
 ```{r tmt_missing_data_2, out.height = '40%', fig.align = 'center'}
-## Plot histogram to visualize the distribution of NAs
+## Plot histogram to visualise the distribution of NAs
 nNA(cp_qf[["psms_filtered"]])$nNAcols %>%
   as_tibble() %>%
   mutate(Condition = c("Control", "Treated", "Treated",
                        "Control", "Control", "Treated")) %>%
-  ggplot(aes(x = name, y = (pNA * 100 ), group = Condition, fill = Condition)) +
+  ggplot(aes(x = name, y = (pNA * 100), group = Condition, fill = Condition)) +
   geom_bar(stat = "identity", position = "dodge") +
   labs(x = "Sample", y = "Missing values (%)") +
   theme_bw()
@@ -1967,42 +1967,42 @@ Following aggregation, we have a total of `r nrow(cp_qf[["log_proteins"]])`
 proteins remaining within the data.
 
 
-## Normalization of quantitative data
+## normalisation of quantitative data
 
 After transforming the data, we normalize the protein-level abundances.
-Normalization is a process of correction whereby quantitative data is returned
+normalisation is a process of correction whereby quantitative data is returned
 to its original, or 'normal', state. In expression proteomics, the aim of 
-post-acquisition data normalization is to minimize the biases that arises due to
+post-acquisition data normalisation is to minimize the biases that arises due to
 experimental error and technological variation. Specifically, the removal of
 random variation and batch effects will allow samples to be aligned prior to
 downstream analysis. Importantly, however, users must also be aware of any
-normalization that has taken place within their sample preparation, as this will
+normalisation that has taken place within their sample preparation, as this will
 ultimately influence the presence of differentially abundant proteins
-downstream. An extensive review on normalization strategies, both experimental
+downstream. An extensive review on normalisation strategies, both experimental
 and computational, is provided in [@ORourke2019].
 
-Unfortunately, there is not currently a single normalization method which
+Unfortunately, there is not currently a single normalisation method which
 performs best for all quantitative proteomics datasets. That said, the median 
 (or median-based methods) are a good choice for most quantitative proteomics data. 
-By contrast, mean normalization is a method to be avoided since the mean is very
+By contrast, mean normalisation is a method to be avoided since the mean is very
 sensitive to outliers and we often have such outliers in proteomics data.
-Similarly, quantile normalization is not recommended for quantitative proteomics 
+Similarly, quantile normalisation is not recommended for quantitative proteomics 
 data due to complications imposed by the presence of missing values. For users
-wishing to explore and compare normalization methods, the [`NormalyzerDE`](https://www.bioconductor.org/packages/release/bioc/html/NormalyzerDE.html)
+wishing to explore and compare normalisation methods, the [`NormalyzerDE`](https://www.bioconductor.org/packages/release/bioc/html/NormalyzerDE.html)
 package within Bioconductor can be used [@Willforss2018]. 
 
-Here, we will demonstrate the use of a center median normalization approach using 
+Here, we will demonstrate the use of a center median normalisation approach using 
 the `normalize` function within `QFeatures`. To do this, we pass the log transformed
 protein-level data to the `normalize` function in `QFeatures`. We specify the
-method of normalization that we wish to apply i.e. `method = "center.median"` and 
+method of normalisation that we wish to apply i.e. `method = "center.median"` and 
 name the new data level e.g., `name = "log_norm_proteins"`. Of note, for users who
-wish to apply VSN normalization the raw protein data must be passed (prior to any
+wish to apply VSN normalisation the raw protein data must be passed (prior to any
 log transformation) as the log transformation is done internally when specify
 `method = "vsn"`. All other methods require users to explicitly perform log 
 transformation on their data before use. More details can be found in the
 `QFeatures` documentation, please type `help("normalize,QFeatures-method")`.
 
-```{r tmt_normalization_1}
+```{r tmt_normalisation_1}
 ## normalize the log transformed peptide data
 cp_qf <- normalize(cp_qf,
                    i = "log_proteins",
@@ -2013,10 +2013,10 @@ cp_qf <- normalize(cp_qf,
 cp_qf
 ```
 
-To evaluate the effect of normalization we plot a simple boxplot.
+To evaluate the effect of normalisation we plot a simple boxplot.
 
-```{r tmt_normalization_2, out.height = '40%', fig.align = 'center'}
-## Evaluate the effect of data normalization
+```{r tmt_normalisation_2, out.height = '40%', fig.align = 'center'}
+## Evaluate the effect of data normalisation
 pre_norm <- cp_qf[["log_proteins"]] %>%
   assay() %>%
   longFormat() %>%
@@ -2025,7 +2025,7 @@ pre_norm <- cp_qf[["log_proteins"]] %>%
          colname = factor(colname, levels = paste0("S", 1:6))) %>%
   ggplot(aes(x = colname, y = value, fill = Condition)) +
   geom_boxplot() +
-  labs(x = "Sample", y = "log2(abundance)", title = "Pre-normalization") +
+  labs(x = "Sample", y = "log2(abundance)", title = "Pre-normalisation") +
   theme_bw()
 
 post_norm <- cp_qf[["log_norm_proteins"]] %>%
@@ -2036,19 +2036,19 @@ post_norm <- cp_qf[["log_norm_proteins"]] %>%
          colname = factor(colname, levels = paste0("S", 1:6))) %>%
   ggplot(aes(x = colname, y = value, fill = Condition)) +
   geom_boxplot() +
-  labs(x = "Sample", y = "log2(abundance)", title = "Post-normalization") +
+  labs(x = "Sample", y = "log2(abundance)", title = "Post-normalisation") +
   theme_bw()
 
 (pre_norm + theme(legend.position = "none")) + 
   post_norm & plot_layout(guides = "collect")
 ```
 
-We can now generate a density plot to help us visualize what the process of log
-transformation and normalization has done to the data. This is done using the
+We can now generate a density plot to help us visualise what the process of log
+transformation and normalisation has done to the data. This is done using the
 `plotDensities` function from the `limma` package.
 
 ```{r tmt_transformations, out.width = '90%', fig.align = 'center'}
-## visualize the process of log transformation and normalization
+## visualise the process of log transformation and normalisation
 par(mfrow = c(1, 3))
 
 cp_qf[["psms_filtered"]] %>%
@@ -2073,9 +2073,9 @@ When doing this we get an idea of where the majority of the intensities lie. If,
 for example, all samples come from the same cells and our treatment/conditions
 don’t cause massive changes to the proteome, we expect the distributions of the 
 intensities to be roughly the same. Above, we see that the raw data before 
-normalization (left), log2 transformed (middle) and post-normalization (right). 
+normalisation (left), log2 transformed (middle) and post-normalisation (right). 
 In the first two plots the curves/peaks are at different locations but after
-normalization (right) we see that we have shifted the curves according to their
+normalisation (right) we see that we have shifted the curves according to their
 median and all peaks of samples are now overlapping.
 
 
@@ -2125,9 +2125,9 @@ peptides and `r nrow(Q01581[["psms_filtered"]])` PSMs supporting its identificat
 and quantitation. We also see that the original data prior to processing contained
 `r nrow(Q01581[["psms_raw"]])` PSMs in support of this protein.
 
-Further, we can visualize the process of aggregation that has led to the protein-
-level abundance data for Q01581, as demonstrated below. Of note, this plot shows 
-the protein data prior to normalization.
+Further, we can visualise the process of aggregation that has led to the protein-level 
+abundance data for Q01581, as demonstrated below. Of note, this plot shows 
+the protein data prior to normalisation.
 
 ```{r qfeatures_links_plots, message = FALSE, warning = FALSE, out.width = '80%', fig.align = 'center'}
 ## Define conditions
@@ -2537,7 +2537,7 @@ protein_fdr <- left_join(x = proteins_in_data,
 rowData(sn_qf[["peptides_filtered"]])$Protein.Confidence <- protein_fdr$Protein.FDR.Confidence.Combined
 ```
 
-We can now use `filterFeatures` to remove PSMs corresponding to low or medium
+We can now use `filterFeatures` to remove peptides corresponding to low or medium
 confidence master proteins.
 
 ```{r}
@@ -2645,12 +2645,12 @@ sn_qf[["peptides_filtered"]] %>%
 As expected, the LFQ data contains a higher proportion of missing values as
 compared to the TMT-labelled data. There are `r nNA(sn_qf[["peptides_filtered"]])$nNA$nNA`
 missing (NA) values within the data, which corresponds to
-`r format(nNA(sn_qf[["peptides_filtered"]])$nNA$pNA, digits = 1)` of the data.
+`r format(nNA(sn_qf[["peptides_filtered"]])$nNA$pNA, digits = 2)` of the data.
 We check for sample- and condition- specific biases in the distribution of these 
 NA values, again plotting percentage (proportion multiplied by 100). 
 
 ```{r lfq_missing_data_2, out.height = '40%', fig.align = 'center'}
-## Plot histogram to visualize sample-specific distribution of NAs
+## Plot histogram to visualise sample-specific distribution of NAs
 nNA(sn_qf[["peptides_filtered"]])$nNAcols %>%
   as_tibble() %>%
   mutate(Condition = rep(c("Treated", "Control"), each = 3)) %>%
@@ -2741,7 +2741,7 @@ not dramatically changed. To do so we create a density plot of the data pre- and
 post-imputation.
 
 ```{r lfq_imputation_4, out.width = '80%', fig.align = 'center'}
-## visualize the impact of imputation
+## visualise the impact of imputation
 par(mfrow = c(1, 2))
 
 sn_qf[["peptides_filtered"]] %>%
@@ -2827,13 +2827,13 @@ sn_qf <- aggregateFeatures(sn_qf,
 sn_qf
 ```
 
-## Normalization of quantitative data
+## normalisation of quantitative data
 
 Finally, we complete the data processing by normalizing quantitation between
 samples. This is done using the `"center.median"` method via the `normalize`
 function.
 
-```{r lfq_normalization}
+```{r lfq_normalisation}
 ## normalize protein-level quantitation data
 sn_qf <- normalize(sn_qf,
                    i = "log_proteins",
@@ -2889,7 +2889,7 @@ corr_matrix <- cor(prot_df,
 print(corr_matrix)
 ```
 
-Now we can visualize the correlation data using pairwise scatter plots and a
+Now we can visualise the correlation data using pairwise scatter plots and a
 correlation heat map.
 
 ```{r correlation_plot_2, out.height = '30%', fig.align = 'center'}
@@ -2951,7 +2951,7 @@ regarding how to determine the calculation of experimental reproducibility.
 ## Principal Component Analysis
 
 Principal Component Analysis (PCA) is a dimensionality reduction method which
-aims to simplify complex datasets and facilitate the visualization of
+aims to simplify complex datasets and facilitate the visualisation of
 multi-dimensional data. Here we use the `prcomp` function from the
 [`stats`](https://stat.ethz.ch/R-manual/R-devel/library/stats/html/00Index.html)
 package to perform the PCA. Since PCA does not accept missing values and we did
@@ -2977,7 +2977,7 @@ on the results of the PCA.
 summary(prot_pca)
 ```
 
-Finally, we create a PCA plot. For additional PCA exploration and visualization 
+Finally, we create a PCA plot. For additional PCA exploration and visualisation 
 tools users are directed to the [`factoextra` package](https://cran.r-project.org/web/packages/factoextra/index.html).
 
 ```{r protein_pca_plot, out.height = '40%', fig.align = 'center'}
@@ -3131,7 +3131,7 @@ Having applied the model to the data, we need to verify that this model was
 appropriate and that the statistical assumptions were met. To do this we first
 generate an SA plot using the `plotSA` function within `limma`. An SA plot shows
 the log2 residual standard deviation (sigma) against log average abundance and
-is a simple way to visualize the trend that has been fitted to the data.
+is a simple way to visualise the trend that has been fitted to the data.
 
 ```{r plotSA, out.height = '30%', fig.align = 'center'}
 ## Plot residual SD against average log abundance
@@ -3259,7 +3259,7 @@ length(sig_proteins$Protein)
 
 ## Visualizing differentially abundant proteins
 Before looking deeper into which proteins have differential abundance, we first
-create some simple plots to visualize the results. Volcano plots and MA plots
+create some simple plots to visualise the results. Volcano plots and MA plots
 are two of the common visualisations used in this instance. When plotting the
 former, users are advised to plot raw p-values rather than their derivative
 BH-adjusted p-values. Point colours can be used to indicate significance based
@@ -3414,7 +3414,7 @@ The downregulated proteins contain `r nrow(ego_down)` significantly enriched GO
 terms. There are many ways in which users can represent these results visually.
 Here, we create a barplot using the `barplot` function from the [`enrichplot` package](https://bioconductor.org/packages/release/bioc/html/enrichplot.html) 
 [@enrichplot]. Users are directed to the vignette of the `enrichplot` package 
-for additional visualization options and guidance. We plot the first 10 GO terms
+for additional visualisation options and guidance. We plot the first 10 GO terms
 i.e. the 10 GO terms with the greatest enrichment.
 
 ```{r GO_enrichment_plot, out.height = '40%', fig.align = 'center'}
@@ -3492,7 +3492,7 @@ user-friendly pipeline for both new and experienced proteomics data analysts.
 
 The workflows provided involve use of functions from many different
 R/Bioconductor packages. The `sessionInfo` function provides an easy way to
-summarize all packages and the corresponding versions used to generate this
+summarise all packages and the corresponding versions used to generate this
 document. Should software updates lead to the generation of errors or different
 results to those demonstrated here, such changes should be easily traced.
 
