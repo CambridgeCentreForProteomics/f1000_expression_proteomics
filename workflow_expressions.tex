@@ -102,10 +102,11 @@ limma},
 
 \begin{abstract}
 \hfill\break
+\textbf{Background:} Expression proteomics involves the global evaluation of protein
 abundances within a system. In turn, differential expression analysis can be
 used to investigate changes in protein abundance upon perturbation to such a
-system.
-
+system.\\
+\textbf{Methods:} Here, we provide a workflow for the processing, analysis and
 interpretation of quantitative mass spectrometry-based expression proteomics
 data. This workflow utilizes open-source R software packages from the
 Bioconductor project and guides users end-to-end and step-by-step through every
@@ -113,20 +114,16 @@ stage of the analyses. As a use-case we generated expression proteomics data
 from HEK293 cells with and without a treatment. Of note, the experiment included
 cellular proteins labelled using tandem mass tag (TMT) technology and secreted
 proteins quantified using label-free quantitation (LFQ).
-
+\textbf{Results:} The workflow explains the software infrastructure before focusing
 on data import, pre-processing and quality control. This is done individually
 for TMT and LFQ datasets. The application of statistical differential
 expression analysis is demonstrated, followed by interpretation via gene
-ontology enrichment analysis.
-
+ontology enrichment analysis.\\
+\textbf{Conclusions:} A comprehensive workflow for the processing, analysis and
 interpretation of expression proteomics is presented. The workflow is a
 valuable resource for the proteomics community and specifically beginners who
 are at least familiar with R who wish to understand and make data-driven
 decisions with regards to their analyses.
-\textbf{Background:} Expression proteomics involves the global evaluation of protein
-\textbf{Methods:} Here, we provide a workflow for the processing, analysis and
-\textbf{Results:} The workflow explains the software infrastructure before focusing
-\textbf{Conclusions:} A comprehensive workflow for the processing, analysis and
 \end{abstract}
 
 \section*{Keywords}
@@ -183,7 +180,7 @@ Here, we provide a step-by-step workflow for processing, analysing and
 interpreting expression proteomics data derived from a bottom-up experiment
 using DDA and either LFQ or TMT label-based peptide quantitation. We outline how
 to process the data starting from a peptide spectrum match (PSM)- or peptide-level
-\texttt{.txt} file. Such files are the outputs of most major third party search
+\texttt{.txt} file. Such files are the outputs of most major third-party search
 software (e.g., Proteome Discoverer, MaxQuant, FragPipe). We begin with data
 import and then guide users through the stages of data processing including data
 cleaning, quality control filtering, management of missing values, imputation,
@@ -215,8 +212,6 @@ environment (IDE) which provides a graphical interface to
 Detailed instructions for the installation of Bioconductor packages are
 documented on the \href{http://bioconductor.org/install/}{Bioconductor Installation page}.
 The main packages required for this workflow are installed using the code below.
-Additional packages required for downstream statistics and interpretation are
-installed as required.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -307,7 +302,7 @@ The cell pellet and supernatant datasets were handled independently and we take
 advantage of this to discuss the processing of TMT-labelled and LFQ proteomics
 data. In both cases, the raw MS data were processed using Proteome Discoverer
 v2.5 (Thermo Fisher Scientific). As a result, this workflow uses the specific
-columns and files output by Proteome Discoverer. Nevertheless, most third party
+columns and files output by Proteome Discoverer. Nevertheless, most third-party
 software output similar data structures and this workflow can be adapted. As an
 example, information on how to adapt this workflow for data processed by MaxQuant
 is provided in the \href{https://github.com/CambridgeCentreForProteomics/f1000_expression_proteomics}{appendix}.
@@ -367,7 +362,7 @@ object before aggregating upward towards protein-level (Figure
 the hierarchical links between quantitative levels whilst allowing easy access
 to all data levels for individual proteins of interest. This key aspect of
 \texttt{QFeatures} will be exemplified throughout this workflow. Additional guidance on
-the use of \texttt{QFeatures} can be found in \citep{QFeat}. For visualization of the data,
+the use of \texttt{QFeatures} can be found in \citep{QFeat}. For visualisation of the data,
 all plots are generated using standard \texttt{ggplot} functionality, but could equally
 be produced using base R.
 
@@ -425,8 +420,10 @@ their corresponding quantification data.
 The use-case data presented here was processed using Proteome Discoverer 2.5 and
 additional information about this search is provided in the appendix. Further,
 we provide template workflows for both the processing and consensus steps of the
-Proteome Discoverer identification run in the supplementary information. It is
-also possible to determine several of the key parameter settings during the
+Proteome Discoverer identification run in the supplementary information. We also
+provide details on how to adapt this workflow for data processed with MaxQuant in
+the \href{https://github.com/CambridgeCentreForProteomics/f1000_expression_proteomics}{appendix}.
+It is also possible to determine several of the key parameter settings during the
 preliminary data exploration. This step will be particularly important for those
 using publicly available data without detailed knowledge of the identification
 search parameters. For now, we simply export the PSM-level \texttt{.txt} file from the
@@ -439,7 +436,7 @@ Proteome Discoverer output.
 Data cleaning, exploration and filtering at the PSM-level is performed in R
 using \texttt{QFeatures}. First, data is imported from our PSM-level \texttt{.txt} file into a
 \texttt{data.frame} using the base R \texttt{read.delim} function (the equivalent for \texttt{.csv}
-files would be \texttt{read.csv}). This file should be stored within the users working
+files would be \texttt{read.csv}). This file should be stored within the user's working
 directory. Next, we use the \texttt{names} function to inspect the column names and
 identify which columns contain quantitative data.
 
@@ -491,10 +488,11 @@ identify which columns contain quantitative data.
 ## [61] "Percolator.SVMScore"
 \end{verbatim}
 
+We see that our data contains six quantitative columns in positions 49 to 54.
 Now that the quantitative data columns have been identified, we can pass our
 \texttt{data.frame} to the \texttt{readQFeatures} function and specify where our quantitative
 columns are. The latter is done by passing either a numeric or character vector
-to an argument called \texttt{quantCols} ( \texttt{ecols} in previous package versions).
+to an argument called \texttt{quantCols} (\texttt{ecols} in previous package versions).
 Of note, the \texttt{readQFeatures} function can also take \texttt{fnames} as an argument to
 specify a column to be used as the row names of the imported
 object. Whilst previous \texttt{QFeatures} vignettes used the ``Sequence'' or
@@ -604,7 +602,7 @@ it is necessary to convert to a \texttt{data.frame} or \texttt{tibble}.
 ## 1      13281497.
 \end{verbatim}
 
-To ensure that quantitative data has been correctly imported in as a numeric
+To ensure that quantitative data has been correctly imported as a numeric
 variable, we can look at the \texttt{assay} slot.
 
 \begin{Shaded}
@@ -782,10 +780,10 @@ in this workflow accordingly.
 
 We can see that the original data includes 48832 PSMs
 across the 6 samples. It is also useful to make note of how many peptides and
-proteins the raw PSM data corresponds to, and to track how many we remove during
+protein groups the raw PSM data corresponds to, and to track how many we remove during
 the subsequent filtering steps. This can be done by checking how many unique entries
 are located within the ``Sequence'' and ``Master.Protein.Accessions'' for peptides
-and proteins, respectively. Of note, searching for unique peptide sequences means
+and protein groups, respectively. Of note, searching for unique peptide sequences means
 that the number of peptides does not include duplicated sequences with different
 modifications.
 
@@ -819,10 +817,10 @@ modifications.
 Hence, the output of the identification search contains
 48832 PSMs corresponding to
 25969 peptide sequences and
-5040 master proteins. Finally, we
-confirm that the identification search was carried out as expected. For this, we
-print summaries of the key search parameters using the \texttt{table} function for
-discrete parameters and \texttt{summary} for those which are continuous. This is also
+5040 master proteins or protein groups.
+Finally, we confirm that the identification search was carried out as expected.
+For this, we print summaries of the key search parameters using the \texttt{table} function
+for discrete parameters and \texttt{summary} for those which are continuous. This is also
 helpful for users who are analyzing publicly available data and have limited
 knowledge about the identification search parameters.
 
@@ -907,7 +905,7 @@ the mass spectrometry run but are far from extensive. Users who wish to carry
 out a more in-depth evaluation of the raw mass spectrometry data may benefit
 from use of the
 \href{https://bioconductor.org/packages/release/bioc/html/Spectra.html}{\texttt{Spectra} Bioconductor package}
-which allows for visualization and exploration of raw chromatograms and spectra,
+which allows for visualisation and exploration of raw chromatograms and spectra,
 among other features \citep{Rainer2022}.
 
 The first plot we generate looks at the delta precursor mass, that is the
@@ -1022,7 +1020,7 @@ The most fundamental data quality control step in a TMT experiment is to check
 the TMT labelling efficiency. TMT labels react with amine groups present at the
 peptide N-terminus as well as the side chain of lysine (K) residues. Of note,
 lysine residues can be TMT modified regardless of whether they are present at the
-C-terminus of a trypic peptide or internally following miscleavage.
+C-terminus of a tryptic peptide or internally following miscleavage.
 
 To evaluate the TMT labelling efficiency, a separate identification search of the
 raw data was completed with lysine (K) and peptide N-termini TMT labels
@@ -1210,8 +1208,8 @@ categories, how to progress is ultimately decided by the user.
 Since the use-case data has a sufficiently high TMT labelling efficiency, we
 can continue to use the output of the identification search. This search
 considered TMT labelling of lysines as a static modification whilst N-terminal
-labelling was kept as dynamic, to investigate the presence of protein N-
-terminal modifications.
+labelling was kept as dynamic, to investigate the presence of protein N-terminal
+modifications.
 
 \begin{table}
 
@@ -1268,15 +1266,15 @@ filtering.
 
 The cleaning steps included in this section are non-specific and should be applied
 to all quantitative proteomics datasets. The names of key parameters will vary in
-data outputs from alternative third party software, however, and users should
+data outputs from alternative third-party software, however, and users should
 remain aware of both terminology changes over time as well as the introduction
 of new filters. All data cleaning steps are completed in the same way. We first
 determine how many rows, here PSMs, meet the conditions for removal. This is
 achieved by using the \texttt{dplyr::count} function. The unwanted rows are removed
 using the \texttt{filterFeatures} function. Since we only wish to apply the filters to
 the ``psms\_filtered'' level, we specify this by using the \texttt{i\ =} argument. If this
-argument is not used, \texttt{filterFeatures} will remove features from all assays
-within a \texttt{QFeatures} object.
+argument is not used, \texttt{filterFeatures} will remove features from all levels
+(\texttt{SummarizedExperiments}) within a \texttt{QFeatures} object.
 
 \subsubsection{Removing PSMs not matched to a master protein}\label{removing-psms-not-matched-to-a-master-protein}
 
@@ -1345,7 +1343,7 @@ Next we remove PSMs corresponding to contaminant proteins. Such proteins can be
 introduced intentionally as reagents during sample preparation, as is the case
 for digestive enzymes, or accidentally, as seen with human keratins derived from
 skin and hair. Since these proteins do not contribute to the biological question
-being asked and it is standard practice to remove them from the data. This is
+being asked it is standard practice to remove them from the data. This is
 done by using a carefully curated, sample-specific contaminant database.
 Critically, the database used for filtering should be the same one that was used
 during the identification search. Whilst it is possible to remove contaminants
@@ -1411,7 +1409,7 @@ At this point, users can also remove any additional proteins which may not have
 been included in the contaminant database. For example, users may wish to remove
 human trypsin (accession P35050) should it appear in their data.
 
-Several third party software also have the option to directly annotate which
+Several third-party software also have the option to directly annotate which
 fasta file (here, the human proteome or contaminant database) a PSM is derived
 from. In such cases, filtering can be simplified by removing PSMs annotated as
 contaminants in the output file.
@@ -1483,7 +1481,7 @@ the pre-set threshold) or leave them in (disregard the threshold).
 ## 47241
 \end{verbatim}
 
-In the above code chunk we see there are no remaining annotations in the
+In the above code chunk we see that there are no remaining annotations in the
 ``Quan.Info'' column so we can continue.
 
 \subsubsection{Removing PSMs which are not unique to a protein}\label{removing-psms-which-are-not-unique-to-a-protein}
@@ -1808,7 +1806,7 @@ confidence = FDR \textless{} 5\% and low confidence = FDR \textgreater{} 5\%.
 In order to use the \texttt{filterFeatures} function to remove PSMs corresponding to
 proteins which do not pass our FDR threshold (1\%), we first need to add this
 annotation to the \texttt{rowData} of our \texttt{"psms\_filtered"} experiment. To do this, we
-first extract the master protein accessions from our PSM-level data. Next, we
+extract the master protein accessions from our PSM-level data. Next, we
 extract these proteins from our protein-level search output along with their
 corresponding confidence ratings.
 
@@ -1820,7 +1818,7 @@ corresponding confidence ratings.
   \FunctionTok{as\_tibble}\NormalTok{() }\SpecialCharTok{\%\textgreater{}\%}
   \FunctionTok{select}\NormalTok{(Master.Protein.Accessions)}
 
-\DocumentationTok{\#\# Extract protein accessions and corresponding confidence from search output file}
+\DocumentationTok{\#\# Extract protein accessions and confidence from search output file}
 \NormalTok{protein\_search\_output }\OtherTok{\textless{}{-}}\NormalTok{ protein\_cp }\SpecialCharTok{\%\textgreater{}\%}
   \FunctionTok{select}\NormalTok{(Accession, Protein.FDR.Confidence.Combined)}
 \end{Highlighting}
@@ -1881,7 +1879,7 @@ confidence master proteins.
 
 Now that we have finished the non-specific data cleaning, we can pause and check
 to see what this has done to the data. We determine the number and proportion of
-PSMs, peptides, and proteins lost from the original dataset.
+PSMs, peptides, and protein groups lost from the original dataset.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1926,8 +1924,8 @@ PSMs, peptides, and proteins lost from the original dataset.
 \begin{Highlighting}[]
 \DocumentationTok{\#\# Print as a table}
 \FunctionTok{data.frame}\NormalTok{(}\StringTok{"Feature"} \OtherTok{=} \FunctionTok{c}\NormalTok{(}\StringTok{"PSMs"}\NormalTok{,}
-                         \StringTok{"Peptides"}\NormalTok{,}
-                         \StringTok{"Proteins"}\NormalTok{),}
+                         \StringTok{"Peptides (stripped)"}\NormalTok{,}
+                         \StringTok{"Protein groups"}\NormalTok{),}
            \StringTok{"Number lost"} \OtherTok{=} \FunctionTok{c}\NormalTok{(psms\_removed,}
 \NormalTok{                             peps\_removed,}
 \NormalTok{                             prots\_removed),}
@@ -1938,10 +1936,10 @@ PSMs, peptides, and proteins lost from the original dataset.
 \end{Shaded}
 
 \begin{verbatim}
-##    Feature Number.lost Percentage.lost
-## 1     PSMs        6066           12.42
-## 2 Peptides        1925            7.41
-## 3 Proteins         812           16.11
+##               Feature Number.lost Percentage.lost
+## 1                PSMs        6066           12.42
+## 2 Peptides (stripped)        1925            7.41
+## 3      Protein groups         812           16.11
 \end{verbatim}
 
 \subsection{PSM quality control filtering}\label{psm-quality-control-filtering}
@@ -1973,7 +1971,7 @@ ratio can be used to filter out quantification based on too few ions.
 
 To determine an appropriate reporter ion S/N threshold we need to understand the
 original, unfiltered data. Here, we print a \texttt{summary} of the average reporter
-S/N before plotting a simple histogram to visualize the data. The default
+S/N before plotting a simple histogram to visualise the data. The default
 threshold for average reporter ion S/N when filtering within Proteome Discoverer
 is 10, or 1 on the base-10 logarithmic scale displayed here. We include a line
 to show where this threshold would be on the data distribution.
@@ -2068,7 +2066,7 @@ isolation interference value. As was the case for reporter ion S/N, Proteome
 Discoverer has a suggested default threshold for isolation interference - 50\%
 for MS2 experiments and 75\% for SPS-MS3 experiments.
 
-Again, we get a \texttt{summary} and visualize the data using the code chunk below.
+Again, we get a \texttt{summary} and visualise the data using the code chunk below.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -2149,7 +2147,7 @@ fragments that can still be explicitly traced back to the precursor peptide.
 This parameter is of particular importance given that quantitation is based on
 the SPS-MS3 spectra. Unfortunately, the SPS Mass Match percentage is currently
 only a feature of Proteome Discoverer (2.3 and above) and will not be available
-to users of other third party software.
+to users of other third-party software.
 
 We follow the same format as before to investigate the SPS Mass Match (\%)
 distribution of the data. The default threshold within Proteome Discoverer is a
@@ -2232,12 +2230,12 @@ standard threshold of 65\%.
 \subsubsection{Assessing the impact of data-specific filtering}\label{assessing-the-impact-of-data-specific-filtering}
 
 As we did after the non-specific cleaning steps, we check to see how many PSMs,
-peptides and proteins have been removed throughout the in-depth data-specific
+peptides and protein groups have been removed throughout the in-depth data-specific
 filtering.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\DocumentationTok{\#\# Summarize the effect of data{-}specific filtering}
+\DocumentationTok{\#\# Summarise the effect of data{-}specific filtering}
 
 \DocumentationTok{\#\# Determine the number and proportion of PSMs removed}
 \NormalTok{psms\_remaining\_2 }\OtherTok{\textless{}{-}}\NormalTok{ cp\_qf[[}\StringTok{"psms\_filtered"}\NormalTok{]] }\SpecialCharTok{\%\textgreater{}\%}
@@ -2392,7 +2390,7 @@ of the \texttt{zeroIsNA} or \texttt{infIsNA} functions within the \texttt{QFeatu
 ## 6          S3         0 0.00000e+00
 \end{verbatim}
 
-We can see that the proportion of missing values in our data is only 3e-05, corresponding to 4 NA values. This low proportion is due to a
+We can see that the proportion of missing values in our data is only 0.00003, corresponding to 4 NA values. This low proportion is due to a
 combination of the TMT labelling strategy and the stringent PSM quality control
 filtering. In particular, co-isolation interference when using TMT labels often
 results in very low quantification values for peptides which should actually be
@@ -2403,12 +2401,12 @@ indicate the condition of each sample as to check for condition-specific bias.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\DocumentationTok{\#\# Plot histogram to visualize the distribution of NAs}
+\DocumentationTok{\#\# Plot histogram to visualise the distribution of NAs}
 \FunctionTok{nNA}\NormalTok{(cp\_qf[[}\StringTok{"psms\_filtered"}\NormalTok{]])}\SpecialCharTok{$}\NormalTok{nNAcols }\SpecialCharTok{\%\textgreater{}\%}
   \FunctionTok{as\_tibble}\NormalTok{() }\SpecialCharTok{\%\textgreater{}\%}
   \FunctionTok{mutate}\NormalTok{(}\AttributeTok{Condition =} \FunctionTok{c}\NormalTok{(}\StringTok{"Control"}\NormalTok{, }\StringTok{"Treated"}\NormalTok{, }\StringTok{"Treated"}\NormalTok{,}
                        \StringTok{"Control"}\NormalTok{, }\StringTok{"Control"}\NormalTok{, }\StringTok{"Treated"}\NormalTok{)) }\SpecialCharTok{\%\textgreater{}\%}
-  \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ name, }\AttributeTok{y =}\NormalTok{ (pNA }\SpecialCharTok{*} \DecValTok{100}\NormalTok{ ), }\AttributeTok{group =}\NormalTok{ Condition, }\AttributeTok{fill =}\NormalTok{ Condition)) }\SpecialCharTok{+}
+  \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ name, }\AttributeTok{y =}\NormalTok{ (pNA }\SpecialCharTok{*} \DecValTok{100}\NormalTok{), }\AttributeTok{group =}\NormalTok{ Condition, }\AttributeTok{fill =}\NormalTok{ Condition)) }\SpecialCharTok{+}
   \FunctionTok{geom\_bar}\NormalTok{(}\AttributeTok{stat =} \StringTok{"identity"}\NormalTok{, }\AttributeTok{position =} \StringTok{"dodge"}\NormalTok{) }\SpecialCharTok{+}
   \FunctionTok{labs}\NormalTok{(}\AttributeTok{x =} \StringTok{"Sample"}\NormalTok{, }\AttributeTok{y =} \StringTok{"Missing values (\%)"}\NormalTok{) }\SpecialCharTok{+}
   \FunctionTok{theme\_bw}\NormalTok{()}
@@ -2516,7 +2514,8 @@ probable values. Since imputation requires complex assumptions and can have
 substantial effects on downstream statistical analysis, we here choose to skip
 imputation. This is reasonable given that we only have 3 missing values at the
 PSM-level, and that some of these will likely be removed by aggregation. A more
-in-depth discussion of imputation will be provided below in the workflow.
+in-depth discussion of imputation will be provided below in the label-free
+workflow.
 
 \subsection{Summary of PSM data cleaning}\label{summary-of-psm-data-cleaning}
 
@@ -2622,7 +2621,7 @@ For the aggregation itself we use the \texttt{aggregateFeatures} function and pr
 the base level from which we wish to aggregate, the log PSM-level data in this
 case. We also tell the function which column to aggregate which is specified by
 the \texttt{fcol} argument. We will first aggregate from PSM to peptide to create
-explicit \texttt{QFeatures} links. This means grouping by PSM ``Sequence''.
+explicit \texttt{QFeatures} links. This means grouping PSMs by ``Sequence''.
 
 As well as grouping PSMs according to their peptide sequence, the quantitative
 values for each PSM must be aggregated into a single peptide-level value. The
@@ -2778,41 +2777,40 @@ than individual proteins.
 Following aggregation, we have a total of 3230
 proteins remaining within the data.
 
-\subsection{Normalization of quantitative data}\label{normalization-of-quantitative-data}
+\subsection{normalisation of quantitative data}\label{normalisation-of-quantitative-data}
 
 After transforming the data, we normalize the protein-level abundances.
-Normalization is a process of correction whereby quantitative data is returned
-to its original, or `normal', state. In expression proteomics, the aim of post-
-acquisition data normalization is to minimize the biases that arises due to
+normalisation is a process of correction whereby quantitative data is returned
+to its original, or `normal', state. In expression proteomics, the aim of
+post-acquisition data normalisation is to minimize the biases that arises due to
 experimental error and technological variation. Specifically, the removal of
 random variation and batch effects will allow samples to be aligned prior to
 downstream analysis. Importantly, however, users must also be aware of any
-normalization that has taken place within their sample preparation, as this will
+normalisation that has taken place within their sample preparation, as this will
 ultimately influence the presence of differentially abundant proteins
-downstream. An extensive review on normalization strategies, both experimental
+downstream. An extensive review on normalisation strategies, both experimental
 and computational, is provided in \citep{ORourke2019}.
 
-Unfortunately, there is not currently a single normalization method which
+Unfortunately, there is not currently a single normalisation method which
 performs best for all quantitative proteomics datasets. That said, the median
 (or median-based methods) are a good choice for most quantitative proteomics data.
-By contrast, mean normalization is a method to be avoided since the mean is very
+By contrast, mean normalisation is a method to be avoided since the mean is very
 sensitive to outliers and we often have such outliers in proteomics data.
-Similarly, quantile normalization is not recommended for quantitative proteomics
+Similarly, quantile normalisation is not recommended for quantitative proteomics
 data due to complications imposed by the presence of missing values. For users
-wishing to explore and compare normalization methods, the \href{https://www.bioconductor.org/packages/release/bioc/html/NormalyzerDE.html}{\texttt{NormalyzerDE}},
+wishing to explore and compare normalisation methods, the \href{https://www.bioconductor.org/packages/release/bioc/html/NormalyzerDE.html}{\texttt{NormalyzerDE}}
 package within Bioconductor can be used \citep{Willforss2018}.
 
-Here, we will demonstrate the use of a center median normalization approach using
-the \texttt{normalize} function within \texttt{QFeatures}.we will apply a center median
-approach. To do this, we pass the log transformed protein-level data to the
-\texttt{normalize} function in \texttt{QFeatures}. We specify the method of normalization that
-we wish to apply i.e.~\texttt{method\ =\ "center.median"} and name the new data level
-e.g.~\texttt{name\ =\ "log\_norm\_proteins"}. Of note, for users who wish to apply VSN
-normalization the raw protein data must be passed (prior to any log transformation)
-as the log transformation is done internally when specify \texttt{method\ =\ "vsn"}. All
-other methods require users to explicitly perform log transformation on their
-data before use. More details can be found in the \texttt{QFeatures} documentation,
-please type \texttt{help("normalize,QFeatures-method")}.
+Here, we will demonstrate the use of a center median normalisation approach using
+the \texttt{normalize} function within \texttt{QFeatures}. To do this, we pass the log transformed
+protein-level data to the \texttt{normalize} function in \texttt{QFeatures}. We specify the
+method of normalisation that we wish to apply i.e.~\texttt{method\ =\ "center.median"} and
+name the new data level e.g., \texttt{name\ =\ "log\_norm\_proteins"}. Of note, for users who
+wish to apply VSN normalisation the raw protein data must be passed (prior to any
+log transformation) as the log transformation is done internally when specify
+\texttt{method\ =\ "vsn"}. All other methods require users to explicitly perform log
+transformation on their data before use. More details can be found in the
+\texttt{QFeatures} documentation, please type \texttt{help("normalize,QFeatures-method")}.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -2837,11 +2835,11 @@ please type \texttt{help("normalize,QFeatures-method")}.
 ##  [6] log_norm_proteins: SummarizedExperiment with 3230 rows and 6 columns
 \end{verbatim}
 
-To evaluate the effect of normalization we plot a simple boxplot.
+To evaluate the effect of normalisation we plot a simple boxplot.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\DocumentationTok{\#\# Evaluate the effect of data normalization}
+\DocumentationTok{\#\# Evaluate the effect of data normalisation}
 \NormalTok{pre\_norm }\OtherTok{\textless{}{-}}\NormalTok{ cp\_qf[[}\StringTok{"log\_proteins"}\NormalTok{]] }\SpecialCharTok{\%\textgreater{}\%}
   \FunctionTok{assay}\NormalTok{() }\SpecialCharTok{\%\textgreater{}\%}
   \FunctionTok{longFormat}\NormalTok{() }\SpecialCharTok{\%\textgreater{}\%}
@@ -2850,7 +2848,7 @@ To evaluate the effect of normalization we plot a simple boxplot.
          \AttributeTok{colname =} \FunctionTok{factor}\NormalTok{(colname, }\AttributeTok{levels =} \FunctionTok{paste0}\NormalTok{(}\StringTok{"S"}\NormalTok{, }\DecValTok{1}\SpecialCharTok{:}\DecValTok{6}\NormalTok{))) }\SpecialCharTok{\%\textgreater{}\%}
   \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ colname, }\AttributeTok{y =}\NormalTok{ value, }\AttributeTok{fill =}\NormalTok{ Condition)) }\SpecialCharTok{+}
   \FunctionTok{geom\_boxplot}\NormalTok{() }\SpecialCharTok{+}
-  \FunctionTok{labs}\NormalTok{(}\AttributeTok{x =} \StringTok{"Sample"}\NormalTok{, }\AttributeTok{y =} \StringTok{"log2(abundance)"}\NormalTok{, }\AttributeTok{title =} \StringTok{"Pre{-}normalization"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{x =} \StringTok{"Sample"}\NormalTok{, }\AttributeTok{y =} \StringTok{"log2(abundance)"}\NormalTok{, }\AttributeTok{title =} \StringTok{"Pre{-}normalisation"}\NormalTok{) }\SpecialCharTok{+}
   \FunctionTok{theme\_bw}\NormalTok{()}
 
 \NormalTok{post\_norm }\OtherTok{\textless{}{-}}\NormalTok{ cp\_qf[[}\StringTok{"log\_norm\_proteins"}\NormalTok{]] }\SpecialCharTok{\%\textgreater{}\%}
@@ -2861,7 +2859,7 @@ To evaluate the effect of normalization we plot a simple boxplot.
          \AttributeTok{colname =} \FunctionTok{factor}\NormalTok{(colname, }\AttributeTok{levels =} \FunctionTok{paste0}\NormalTok{(}\StringTok{"S"}\NormalTok{, }\DecValTok{1}\SpecialCharTok{:}\DecValTok{6}\NormalTok{))) }\SpecialCharTok{\%\textgreater{}\%}
   \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ colname, }\AttributeTok{y =}\NormalTok{ value, }\AttributeTok{fill =}\NormalTok{ Condition)) }\SpecialCharTok{+}
   \FunctionTok{geom\_boxplot}\NormalTok{() }\SpecialCharTok{+}
-  \FunctionTok{labs}\NormalTok{(}\AttributeTok{x =} \StringTok{"Sample"}\NormalTok{, }\AttributeTok{y =} \StringTok{"log2(abundance)"}\NormalTok{, }\AttributeTok{title =} \StringTok{"Post{-}normalization"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{x =} \StringTok{"Sample"}\NormalTok{, }\AttributeTok{y =} \StringTok{"log2(abundance)"}\NormalTok{, }\AttributeTok{title =} \StringTok{"Post{-}normalisation"}\NormalTok{) }\SpecialCharTok{+}
   \FunctionTok{theme\_bw}\NormalTok{()}
 
 \NormalTok{(pre\_norm }\SpecialCharTok{+} \FunctionTok{theme}\NormalTok{(}\AttributeTok{legend.position =} \StringTok{"none"}\NormalTok{)) }\SpecialCharTok{+} 
@@ -2869,15 +2867,15 @@ To evaluate the effect of normalization we plot a simple boxplot.
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[height=0.4\textheight]{workflow_expressions_files/figure-latex/tmt_normalization_2-1} \end{center}
+\begin{center}\includegraphics[height=0.4\textheight]{workflow_expressions_files/figure-latex/tmt_normalisation_2-1} \end{center}
 
-We can now generate a density plot to help us visualize what the process of log
-transformation and normalization has done to the data. This is done using the
+We can now generate a density plot to help us visualise what the process of log
+transformation and normalisation has done to the data. This is done using the
 \texttt{plotDensities} function from the \texttt{limma} package.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\DocumentationTok{\#\# visualize the process of log transformation and normalization}
+\DocumentationTok{\#\# visualise the process of log transformation and normalisation}
 \FunctionTok{par}\NormalTok{(}\AttributeTok{mfrow =} \FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{3}\NormalTok{))}
 
 \NormalTok{cp\_qf[[}\StringTok{"psms\_filtered"}\NormalTok{]] }\SpecialCharTok{\%\textgreater{}\%}
@@ -2905,9 +2903,9 @@ When doing this we get an idea of where the majority of the intensities lie. If,
 for example, all samples come from the same cells and our treatment/conditions
 don't cause massive changes to the proteome, we expect the distributions of the
 intensities to be roughly the same. Above, we see that the raw data before
-normalization (left), log2 normalized (middle) and post normalization (right).
+normalisation (left), log2 transformed (middle) and post-normalisation (right).
 In the first two plots the curves/peaks are at different locations but after
-normalization (right) we see that we have shifted the curves according to their
+normalisation (right) we see that we have shifted the curves according to their
 median and all peaks of samples are now overlapping.
 
 \subsection{Exploration of data using QFeatures links}\label{exploration-of-data-using-qfeatures-links}
@@ -2978,9 +2976,9 @@ peptides and 27 PSMs supporting its identification
 and quantitation. We also see that the original data prior to processing contained
 42 PSMs in support of this protein.
 
-Further, we can visualize the process of aggregation that has led to the protein-
-level abundance data for Q01581, as demonstrated below. Of note, this plot shows
-the protein data prior to transformation.
+Further, we can visualise the process of aggregation that has led to the protein-level
+abundance data for Q01581, as demonstrated below. Of note, this plot shows
+the protein data prior to normalisation.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -3083,7 +3081,8 @@ workflow for a more in-depth explanation of any shared steps.
 As was the case for TMT labelled cell pellets, raw LFQ data from supernatant
 samples was searched using Proteome Discoverer 2.5. The workflows for this
 identification search are provided in the supplementary materials with an additional
-explanation of key parameters in the appendix. To begin processing LFQ data,
+explanation of key parameters in the appendix along with details about how to
+use this workflow with MaxQuant data. To begin processing LFQ data,
 users should export a peptide-level \texttt{.txt} file from the results of their
 identification search.
 
@@ -3098,9 +3097,8 @@ across runs.
 
 \subsubsection{Importing data into a QFeatures object}\label{importing-data-into-a-qfeatures-object}
 
-We locate the PeptideGroups \texttt{.txt} file and upload this into a \texttt{data.frame}
-container in the same way as before. Since the samples are already stored in the
-correct order, we simply identify the quantitative columns by their indices.
+We locate the PeptideGroups \texttt{.txt} file and import this into a \texttt{data.frame}
+container in the same way as before.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -3331,7 +3329,7 @@ methods.
 ## [61] "Top.Apex.RT.in.min"
 \end{verbatim}
 
-We also determine the number of PSMs, peptides and proteins represented within
+We also determine the number of PSMs, peptides and protein groups represented within
 the initial data. Since identical peptide sequences with different modifications
 are stored as separate entities, the output of \texttt{dim} will not tell us the number
 of peptides. Instead, we need to consider only unique peptide sequence entries,
@@ -3395,10 +3393,10 @@ as demonstrated in the code chunk below.
 
 Thus, the search identified 144302 PSMs
 corresponding to 20312 peptides and
-3941 proteins. Finally, we take a look at some of the key
-parameters applied during the identification search. This is an important
-verification step, particularly for those using publicly available data with
-limited access to parameter settings.
+3941 master proteins or protein groups. Finally, we take a look at
+some of the key parameters applied during the identification search. This is an
+important verification step, particularly for those using publicly available
+data with limited access to parameter settings.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -3545,7 +3543,7 @@ are as follows:
 \item
   Removal of features not annotated as unambiguous
 \item
-  Control of FDR to 1\% protein-level FDR
+  Control of FDR to 1\% protein-level FDR (or 5\% for more exploratory analyses)
 \end{enumerate}
 
 In addition to these standard steps, LFQ data should be filtered to remove
@@ -3637,7 +3635,7 @@ As before, we check to see whether additional annotations remain within the
 \end{verbatim}
 
 Again, we need to import the protein-level data in order to complete FDR filtering
-at the highest possible level.
+at the highest possible level. See above for more details.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -3652,45 +3650,18 @@ at the highest possible level.
 \DocumentationTok{\#\# Extract protein accessions and corresponding confidence from search output file}
 \NormalTok{protein\_search\_output }\OtherTok{\textless{}{-}}\NormalTok{ protein\_sn }\SpecialCharTok{\%\textgreater{}\%}
   \FunctionTok{select}\NormalTok{(Accession, Protein.FDR.Confidence.Combined)}
-\end{Highlighting}
-\end{Shaded}
 
-Now we can use the \texttt{left\_join} function to merge these two datasets.
-
-\begin{Shaded}
-\begin{Highlighting}[]
 \DocumentationTok{\#\# Combine data}
 \NormalTok{protein\_fdr }\OtherTok{\textless{}{-}} \FunctionTok{left\_join}\NormalTok{(}\AttributeTok{x =}\NormalTok{ proteins\_in\_data, }
                          \AttributeTok{y =}\NormalTok{ protein\_search\_output, }
                          \AttributeTok{by =} \FunctionTok{c}\NormalTok{(}\StringTok{"Master.Protein.Accessions"} \OtherTok{=} \StringTok{"Accession"}\NormalTok{))}
 
-\NormalTok{protein\_fdr }\SpecialCharTok{\%\textgreater{}\%}
-  \FunctionTok{head}\NormalTok{()}
-\end{Highlighting}
-\end{Shaded}
 
-\begin{verbatim}
-## # A tibble: 6 x 2
-##   Master.Protein.Accessions Protein.FDR.Confidence.Combined
-##   <chr>                     <chr>                          
-## 1 P55011                    High                           
-## 2 O60341                    High                           
-## 3 P36578                    High                           
-## 4 A6NIH7                    High                           
-## 5 Q9P258                    High                           
-## 6 Q9P258                    High
-\end{verbatim}
-
-Finally, we add the annotations from our \texttt{"Protein.FDR.Confidence.Combined"}
-column to the \texttt{rowData} of our \texttt{"psms\_filtered"} experiment.
-
-\begin{Shaded}
-\begin{Highlighting}[]
 \FunctionTok{rowData}\NormalTok{(sn\_qf[[}\StringTok{"peptides\_filtered"}\NormalTok{]])}\SpecialCharTok{$}\NormalTok{Protein.Confidence }\OtherTok{\textless{}{-}}\NormalTok{ protein\_fdr}\SpecialCharTok{$}\NormalTok{Protein.FDR.Confidence.Combined}
 \end{Highlighting}
 \end{Shaded}
 
-We can now use \texttt{filterFeatures} to remove PSMs corresponding to low or medium
+We can now use \texttt{filterFeatures} to remove peptides corresponding to low or medium
 confidence master proteins.
 
 \begin{Shaded}
@@ -3710,7 +3681,7 @@ confidence master proteins.
 
 As in the previous example, we assess the impact that cleaning has had on the
 data. Specifically, we determine the number and proportion of PSMs, peptides and
-proteins lost. Again, when we refer to the number of peptides we only consider
+protein groups lost. Again, when we refer to the number of peptides we only consider
 unique peptide sequences, not those that differ in their modifications.
 
 \begin{Shaded}
@@ -3856,13 +3827,13 @@ within the data, and how they are distributed between samples and/or conditions.
 As expected, the LFQ data contains a higher proportion of missing values as
 compared to the TMT-labelled data. There are 15742
 missing (NA) values within the data, which corresponds to
-0.1 of the data.
+0.15 of the data.
 We check for sample- and condition- specific biases in the distribution of these
 NA values, again plotting percentage (proportion multiplied by 100).
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\DocumentationTok{\#\# Plot histogram to visualize sample{-}specific distribution of NAs}
+\DocumentationTok{\#\# Plot histogram to visualise sample{-}specific distribution of NAs}
 \FunctionTok{nNA}\NormalTok{(sn\_qf[[}\StringTok{"peptides\_filtered"}\NormalTok{]])}\SpecialCharTok{$}\NormalTok{nNAcols }\SpecialCharTok{\%\textgreater{}\%}
   \FunctionTok{as\_tibble}\NormalTok{() }\SpecialCharTok{\%\textgreater{}\%}
   \FunctionTok{mutate}\NormalTok{(}\AttributeTok{Condition =} \FunctionTok{rep}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\StringTok{"Treated"}\NormalTok{, }\StringTok{"Control"}\NormalTok{), }\AttributeTok{each =} \DecValTok{3}\NormalTok{)) }\SpecialCharTok{\%\textgreater{}\%}
@@ -3929,11 +3900,11 @@ these NA values will likely be propagated upward during aggregation. Whilst NA
 values were traditionally problematic during the application of downstream
 statistical methods, there are now a number of algorithms that allow statistics
 to be completed on data containing missing values. For example, the
-(\texttt{MSqRob2}){[}\url{https://www.bioconductor.org/packages/release/bioc/html/msqrob2.html}{]}
-\citetext{\citealp[\citet{Goeminne2020}]{Sticker2020}; \citealp{Goeminne2016}} package facilitates statistical
+\href{https://www.bioconductor.org/packages/release/bioc/html/msqrob2.html}{\texttt{MSqRob2}}
+\citep{Sticker2020, Goeminne2020, Goeminne2016} package facilitates statistical
 differential expression analysis on datasets without the need for imputation and
 functions within the \texttt{QFeatures} infrastructure. Nevertheless, for the purpose of
-demonstration, we here choose to impute the raw intensity data.
+demonstration, we here impute the raw intensity data.
 
 As eluded to above, the most appropriate method to determine such probable
 values is dependent upon why the value is missing, that is whether it is MCAR or
@@ -3984,7 +3955,7 @@ post-imputation.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\DocumentationTok{\#\# visualize the impact of imputation}
+\DocumentationTok{\#\# visualise the impact of imputation}
 \FunctionTok{par}\NormalTok{(}\AttributeTok{mfrow =} \FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{2}\NormalTok{))}
 
 \NormalTok{sn\_qf[[}\StringTok{"peptides\_filtered"}\NormalTok{]] }\SpecialCharTok{\%\textgreater{}\%}
@@ -4131,7 +4102,7 @@ proteins using the \texttt{aggregateFeatures} function.
 ##  [5] log_proteins: SummarizedExperiment with 2760 rows and 6 columns
 \end{verbatim}
 
-\subsection{Normalization of quantitative data}\label{normalization-of-quantitative-data-1}
+\subsection{normalisation of quantitative data}\label{normalisation-of-quantitative-data-1}
 
 Finally, we complete the data processing by normalizing quantitation between
 samples. This is done using the \texttt{"center.median"} method via the \texttt{normalize}
@@ -4217,7 +4188,7 @@ we use the \texttt{as.data.frame} function.
 ## S3 0.9558386 0.9886243 0.9926604 0.9348920 0.9557268 1.0000000
 \end{verbatim}
 
-Now we can visualize the correlation data using pairwise scatter plots and a
+Now we can visualise the correlation data using pairwise scatter plots and a
 correlation heat map.
 
 \begin{Shaded}
@@ -4286,7 +4257,7 @@ regarding how to determine the calculation of experimental reproducibility.
 \subsection{Principal Component Analysis}\label{principal-component-analysis}
 
 Principal Component Analysis (PCA) is a dimensionality reduction method which
-aims to simplify complex datasets and facilitate the visualization of
+aims to simplify complex datasets and facilitate the visualisation of
 multi-dimensional data. Here we use the \texttt{prcomp} function from the
 \href{https://stat.ethz.ch/R-manual/R-devel/library/stats/html/00Index.html}{\texttt{stats}}
 package to perform the PCA. Since PCA does not accept missing values and we did
@@ -4324,7 +4295,7 @@ on the results of the PCA.
 ## Cumulative Proportion   0.547  0.7653  0.8670  0.93640  1.0000 1.000e+00
 \end{verbatim}
 
-Finally, we create a PCA plot. For additional PCA exploration and visualization
+Finally, we create a PCA plot. For additional PCA exploration and visualisation
 tools users are directed to the \href{https://cran.r-project.org/web/packages/factoextra/index.html}{\texttt{factoextra} package}.
 
 \begin{Shaded}
@@ -4385,10 +4356,6 @@ supernatant protein list. Users are reminded that although referred to as
 differential `expression' analysis, abundance is determined by both protein
 synthesis and degradation.
 
-Given that there are a number of Bioconductor packages available for each of the
-remaining steps (statistical analysis and interpretation), users are prompted to
-install packages at the where required, at the beginning of each step.
-
 \subsection{Extracting and organising protein-level data}\label{extracting-and-organising-protein-level-data}
 
 We first extract the protein-level \texttt{SummarizedExperiment} from the cell pellet
@@ -4398,7 +4365,7 @@ assigning these conditions to each sample, we can define the control group as th
 reference level such that differential abundance is reported relative to the
 control. This means that when we get the results of the statistical analysis,
 `upregulated' will refer to increased abundance in treated cells relative to
-control controls.
+controls.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -4515,7 +4482,7 @@ Having applied the model to the data, we need to verify that this model was
 appropriate and that the statistical assumptions were met. To do this we first
 generate an SA plot using the \texttt{plotSA} function within \texttt{limma}. An SA plot shows
 the log2 residual standard deviation (sigma) against log average abundance and
-is a simple way to visualize the trend that has been fitted to the data.
+is a simple way to visualise the trend that has been fitted to the data.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -4690,7 +4657,7 @@ further.
 \subsection{Visualizing differentially abundant proteins}\label{visualizing-differentially-abundant-proteins}
 
 Before looking deeper into which proteins have differential abundance, we first
-create some simple plots to visualize the results. Volcano plots and MA plots
+create some simple plots to visualise the results. Volcano plots and MA plots
 are two of the common visualisations used in this instance. When plotting the
 former, users are advised to plot raw p-values rather than their derivative
 BH-adjusted p-values. Point colours can be used to indicate significance based
@@ -4716,20 +4683,11 @@ on BH- adjusted p-values, as is shown in the code chunk below.
         \AttributeTok{panel.background =} \FunctionTok{element\_rect}\NormalTok{(}\AttributeTok{fill =} \StringTok{"white"}\NormalTok{),}
         \AttributeTok{axis.line =} \FunctionTok{element\_line}\NormalTok{(}\AttributeTok{linewidth =} \FloatTok{0.5}\NormalTok{, }\AttributeTok{colour =} \StringTok{"black"}\NormalTok{),}
         \AttributeTok{plot.margin =} \FunctionTok{margin}\NormalTok{(}\DecValTok{10}\NormalTok{, }\DecValTok{10}\NormalTok{, }\DecValTok{10}\NormalTok{, }\DecValTok{10}\NormalTok{),}
-        \AttributeTok{legend.position =} \FunctionTok{c}\NormalTok{(}\FloatTok{0.25}\NormalTok{, }\FloatTok{0.9}\NormalTok{)) }\SpecialCharTok{+}
+        \AttributeTok{legend.position.inside =} \FunctionTok{c}\NormalTok{(}\FloatTok{0.25}\NormalTok{, }\FloatTok{0.9}\NormalTok{)) }\SpecialCharTok{+}
   \FunctionTok{labs}\NormalTok{(}\AttributeTok{x =} \StringTok{"log2(FC)"}\NormalTok{, }\AttributeTok{y =} \StringTok{"{-}log10(p{-}value)"}\NormalTok{) }\SpecialCharTok{+}
   \FunctionTok{xlim}\NormalTok{(}\SpecialCharTok{{-}}\FloatTok{3.1}\NormalTok{, }\FloatTok{3.1}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
-
-\begin{verbatim}
-## Warning: A numeric `legend.position` argument in `theme()` was deprecated in ggplot2
-## 3.5.0.
-## i Please use the `legend.position.inside` argument of `theme()` instead.
-## This warning is displayed once every 8 hours.
-## Call `lifecycle::last_lifecycle_warnings()` to see where this warning was
-## generated.
-\end{verbatim}
 
 \begin{center}\includegraphics[height=0.4\textheight]{workflow_expressions_files/figure-latex/volcano_plot-1} \end{center}
 
@@ -4753,7 +4711,7 @@ on BH- adjusted p-values, as is shown in the code chunk below.
         \AttributeTok{panel.background =} \FunctionTok{element\_rect}\NormalTok{(}\AttributeTok{fill =} \StringTok{"white"}\NormalTok{),}
         \AttributeTok{axis.line =} \FunctionTok{element\_line}\NormalTok{(}\AttributeTok{linewidth =} \FloatTok{0.5}\NormalTok{, }\AttributeTok{colour =} \StringTok{"black"}\NormalTok{),}
         \AttributeTok{plot.margin =} \FunctionTok{margin}\NormalTok{(}\DecValTok{10}\NormalTok{, }\DecValTok{10}\NormalTok{, }\DecValTok{10}\NormalTok{, }\DecValTok{10}\NormalTok{),}
-        \AttributeTok{legend.position =} \FunctionTok{c}\NormalTok{(}\FloatTok{0.25}\NormalTok{, }\FloatTok{0.9}\NormalTok{)) }\SpecialCharTok{+}
+        \AttributeTok{legend.position.inside =} \FunctionTok{c}\NormalTok{(}\FloatTok{0.25}\NormalTok{, }\FloatTok{0.9}\NormalTok{)) }\SpecialCharTok{+}
   \FunctionTok{xlab}\NormalTok{(}\StringTok{"log2(mean abundance)"}\NormalTok{) }\SpecialCharTok{+}
   \FunctionTok{ylab}\NormalTok{(}\StringTok{"log2(FC)"}\NormalTok{) }\SpecialCharTok{+}
   \FunctionTok{xlim}\NormalTok{(}\SpecialCharTok{{-}}\DecValTok{5}\NormalTok{, }\FloatTok{3.5}\NormalTok{)}
@@ -4920,7 +4878,7 @@ The downregulated proteins contain 61 significantly enriched GO
 terms. There are many ways in which users can represent these results visually.
 Here, we create a barplot using the \texttt{barplot} function from the \href{https://bioconductor.org/packages/release/bioc/html/enrichplot.html}{\texttt{enrichplot} package}
 \citep{enrichplot}. Users are directed to the vignette of the \texttt{enrichplot} package
-for additional visualization options and guidance. We plot the first 10 GO terms
+for additional visualisation options and guidance. We plot the first 10 GO terms
 i.e.~the 10 GO terms with the greatest enrichment.
 
 \begin{Shaded}
@@ -5000,7 +4958,7 @@ user-friendly pipeline for both new and experienced proteomics data analysts.
 
 The workflows provided involve use of functions from many different
 R/Bioconductor packages. The \texttt{sessionInfo} function provides an easy way to
-summarize all packages and the corresponding versions used to generate this
+summarise all packages and the corresponding versions used to generate this
 document. Should software updates lead to the generation of errors or different
 results to those demonstrated here, such changes should be easily traced.
 
