@@ -108,7 +108,7 @@ used to investigate changes in protein abundance upon perturbation to such a
 system.\\
 \textbf{Methods:} Here, we provide a workflow for the processing, analysis and
 interpretation of quantitative mass spectrometry-based expression proteomics
-data. This workflow utilizes open-source R software packages from the
+data. This workflow utilises open-source R software packages from the
 Bioconductor project and guides users end-to-end and step-by-step through every
 stage of the analyses. As a use-case we generated expression proteomics data
 from HEK293 cells with and without a treatment. Of note, the experiment included
@@ -149,9 +149,9 @@ explore how biological systems respond to a perturbation. Many research groups
 have applied such methodologies to understand mechanisms of disease, elucidate
 cellular responses to external stimuli, and discover diagnostic biomarkers (see
 \citep{PinaJimnez2021, AmiriDashatan2021, Anitua2018} for recent examples). As the
-potential of proteomics continues to be realized, there is a clear need for
+potential of proteomics continues to be realised, there is a clear need for
 resources demonstrating how to deal with expression proteomics data in a robust
-and standardized manner.
+and standardised manner.
 
 The data generated during an expression proteomics experiment are complex, and
 unfortunately there is no one-size-fits-all method for the processing and analysis
@@ -222,7 +222,6 @@ The main packages required for this workflow are installed using the code below.
 \NormalTok{BiocManager}\SpecialCharTok{::}\FunctionTok{install}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\StringTok{"QFeatures"}\NormalTok{,}
                        \StringTok{"ggplot2"}\NormalTok{,}
                        \StringTok{"stringr"}\NormalTok{,}
-                       \StringTok{"NormalyzerDE"}\NormalTok{,}
                        \StringTok{"corrplot"}\NormalTok{,}
                        \StringTok{"Biostrings"}\NormalTok{,}
                        \StringTok{"limma"}\NormalTok{,}
@@ -247,7 +246,6 @@ Here we load all packages included in this workflow.
 \FunctionTok{library}\NormalTok{(}\StringTok{"stringr"}\NormalTok{)}
 \FunctionTok{library}\NormalTok{(}\StringTok{"dplyr"}\NormalTok{)}
 \FunctionTok{library}\NormalTok{(}\StringTok{"tibble"}\NormalTok{)}
-\FunctionTok{library}\NormalTok{(}\StringTok{"NormalyzerDE"}\NormalTok{)}
 \FunctionTok{library}\NormalTok{(}\StringTok{"corrplot"}\NormalTok{)}
 \FunctionTok{library}\NormalTok{(}\StringTok{"Biostrings"}\NormalTok{)}
 \FunctionTok{library}\NormalTok{(}\StringTok{"limma"}\NormalTok{)}
@@ -264,7 +262,7 @@ Here we load all packages included in this workflow.
 As a use-case, we analyze two quantitative proteomics datasets derived from a
 single experiment. The aim of the experiment was to reveal the differential
 abundance of proteins in HEK293 cells upon a particular treatment, the exact
-details of which are anonymized for the purpose of this workflow. An outline of
+details of which are anonymised for the purpose of this workflow. An outline of
 the experimental method is provided in Figure \ref{fig:experimental-method}.
 
 Briefly, HEK293 cells were either (i) left untreated, or (ii) provided with the
@@ -655,7 +653,7 @@ sample reference and condition. As this information is experimental metadata, it
 is added to the \texttt{colData} slot. It is important for users check that the \texttt{colData}
 annotations correspond to their correct samples, particularly if the column order
 in the imported results file does not align with the sample order. This is the
-case for the use-case data since TMT labels were randomized in an attempt to
+case for the use-case data since TMT labels were randomised in an attempt to
 minimze the effect of TMT channel leakage.
 
 \begin{Shaded}
@@ -1030,7 +1028,7 @@ engine to assess the presence of both the modified (TMT labelled) and unmodified
 (original) forms of each peptide. The relative proportions of modified and
 unmodified peptides can then be used to calculate the TMT labelling efficiency.
 To demonstrate how to check for TMT labelling efficiency, only two of the eight
-fractions were utilized for this search.
+fractions were utilised for this search.
 
 As we will only look at TMT efficiency at the PSM-level, here we upload the \texttt{.txt}
 into a \texttt{data.frame} to format into a \texttt{SummarizedExperiment} object. This is done
@@ -2304,7 +2302,7 @@ completely at random (MCAR), missing at random (MAR) and missing not at random
 (MNAR). Within proteomics, values which are MCAR arise due to technical
 variation or stochastic fluctuations and emerge in a uniform,
 intensity-independent distribution. Examples include values for peptides which
-cannot be consistently identified or are unable to be efficiently ionized. By
+cannot be consistently identified or are unable to be efficiently ionised. By
 contrast, MNAR values are expected to occur in an intensity-dependent manner due
 to the presence of peptides at abundances below the limit of detection
 \citep{Karpievitch2009, Lazar2016, QFeat}. In many cases this is due to the biological
@@ -2321,7 +2319,7 @@ dataset. This final step is optional and can equally be done prior to filtering
 if the user wishes to impute all missing values without removing any PSMs,
 although this is not recommended. Further, whilst it is possible to complete
 such steps at the peptide- or protein-level, we advise management of missing
-values at the lowest data level to minimize the effect of implicit imputation
+values at the lowest data level to minimise the effect of implicit imputation
 during aggregation.
 
 \subsubsection{Exploring the presence of missing values}\label{exploring-the-presence-of-missing-values}
@@ -2777,12 +2775,12 @@ than individual proteins.
 Following aggregation, we have a total of 3230
 proteins remaining within the data.
 
-\subsection{normalisation of quantitative data}\label{normalisation-of-quantitative-data}
+\subsection{Normalisation of quantitative data}\label{normalisation-of-quantitative-data}
 
-After transforming the data, we normalize the protein-level abundances.
+After transforming the data, we normalise the protein-level abundances.
 normalisation is a process of correction whereby quantitative data is returned
 to its original, or `normal', state. In expression proteomics, the aim of
-post-acquisition data normalisation is to minimize the biases that arises due to
+post-acquisition data normalisation is to minimise the biases that arises due to
 experimental error and technological variation. Specifically, the removal of
 random variation and batch effects will allow samples to be aligned prior to
 downstream analysis. Importantly, however, users must also be aware of any
@@ -2814,7 +2812,7 @@ transformation on their data before use. More details can be found in the
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\DocumentationTok{\#\# normalize the log transformed peptide data}
+\DocumentationTok{\#\# normalise the log transformed peptide data}
 \NormalTok{cp\_qf }\OtherTok{\textless{}{-}} \FunctionTok{normalize}\NormalTok{(cp\_qf,}
                    \AttributeTok{i =} \StringTok{"log\_proteins"}\NormalTok{,}
                    \AttributeTok{name =} \StringTok{"log\_norm\_proteins"}\NormalTok{,}
@@ -2897,7 +2895,7 @@ transformation and normalisation has done to the data. This is done using the
 
 \begin{center}\includegraphics[width=0.9\linewidth]{workflow_expressions_files/figure-latex/tmt_transformations-1} \end{center}
 
-Density plots are a useful vizualization tool as we are able to quickly compare
+Density plots are a useful visualization tool as we are able to quickly compare
 the data across samples by plotting the distribution of each sample together.
 When doing this we get an idea of where the majority of the intensities lie. If,
 for example, all samples come from the same cells and our treatment/conditions
@@ -2940,7 +2938,7 @@ the \texttt{AssayLink} function along with the assay of interest (\texttt{i\ =})
 ## [from:psms_raw|fcol:Master.Protein.Accessions|hits:42604]
 \end{verbatim}
 
-\subsubsection{visualizing aggregation}\label{visualizing-aggregation}
+\subsubsection{Visualising aggregation}\label{visualising-aggregation}
 
 One of the characteristic attributes of the \texttt{QFeatures} infrastructure is that
 explicit links have been maintained throughout the aggregation process. This
@@ -3932,9 +3930,9 @@ use the following code:
 Unfortunately, it is very challenging to determine the reason(s) behind missing
 data, and in most cases experiments contain a mixture of MCAR and MNAR. For LFQ
 data where little is know about the cause of missing values it is advisable to
-use methods optimized for MCAR. Here we will use the baseline k-nearest
+use methods optimised for MCAR. Here we will use the baseline k-nearest
 neighbours (k-NN) imputation on the raw peptide intensities. Of note, users who
-wish to utilize an alternative imputation method should check whether their
+wish to utilise an alternative imputation method should check whether their
 selected method has a requirement for normality. If the method requires data to
 display a normal distribution, users must log2 transform the data prior to
 imputation.
@@ -4102,9 +4100,9 @@ proteins using the \texttt{aggregateFeatures} function.
 ##  [5] log_proteins: SummarizedExperiment with 2760 rows and 6 columns
 \end{verbatim}
 
-\subsection{normalisation of quantitative data}\label{normalisation-of-quantitative-data-1}
+\subsection{Normalisation of quantitative data}\label{normalisation-of-quantitative-data-1}
 
-Finally, we complete the data processing by normalizing quantitation between
+Finally, we complete the data processing by normalising quantitation between
 samples. This is done using the \texttt{"center.median"} method via the \texttt{normalize}
 function.
 
@@ -4149,7 +4147,7 @@ exporting the final \texttt{QFeatures} object.
 
 Having described the processing steps for quantitative proteomics data, we next
 demonstrate how to explore the protein-level data prior to statistical analysis.
-For this we will utilize the TMT-labelled cell pellet dataset since it contains
+For this we will utilise the TMT-labelled cell pellet dataset since it contains
 a greater number of proteins.
 
 \subsection{Correlation plots}\label{correlation-plots}
@@ -4350,7 +4348,7 @@ function from the \texttt{limma} package.
 \section{Discovery and biological interpretation of differentially abundant proteins}\label{discovery-and-biological-interpretation-of-differentially-abundant-proteins}
 
 The last section of this workflow demonstrates how to gain biological insights
-from the resulting list of proteins. Again we will utilize the TMT-labelled cell
+from the resulting list of proteins. Again we will utilise the TMT-labelled cell
 pellet data, although the process would be exactly the same for the LFQ
 supernatant protein list. Users are reminded that although referred to as
 differential `expression' analysis, abundance is determined by both protein
@@ -4404,7 +4402,7 @@ multi-plexed TMT experiments. For LFQ experiments,
 \href{https://bioconductor.org/packages/release/bioc/html/proDA.html}{\texttt{proDA}},
 \href{https://rdrr.io/github/wolski/prolfqua/}{\texttt{prolfqua}} and
 \href{https://www.bioconductor.org/packages/release/bioc/html/msqrob2.html}{\texttt{MSqRob2}}
-can be utilized, among others \citep{Goeminne2020, Wolski2023}. Here, we will use the
+can be utilised, among others \citep{Goeminne2020, Wolski2023}. Here, we will use the
 \href{https://bioconductor.org/packages/release/bioc/html/limma.html}{\texttt{limma}}
 package \citep{Ritchie2015}. \texttt{limma} is widely used for the analysis of large omics
 datasets and has several models that allow differential abundance to be assessed
@@ -4497,7 +4495,7 @@ is a simple way to visualise the trend that has been fitted to the data.
 \begin{center}\includegraphics[height=0.3\textheight]{workflow_expressions_files/figure-latex/plotSA-1} \end{center}
 
 The residual standard deviation is a measure of model accuracy and is most
-easily conceptualized as a measurement of how far from the model prediction each
+easily conceptualised as a measurement of how far from the model prediction each
 data point lies. The smaller the residual standard deviation, the closer the fit
 between the model and observed data.
 
@@ -4932,13 +4930,13 @@ or provide very limited commentary. The latter directly contributes to a
 problematic disconnect between researchers and their data whereby the users do
 not understand if or why each step is necessary for their given dataset and
 biological question. This can prevent researchers from refining a workflow to fit
-their specific needs. Finally, the majority of proteomics workflows utilize
+their specific needs. Finally, the majority of proteomics workflows utilise
 \texttt{data.frame} or \texttt{tibble} structures which limits their traceability, as is the
 case for \texttt{protti}, \texttt{promor} and \texttt{prolfqua} \citep{Ranathunge2022, Quast2021, Wolski2022}.
 
 The workflow presented here outlines in completion how to process, analyze and
 interpret LFQ and TMT expression proteomics data derived from a bottom-up DDA
-experiment. Critically, we emphasize quality control and data-guided decisions
+experiment. Critically, we emphasise quality control and data-guided decisions
 with an extensive explanation of all key steps and how they may differ in
 various scenarios (e.g., the quantitation method, instrumentation and biological
 question). Our workflow takes advantage of the relatively recent \texttt{QFeatures}
@@ -4993,15 +4991,14 @@ results to those demonstrated here, such changes should be easily traced.
 ##  [3] clusterProfiler_4.12.0      org.Hs.eg.db_3.19.1        
 ##  [5] AnnotationDbi_1.66.0        limma_3.60.0               
 ##  [7] Biostrings_2.72.0           XVector_0.44.0             
-##  [9] corrplot_0.92               NormalyzerDE_1.22.0        
-## [11] tibble_3.2.1                dplyr_1.1.4                
-## [13] stringr_1.5.1               ggplot2_3.5.1              
-## [15] QFeatures_1.14.0            MultiAssayExperiment_1.30.1
-## [17] SummarizedExperiment_1.34.0 Biobase_2.64.0             
-## [19] GenomicRanges_1.56.0        GenomeInfoDb_1.40.0        
-## [21] IRanges_2.38.0              S4Vectors_0.42.0           
-## [23] BiocGenerics_0.50.0         MatrixGenerics_1.16.0      
-## [25] matrixStats_1.3.0          
+##  [9] corrplot_0.92               tibble_3.2.1               
+## [11] dplyr_1.1.4                 stringr_1.5.1              
+## [13] ggplot2_3.5.1               QFeatures_1.14.0           
+## [15] MultiAssayExperiment_1.30.1 SummarizedExperiment_1.34.0
+## [17] Biobase_2.64.0              GenomicRanges_1.56.0       
+## [19] GenomeInfoDb_1.40.0         IRanges_2.38.0             
+## [21] S4Vectors_0.42.0            BiocGenerics_0.50.0        
+## [23] MatrixGenerics_1.16.0       matrixStats_1.3.0          
 ## 
 ## loaded via a namespace (and not attached):
 ##   [1] RColorBrewer_1.1-3       rstudioapi_0.16.0        jsonlite_1.8.8          
@@ -5024,25 +5021,24 @@ results to those demonstrated here, such changes should be easily traced.
 ##  [52] ape_5.8                  glue_1.7.0               nlme_3.1-164            
 ##  [55] GOSemSim_2.30.0          shadowtext_0.1.3         grid_4.4.0              
 ##  [58] cluster_2.1.6            reshape2_1.4.4           fgsea_1.30.0            
-##  [61] generics_0.1.3           gtable_0.3.5             preprocessCore_1.66.0   
-##  [64] tidyr_1.3.1              data.table_1.15.4        tidygraph_1.3.1         
-##  [67] utf8_1.2.4               ggrepel_0.9.5            pillar_1.9.0            
-##  [70] yulab.utils_0.1.4        BiocWorkflowTools_1.30.0 splines_4.4.0           
-##  [73] tweenr_2.0.3             treeio_1.28.0            lattice_0.22-6          
-##  [76] bit_4.0.5                tidyselect_1.2.1         GO.db_3.19.1            
-##  [79] knitr_1.46               git2r_0.33.0             gridExtra_2.3           
-##  [82] bookdown_0.39            ProtGenerics_1.36.0      xfun_0.43               
-##  [85] graphlayouts_1.1.1       statmod_1.5.0            stringi_1.8.4           
-##  [88] UCSC.utils_1.0.0         lazyeval_0.2.2           ggfun_0.1.4             
-##  [91] yaml_2.3.8               evaluate_0.23            codetools_0.2-20        
-##  [94] ggraph_2.2.1             MsCoreUtils_1.16.0       qvalue_2.36.0           
-##  [97] BiocManager_1.30.23      ggplotify_0.1.2          cli_3.6.2               
-## [100] munsell_0.5.1            Rcpp_1.0.12              png_0.1-8               
-## [103] parallel_4.4.0           blob_1.2.4               DOSE_3.30.0             
-## [106] AnnotationFilter_1.28.0  tidytree_0.4.6           viridisLite_0.4.2       
-## [109] scales_1.3.0             purrr_1.0.2              crayon_1.5.2            
-## [112] rlang_1.1.3              cowplot_1.1.3            fastmatch_1.1-4         
-## [115] KEGGREST_1.44.0
+##  [61] generics_0.1.3           gtable_0.3.5             tidyr_1.3.1             
+##  [64] data.table_1.15.4        tidygraph_1.3.1          utf8_1.2.4              
+##  [67] ggrepel_0.9.5            pillar_1.9.0             yulab.utils_0.1.4       
+##  [70] BiocWorkflowTools_1.30.0 splines_4.4.0            tweenr_2.0.3            
+##  [73] treeio_1.28.0            lattice_0.22-6           bit_4.0.5               
+##  [76] tidyselect_1.2.1         GO.db_3.19.1             knitr_1.46              
+##  [79] git2r_0.33.0             gridExtra_2.3            bookdown_0.39           
+##  [82] ProtGenerics_1.36.0      xfun_0.43                graphlayouts_1.1.1      
+##  [85] statmod_1.5.0            stringi_1.8.4            UCSC.utils_1.0.0        
+##  [88] lazyeval_0.2.2           ggfun_0.1.4              yaml_2.3.8              
+##  [91] evaluate_0.23            codetools_0.2-20         ggraph_2.2.1            
+##  [94] MsCoreUtils_1.16.0       qvalue_2.36.0            BiocManager_1.30.23     
+##  [97] ggplotify_0.1.2          cli_3.6.2                munsell_0.5.1           
+## [100] Rcpp_1.0.12              png_0.1-8                parallel_4.4.0          
+## [103] blob_1.2.4               DOSE_3.30.0              AnnotationFilter_1.28.0 
+## [106] tidytree_0.4.6           viridisLite_0.4.2        scales_1.3.0            
+## [109] purrr_1.0.2              crayon_1.5.2             rlang_1.1.3             
+## [112] cowplot_1.1.3            fastmatch_1.1-4          KEGGREST_1.44.0
 \end{verbatim}
 
 Users are advised to update R itself as well as packages as required.

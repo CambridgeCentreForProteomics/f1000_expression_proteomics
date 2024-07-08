@@ -19,7 +19,7 @@ abstract: |
   system.  
   **Methods:** Here, we provide a workflow for the processing, analysis and
   interpretation of quantitative mass spectrometry-based expression proteomics 
-  data. This workflow utilizes open-source R software packages from the 
+  data. This workflow utilises open-source R software packages from the 
   Bioconductor project and guides users end-to-end and step-by-step through every
   stage of the analyses. As a use-case we generated expression proteomics data
   from HEK293 cells with and without a treatment. Of note, the experiment included 
@@ -63,9 +63,9 @@ explore how biological systems respond to a perturbation. Many research groups
 have applied such methodologies to understand mechanisms of disease, elucidate
 cellular responses to external stimuli, and discover diagnostic biomarkers (see
 [@PinaJimnez2021; @AmiriDashatan2021; @Anitua2018] for recent examples). As the
-potential of proteomics continues to be realized, there is a clear need for 
+potential of proteomics continues to be realised, there is a clear need for 
 resources demonstrating how to deal with expression proteomics data in a robust
-and standardized manner.
+and standardised manner.
 
 The data generated during an expression proteomics experiment are complex, and 
 unfortunately there is no one-size-fits-all method for the processing and analysis
@@ -137,7 +137,6 @@ if (!require("BiocManager", quietly = TRUE)) {
 BiocManager::install(c("QFeatures",
                        "ggplot2",
                        "stringr",
-                       "NormalyzerDE",
                        "corrplot",
                        "Biostrings",
                        "limma",
@@ -160,7 +159,6 @@ library("ggplot2")
 library("stringr")
 library("dplyr")
 library("tibble")
-library("NormalyzerDE")
 library("corrplot")
 library("Biostrings")
 library("limma")
@@ -181,7 +179,7 @@ library("patchwork")
 As a use-case, we analyze two quantitative proteomics datasets derived from a 
 single experiment. The aim of the experiment was to reveal the differential 
 abundance of proteins in HEK293 cells upon a particular treatment, the exact 
-details of which are anonymized for the purpose of this workflow. An outline of
+details of which are anonymised for the purpose of this workflow. An outline of
 the experimental method is provided in Figure \@ref(fig:experimental-method).
 
 Briefly, HEK293 cells were either (i) left untreated, or (ii) provided with the
@@ -432,7 +430,7 @@ sample reference and condition. As this information is experimental metadata, it
 is added to the `colData` slot. It is important for users check that the `colData` 
 annotations correspond to their correct samples, particularly if the column order
 in the imported results file does not align with the sample order. This is the 
-case for the use-case data since TMT labels were randomized in an attempt to 
+case for the use-case data since TMT labels were randomised in an attempt to 
 minimze the effect of TMT channel leakage.
 
 ```{r tmt_housekeeping, message = FALSE}
@@ -696,7 +694,7 @@ engine to assess the presence of both the modified (TMT labelled) and unmodified
 (original) forms of each peptide. The relative proportions of modified and
 unmodified peptides can then be used to calculate the TMT labelling efficiency.
 To demonstrate how to check for TMT labelling efficiency, only two of the eight
-fractions were utilized for this search.
+fractions were utilised for this search.
 
 As we will only look at TMT efficiency at the PSM-level, here we upload the `.txt` 
 into a `data.frame` to format into a `SummarizedExperiment` object. This is done
@@ -1628,7 +1626,7 @@ completely at random (MCAR), missing at random (MAR) and missing not at random
 (MNAR). Within proteomics, values which are MCAR arise due to technical
 variation or stochastic fluctuations and emerge in a uniform, 
 intensity-independent distribution. Examples include values for peptides which
-cannot be consistently identified or are unable to be efficiently ionized. By
+cannot be consistently identified or are unable to be efficiently ionised. By
 contrast, MNAR values are expected to occur in an intensity-dependent manner due
 to the presence of peptides at abundances below the limit of detection 
 [@Karpievitch2009; @Lazar2016; @QFeat]. In many cases this is due to the biological 
@@ -1645,7 +1643,7 @@ dataset. This final step is optional and can equally be done prior to filtering
 if the user wishes to impute all missing values without removing any PSMs,
 although this is not recommended. Further, whilst it is possible to complete
 such steps at the peptide- or protein-level, we advise management of missing
-values at the lowest data level to minimize the effect of implicit imputation
+values at the lowest data level to minimise the effect of implicit imputation
 during aggregation.
 
 
@@ -1967,12 +1965,12 @@ Following aggregation, we have a total of `r nrow(cp_qf[["log_proteins"]])`
 proteins remaining within the data.
 
 
-## normalisation of quantitative data
+## Normalisation of quantitative data
 
-After transforming the data, we normalize the protein-level abundances.
+After transforming the data, we normalise the protein-level abundances.
 normalisation is a process of correction whereby quantitative data is returned
 to its original, or 'normal', state. In expression proteomics, the aim of 
-post-acquisition data normalisation is to minimize the biases that arises due to
+post-acquisition data normalisation is to minimise the biases that arises due to
 experimental error and technological variation. Specifically, the removal of
 random variation and batch effects will allow samples to be aligned prior to
 downstream analysis. Importantly, however, users must also be aware of any
@@ -2003,7 +2001,7 @@ transformation on their data before use. More details can be found in the
 `QFeatures` documentation, please type `help("normalize,QFeatures-method")`.
 
 ```{r tmt_normalisation_1}
-## normalize the log transformed peptide data
+## normalise the log transformed peptide data
 cp_qf <- normalize(cp_qf,
                    i = "log_proteins",
                    name = "log_norm_proteins",
@@ -2067,7 +2065,7 @@ cp_qf[["log_norm_proteins"]] %>%
                 main = "log2(norm proteins)")
 ```
 
-Density plots are a useful vizualization tool as we are able to quickly compare
+Density plots are a useful visualization tool as we are able to quickly compare
 the data across samples by plotting the distribution of each sample together. 
 When doing this we get an idea of where the majority of the intensities lie. If,
 for example, all samples come from the same cells and our treatment/conditions
@@ -2102,7 +2100,7 @@ assayLink(cp_qf,
           i = "log_norm_proteins")
 ```
 
-### visualizing aggregation
+### Visualising aggregation
 One of the characteristic attributes of the `QFeatures` infrastructure is that
 explicit links have been maintained throughout the aggregation process. This
 means that we can now access all data corresponding to a protein, its component
@@ -2721,9 +2719,9 @@ MsCoreUtils::imputeMethods()
 Unfortunately, it is very challenging to determine the reason(s) behind missing
 data, and in most cases experiments contain a mixture of MCAR and MNAR. For LFQ
 data where little is know about the cause of missing values it is advisable to
-use methods optimized for MCAR. Here we will use the baseline k-nearest 
+use methods optimised for MCAR. Here we will use the baseline k-nearest 
 neighbours (k-NN) imputation on the raw peptide intensities. Of note, users who
-wish to utilize an alternative imputation method should check whether their 
+wish to utilise an alternative imputation method should check whether their 
 selected method has a requirement for normality. If the method requires data to 
 display a normal distribution, users must log2 transform the data prior to 
 imputation.  
@@ -2827,9 +2825,9 @@ sn_qf <- aggregateFeatures(sn_qf,
 sn_qf
 ```
 
-## normalisation of quantitative data
+## Normalisation of quantitative data
 
-Finally, we complete the data processing by normalizing quantitation between
+Finally, we complete the data processing by normalising quantitation between
 samples. This is done using the `"center.median"` method via the `normalize`
 function.
 
@@ -2861,7 +2859,7 @@ save(sn_qf, file = "sn_qf.rda")
 
 Having described the processing steps for quantitative proteomics data, we next
 demonstrate how to explore the protein-level data prior to statistical analysis.
-For this we will utilize the TMT-labelled cell pellet dataset since it contains
+For this we will utilise the TMT-labelled cell pellet dataset since it contains
 a greater number of proteins.
 
 
@@ -3030,7 +3028,7 @@ function from the `limma` package.
 # Discovery and biological interpretation of differentially abundant proteins
 
 The last section of this workflow demonstrates how to gain biological insights
-from the resulting list of proteins. Again we will utilize the TMT-labelled cell
+from the resulting list of proteins. Again we will utilise the TMT-labelled cell
 pellet data, although the process would be exactly the same for the LFQ
 supernatant protein list. Users are reminded that although referred to as
 differential 'expression' analysis, abundance is determined by both protein
@@ -3074,7 +3072,7 @@ multi-plexed TMT experiments. For LFQ experiments,
 [`proDA`](https://bioconductor.org/packages/release/bioc/html/proDA.html),
 [`prolfqua`](https://rdrr.io/github/wolski/prolfqua/) and 
 [`MSqRob2`](https://www.bioconductor.org/packages/release/bioc/html/msqrob2.html) 
-can be utilized, among others [@Goeminne2020; @Wolski2023]. Here, we will use the
+can be utilised, among others [@Goeminne2020; @Wolski2023]. Here, we will use the
 [`limma`](https://bioconductor.org/packages/release/bioc/html/limma.html)
 package [@Ritchie2015]. `limma` is widely used for the analysis of large omics 
 datasets and has several models that allow differential abundance to be assessed
@@ -3142,7 +3140,7 @@ plotSA(fitted_lm,
 ```
 
 The residual standard deviation is a measure of model accuracy and is most
-easily conceptualized as a measurement of how far from the model prediction each
+easily conceptualised as a measurement of how far from the model prediction each
 data point lies. The smaller the residual standard deviation, the closer the fit
 between the model and observed data.
 
@@ -3465,13 +3463,13 @@ or provide very limited commentary. The latter directly contributes to a
 problematic disconnect between researchers and their data whereby the users do
 not understand if or why each step is necessary for their given dataset and
 biological question. This can prevent researchers from refining a workflow to fit
-their specific needs. Finally, the majority of proteomics workflows utilize 
+their specific needs. Finally, the majority of proteomics workflows utilise 
 `data.frame` or `tibble` structures which limits their traceability, as is the
 case for `protti`, `promor` and `prolfqua` [@Ranathunge2022; @Quast2021; @Wolski2022]. 
 
 The workflow presented here outlines in completion how to process, analyze and 
 interpret LFQ and TMT expression proteomics data derived from a bottom-up DDA 
-experiment. Critically, we emphasize quality control and data-guided decisions 
+experiment. Critically, we emphasise quality control and data-guided decisions 
 with an extensive explanation of all key steps and how they may differ in 
 various scenarios (e.g., the quantitation method, instrumentation and biological
 question). Our workflow takes advantage of the relatively recent `QFeatures` 
