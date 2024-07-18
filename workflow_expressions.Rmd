@@ -17,6 +17,7 @@ abstract: |
   abundances within a system. In turn, differential expression analysis can be 
   used to investigate changes in protein abundance upon perturbation to such a 
   system.  
+  
   **Methods:** Here, we provide a workflow for the processing, analysis and
   interpretation of quantitative mass spectrometry-based expression proteomics 
   data. This workflow utilises open-source R software packages from the 
@@ -25,11 +26,13 @@ abstract: |
   from HEK293 cells with and without a treatment. Of note, the experiment included 
   cellular proteins labelled using tandem mass tag (TMT) technology and secreted
   proteins quantified using label-free quantitation (LFQ).
+  
   **Results:** The workflow explains the software infrastructure before focusing
   on data import, pre-processing and quality control. This is done individually 
   for TMT and LFQ datasets. The application of statistical differential 
   expression analysis is demonstrated, followed by interpretation via gene
   ontology enrichment analysis.  
+  
   **Conclusions:** A comprehensive workflow for the processing, analysis and
   interpretation of expression proteomics is presented. The workflow is a 
   valuable resource for the proteomics community and specifically beginners who
@@ -242,10 +245,8 @@ using RStudio one can use the Session -> Set Working Directory menu.
 
 To be able to conveniently track each step of this workflow, users should make
 use of the Quantitative features for mass spectrometry package, or 
-[`QFeatures`, Bioconductor package](https://www.bioconductor.org/packages/release/bioc/html/QFeatures.html)
-[@QFeat]. Prior to utilizing the `QFeatures` infrastructure, it is first necessary to
-understand the structure of a [`SummarizedExperiment`](https://bioconductor.org/packages/release/bioc/html/SummarizedExperiment.html)
-[@SumExp] object as `QFeatures` objects are based on the `SummarizedExperiment`
+[`QFeatures`, Bioconductor package](https://www.bioconductor.org/packages/release/bioc/html/QFeatures.html) [@QFeat]. Prior to utilizing the `QFeatures` infrastructure, it is first necessary to
+understand the structure of a [`SummarizedExperiment`](https://bioconductor.org/packages/release/bioc/html/SummarizedExperiment.html) [@SumExp] object as `QFeatures` objects are based on the `SummarizedExperiment`
 class. A `SummarizedExperiment`, often referred to as an SE, is a data container
 and S4 object comprised of three components: (1) the `colData` (column data)
 containing sample metadata, (2) the `rowData` containing data features, and (3)
