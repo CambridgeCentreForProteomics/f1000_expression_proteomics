@@ -248,6 +248,31 @@ Here we load all packages included in this workflow.
 \begin{Shaded}
 \begin{Highlighting}[]
 \FunctionTok{library}\NormalTok{(}\StringTok{"QFeatures"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning: package 'QFeatures' was built under R version 4.4.1
+\end{verbatim}
+
+\begin{verbatim}
+## Warning: package 'MultiAssayExperiment' was built under R version 4.4.1
+\end{verbatim}
+
+\begin{verbatim}
+## Warning: package 'matrixStats' was built under R version 4.4.1
+\end{verbatim}
+
+\begin{verbatim}
+## Warning: package 'S4Vectors' was built under R version 4.4.1
+\end{verbatim}
+
+\begin{verbatim}
+## Warning: package 'IRanges' was built under R version 4.4.1
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
 \FunctionTok{library}\NormalTok{(}\StringTok{"ggplot2"}\NormalTok{)}
 \FunctionTok{library}\NormalTok{(}\StringTok{"stringr"}\NormalTok{)}
 \FunctionTok{library}\NormalTok{(}\StringTok{"dplyr"}\NormalTok{)}
@@ -255,11 +280,33 @@ Here we load all packages included in this workflow.
 \FunctionTok{library}\NormalTok{(}\StringTok{"corrplot"}\NormalTok{)}
 \FunctionTok{library}\NormalTok{(}\StringTok{"Biostrings"}\NormalTok{)}
 \FunctionTok{library}\NormalTok{(}\StringTok{"limma"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning: package 'limma' was built under R version 4.4.1
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
 \FunctionTok{library}\NormalTok{(}\StringTok{"org.Hs.eg.db"}\NormalTok{)}
 \FunctionTok{library}\NormalTok{(}\StringTok{"clusterProfiler"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning: package 'clusterProfiler' was built under R version 4.4.1
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
 \FunctionTok{library}\NormalTok{(}\StringTok{"enrichplot"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
+
+\begin{verbatim}
+## Warning: package 'enrichplot' was built under R version 4.4.1
+\end{verbatim}
 
 \section{Methods}\label{methods}
 
@@ -1850,7 +1897,8 @@ column to the \texttt{rowData} of our \texttt{"psms\_filtered"} experiment.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\FunctionTok{rowData}\NormalTok{(cp\_qf[[}\StringTok{"psms\_filtered"}\NormalTok{]])}\SpecialCharTok{$}\NormalTok{Protein.Confidence }\OtherTok{\textless{}{-}}\NormalTok{ protein\_fdr}\SpecialCharTok{$}\NormalTok{Protein.FDR.Confidence.Combined}
+\FunctionTok{rowData}\NormalTok{(cp\_qf[[}\StringTok{"psms\_filtered"}\NormalTok{]])}\SpecialCharTok{$}\NormalTok{Protein.Confidence }\OtherTok{\textless{}{-}} 
+\NormalTok{  protein\_fdr}\SpecialCharTok{$}\NormalTok{Protein.FDR.Confidence.Combined}
 \end{Highlighting}
 \end{Shaded}
 
@@ -2864,8 +2912,7 @@ To evaluate the effect of normalisation we plot a simple boxplot.
   \FunctionTok{labs}\NormalTok{(}\AttributeTok{x =} \StringTok{"Sample"}\NormalTok{, }\AttributeTok{y =} \StringTok{"log2(abundance)"}\NormalTok{, }\AttributeTok{title =} \StringTok{"Post{-}normalisation"}\NormalTok{) }\SpecialCharTok{+}
   \FunctionTok{theme\_bw}\NormalTok{()}
 
-\NormalTok{(pre\_norm }\SpecialCharTok{+} \FunctionTok{theme}\NormalTok{(}\AttributeTok{legend.position =} \StringTok{"none"}\NormalTok{)) }\SpecialCharTok{+} 
-\NormalTok{  post\_norm }\SpecialCharTok{\&} \FunctionTok{plot\_layout}\NormalTok{(}\AttributeTok{guides =} \StringTok{"collect"}\NormalTok{)}
+\NormalTok{pre\_norm }\SpecialCharTok{+} \FunctionTok{theme}\NormalTok{(}\AttributeTok{legend.position =} \StringTok{"none"}\NormalTok{) }\SpecialCharTok{+}\NormalTok{ post\_norm}
 \end{Highlighting}
 \end{Shaded}
 
@@ -4224,7 +4271,7 @@ correlation heat map.
 \begin{Highlighting}[]
 \DocumentationTok{\#\# Plot correlation between two samples {-} S1 and S2 used as example}
 \NormalTok{prot\_df }\SpecialCharTok{\%\textgreater{}\%}
-  \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =} \StringTok{\textasciigrave{}}\AttributeTok{S1}\StringTok{\textasciigrave{}}\NormalTok{, }\AttributeTok{y =} \StringTok{\textasciigrave{}}\AttributeTok{S2}\StringTok{\textasciigrave{}}\NormalTok{)) }\SpecialCharTok{+}
+  \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ S1, }\AttributeTok{y =}\NormalTok{ S2)) }\SpecialCharTok{+}
   \FunctionTok{geom\_point}\NormalTok{(}\AttributeTok{colour =} \StringTok{"grey45"}\NormalTok{, }\AttributeTok{size =} \FloatTok{0.5}\NormalTok{) }\SpecialCharTok{+}
   \FunctionTok{geom\_abline}\NormalTok{(}\AttributeTok{intercept =} \DecValTok{0}\NormalTok{, }\AttributeTok{slope =} \DecValTok{1}\NormalTok{) }\SpecialCharTok{+}
   \FunctionTok{theme}\NormalTok{(}\AttributeTok{panel.grid.major =} \FunctionTok{element\_blank}\NormalTok{(), }
@@ -4606,15 +4653,14 @@ apply a fold change threshold here.
 \begin{Shaded}
 \begin{Highlighting}[]
 \DocumentationTok{\#\# Add direction of log fold change relative to control}
-\NormalTok{limma\_results}\SpecialCharTok{$}\NormalTok{direction }\OtherTok{\textless{}{-}} \FunctionTok{ifelse}\NormalTok{(limma\_results}\SpecialCharTok{$}\NormalTok{logFC }\SpecialCharTok{\textgreater{}} \DecValTok{0}\NormalTok{,}
-                                  \StringTok{"up"}\NormalTok{, }\StringTok{"down"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+\NormalTok{limma\_results}\SpecialCharTok{$}\NormalTok{direction }\OtherTok{\textless{}{-}} 
+  \FunctionTok{ifelse}\NormalTok{(limma\_results}\SpecialCharTok{$}\NormalTok{logFC }\SpecialCharTok{\textgreater{}} \DecValTok{0}\NormalTok{, }\StringTok{"up"}\NormalTok{, }\StringTok{"down"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
   \FunctionTok{as.factor}\NormalTok{()}
 
 \DocumentationTok{\#\# Add significance thresholds}
-\NormalTok{limma\_results}\SpecialCharTok{$}\NormalTok{significance }\OtherTok{\textless{}{-}} \FunctionTok{ifelse}\NormalTok{(limma\_results}\SpecialCharTok{$}\NormalTok{adj.P.Val }\SpecialCharTok{\textless{}} \FloatTok{0.01}\NormalTok{,}
-                                     \StringTok{"sig"}\NormalTok{, }\StringTok{"not.sig"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+\NormalTok{limma\_results}\SpecialCharTok{$}\NormalTok{significance }\OtherTok{\textless{}{-}} 
+  \FunctionTok{ifelse}\NormalTok{(limma\_results}\SpecialCharTok{$}\NormalTok{adj.P.Val }\SpecialCharTok{\textless{}} \FloatTok{0.01}\NormalTok{, }\StringTok{"sig"}\NormalTok{, }\StringTok{"not.sig"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
   \FunctionTok{as.factor}\NormalTok{()}
-
 
 \DocumentationTok{\#\# Verify}
 \FunctionTok{str}\NormalTok{(limma\_results)}
@@ -4649,8 +4695,7 @@ upregulation. To simplify interpretation, we print a \texttt{summary} of this ma
 \begin{Highlighting}[]
 \DocumentationTok{\#\# Get a summary of statistically significant results}
 \NormalTok{fitted\_lm }\SpecialCharTok{\%\textgreater{}\%}
-  \FunctionTok{decideTests}\NormalTok{(}\AttributeTok{adjust.method =} \StringTok{"BH"}\NormalTok{,}
-              \AttributeTok{p.value =} \FloatTok{0.01}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{decideTests}\NormalTok{(}\AttributeTok{adjust.method =} \StringTok{"BH"}\NormalTok{, }\AttributeTok{p.value =} \FloatTok{0.01}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
   \FunctionTok{summary}\NormalTok{()}
 \end{Highlighting}
 \end{Shaded}
@@ -4673,9 +4718,7 @@ further.
 \begin{Shaded}
 \begin{Highlighting}[]
 \DocumentationTok{\#\# Subset proteins that show significantly different abundance}
-\NormalTok{sig\_proteins }\OtherTok{\textless{}{-}} \FunctionTok{subset}\NormalTok{(limma\_results,}
-\NormalTok{                       adj.P.Val }\SpecialCharTok{\textless{}=} \FloatTok{0.01}\NormalTok{)}
-
+\NormalTok{sig\_proteins }\OtherTok{\textless{}{-}} \FunctionTok{subset}\NormalTok{(limma\_results, adj.P.Val }\SpecialCharTok{\textless{}=} \FloatTok{0.01}\NormalTok{)}
 \FunctionTok{length}\NormalTok{(sig\_proteins}\SpecialCharTok{$}\NormalTok{Protein)}
 \end{Highlighting}
 \end{Shaded}
@@ -4838,17 +4881,20 @@ FDR control and set p-value, BH-adjusted p-value, and q-value thresholds of
 ## #...@gene     chr [1:313] "Q01581" "P15104" "Q9UK41" "P37268" "P04183" "Q9UHI8" "Q13907" ...
 ## #...pvalues adjusted by 'BH' with cutoff <0.05 
 ## #...2 enriched terms found
-## 'data.frame':    2 obs. of  10 variables:
-##  $ ONTOLOGY   : chr  "CC" "CC"
-##  $ ID         : chr  "GO:0005758" "GO:0031970"
-##  $ Description: chr  "mitochondrial intermembrane space" "organelle envelope lumen"
-##  $ GeneRatio  : chr  "13/308" "13/308"
-##  $ BgRatio    : chr  "40/3176" "44/3176"
-##  $ pvalue     : num  5.59e-05 1.68e-04
-##  $ p.adjust   : num  0.0208 0.0313
-##  $ qvalue     : num  0.0207 0.0312
-##  $ geneID     : chr  "CHCHD2/TIMM9/AK2/TIMM8B/COA4/COA6/MIX23/TIMM8A/DIABLO/TIMM13/TIMM10/TRIAP1/CYCS" "CHCHD2/TIMM9/AK2/TIMM8B/COA4/COA6/MIX23/TIMM8A/DIABLO/TIMM13/TIMM10/TRIAP1/CYCS"
-##  $ Count      : int  13 13
+## 'data.frame':    2 obs. of  13 variables:
+##  $ ONTOLOGY      : chr  "CC" "CC"
+##  $ ID            : chr  "GO:0005758" "GO:0031970"
+##  $ Description   : chr  "mitochondrial intermembrane space" "organelle envelope lumen"
+##  $ GeneRatio     : chr  "13/308" "13/308"
+##  $ BgRatio       : chr  "40/3176" "44/3176"
+##  $ RichFactor    : num  0.325 0.295
+##  $ FoldEnrichment: num  3.35 3.05
+##  $ zScore        : num  4.9 4.48
+##  $ pvalue        : num  5.59e-05 1.68e-04
+##  $ p.adjust      : num  0.0208 0.0313
+##  $ qvalue        : num  0.0207 0.0312
+##  $ geneID        : chr  "CHCHD2/TIMM9/AK2/TIMM8B/COA4/COA6/MIX23/TIMM8A/DIABLO/TIMM13/TIMM10/TRIAP1/CYCS" "CHCHD2/TIMM9/AK2/TIMM8B/COA4/COA6/MIX23/TIMM8A/DIABLO/TIMM13/TIMM10/TRIAP1/CYCS"
+##  $ Count         : int  13 13
 ## #...Citation
 ##  T Wu, E Hu, S Xu, M Chen, P Guo, Z Dai, T Feng, L Zhou, W Tang, L Zhan, X Fu, S Liu, X Bo, and G Yu.
 ##  clusterProfiler 4.0: A universal enrichment tool for interpreting omics data.
@@ -4887,17 +4933,20 @@ the downregulated proteins.
 ## #...@gene     chr [1:381] "Q53EL6" "P08243" "P35716" "Q92878" "P26583" "Q92522" "O43657" ...
 ## #...pvalues adjusted by 'BH' with cutoff <0.05 
 ## #...61 enriched terms found
-## 'data.frame':    61 obs. of  10 variables:
-##  $ ONTOLOGY   : chr  "BP" "BP" "BP" "BP" ...
-##  $ ID         : chr  "GO:0006310" "GO:0000725" "GO:0006302" "GO:0006520" ...
-##  $ Description: chr  "DNA recombination" "recombinational repair" "double-strand break repair" "amino acid metabolic process" ...
-##  $ GeneRatio  : chr  "37/366" "23/366" "32/366" "33/366" ...
-##  $ BgRatio    : chr  "95/3121" "58/3121" "101/3121" "113/3121" ...
-##  $ pvalue     : num  3.61e-12 3.61e-08 4.54e-08 2.48e-07 4.46e-07 ...
-##  $ p.adjust   : num  8.65e-09 3.62e-05 3.62e-05 1.48e-04 2.14e-04 ...
-##  $ qvalue     : num  8.33e-09 3.48e-05 3.48e-05 1.43e-04 2.06e-04 ...
-##  $ geneID     : chr  "RAD50/HMGB2/H1-10/RADX/MRE11/H1-0/H1-2/ZMYND8/MCM5/HMGB3/NUCKS1/RAD21/PRKDC/SFPQ/MCM4/XRCC6/HTATSF1/H1-3/MCM7/T"| __truncated__ "RADX/MRE11/ZMYND8/MCM5/NUCKS1/RAD21/SFPQ/MCM4/XRCC6/HTATSF1/MCM7/XRCC5/PPP4R2/POGZ/YY1/MCM3/MCM2/VPS72/PARP1/BR"| __truncated__ "RAD50/HMGB2/RADX/MRE11/DEK/ZMYND8/MCM5/NUCKS1/RAD21/PRKDC/TP53/SMARCC2/SFPQ/MCM4/XRCC6/HPF1/HTATSF1/MCM7/XRCC5/"| __truncated__ "ASNS/PHGDH/SDSL/SARS1/YARS1/AARS2/HMGCL/GARS1/IARS2/AARS1/HIBADH/PYCR1/ACADSB/DHFR/MCCC2/SLC25A12/MARS1/PSAT1/S"| __truncated__ ...
-##  $ Count      : int  37 23 32 33 21 14 55 14 14 44 ...
+## 'data.frame':    61 obs. of  13 variables:
+##  $ ONTOLOGY      : chr  "BP" "BP" "BP" "BP" ...
+##  $ ID            : chr  "GO:0006310" "GO:0000725" "GO:0006302" "GO:0006520" ...
+##  $ Description   : chr  "DNA recombination" "recombinational repair" "double-strand break repair" "amino acid metabolic process" ...
+##  $ GeneRatio     : chr  "37/366" "23/366" "32/366" "33/366" ...
+##  $ BgRatio       : chr  "95/3121" "58/3121" "101/3121" "113/3121" ...
+##  $ RichFactor    : num  0.389 0.397 0.317 0.292 0.375 ...
+##  $ FoldEnrichment: num  3.32 3.38 2.7 2.49 3.2 ...
+##  $ zScore        : num  8.37 6.67 6.34 5.88 6.05 ...
+##  $ pvalue        : num  3.61e-12 3.61e-08 4.54e-08 2.48e-07 4.46e-07 ...
+##  $ p.adjust      : num  8.65e-09 3.62e-05 3.62e-05 1.48e-04 2.14e-04 ...
+##  $ qvalue        : num  8.33e-09 3.48e-05 3.48e-05 1.43e-04 2.06e-04 ...
+##  $ geneID        : chr  "RAD50/HMGB2/H1-10/RADX/MRE11/H1-0/H1-2/ZMYND8/MCM5/HMGB3/NUCKS1/RAD21/PRKDC/SFPQ/MCM4/XRCC6/HTATSF1/H1-3/MCM7/T"| __truncated__ "RADX/MRE11/ZMYND8/MCM5/NUCKS1/RAD21/SFPQ/MCM4/XRCC6/HTATSF1/MCM7/XRCC5/PPP4R2/POGZ/YY1/MCM3/MCM2/VPS72/PARP1/BR"| __truncated__ "RAD50/HMGB2/RADX/MRE11/DEK/ZMYND8/MCM5/NUCKS1/RAD21/PRKDC/TP53/SMARCC2/SFPQ/MCM4/XRCC6/HPF1/HTATSF1/MCM7/XRCC5/"| __truncated__ "ASNS/PHGDH/SDSL/SARS1/YARS1/AARS2/HMGCL/GARS1/IARS2/AARS1/HIBADH/PYCR1/ACADSB/DHFR/MCCC2/SLC25A12/MARS1/PSAT1/S"| __truncated__ ...
+##  $ Count         : int  37 23 32 33 21 14 55 14 14 44 ...
 ## #...Citation
 ##  T Wu, E Hu, S Xu, M Chen, P Guo, Z Dai, T Feng, L Zhou, W Tang, L Zhan, X Fu, S Liu, X Bo, and G Yu.
 ##  clusterProfiler 4.0: A universal enrichment tool for interpreting omics data.
@@ -4932,11 +4981,11 @@ Finally, we export the results of our statistical analyses as \texttt{.csv} file
 \begin{Shaded}
 \begin{Highlighting}[]
 \DocumentationTok{\#\# Save results of Limma statistics}
-\FunctionTok{write.csv}\NormalTok{(gene\_results, }\AttributeTok{file =} \StringTok{"all\_limma\_results.csv"}\NormalTok{)}
+\FunctionTok{write.csv}\NormalTok{(limma\_results, }\AttributeTok{file =} \StringTok{"all\_limma\_results.csv"}\NormalTok{)}
 
 \DocumentationTok{\#\# Save subsets of upregulated and downregulated proteins}
-\FunctionTok{write.csv}\NormalTok{(sig\_upregulated, }\AttributeTok{file =} \StringTok{"upregulated\_results.csv"}\NormalTok{)}
-\FunctionTok{write.csv}\NormalTok{(sig\_downregulated, }\AttributeTok{file =} \StringTok{"downregulated\_results.csv"}\NormalTok{)}\ErrorTok{)}
+\FunctionTok{write.csv}\NormalTok{(sig\_up, }\AttributeTok{file =} \StringTok{"upregulated\_results.csv"}\NormalTok{)}
+\FunctionTok{write.csv}\NormalTok{(sig\_down, }\AttributeTok{file =} \StringTok{"downregulated\_results.csv"}\NormalTok{)}\ErrorTok{)}
 
 \DocumentationTok{\#\# Save results of GO enrichment}
 \FunctionTok{write.csv}\NormalTok{(ego\_up, }\AttributeTok{file =} \StringTok{"upregulated\_go\_enrichment.csv"}\NormalTok{)}
@@ -5019,58 +5068,60 @@ results to those demonstrated here, such changes should be easily traced.
 ## [8] base     
 ## 
 ## other attached packages:
-##  [1] patchwork_1.2.0             enrichplot_1.24.0          
-##  [3] clusterProfiler_4.12.0      org.Hs.eg.db_3.19.1        
-##  [5] AnnotationDbi_1.66.0        limma_3.60.0               
-##  [7] Biostrings_2.72.0           XVector_0.44.0             
-##  [9] corrplot_0.92               tibble_3.2.1               
+##  [1] patchwork_1.2.0             enrichplot_1.24.4          
+##  [3] clusterProfiler_4.12.6      org.Hs.eg.db_3.19.1        
+##  [5] AnnotationDbi_1.66.0        limma_3.60.4               
+##  [7] Biostrings_2.72.1           XVector_0.44.0             
+##  [9] corrplot_0.94               tibble_3.2.1               
 ## [11] dplyr_1.1.4                 stringr_1.5.1              
-## [13] ggplot2_3.5.1               QFeatures_1.14.0           
-## [15] MultiAssayExperiment_1.30.1 SummarizedExperiment_1.34.0
-## [17] Biobase_2.64.0              GenomicRanges_1.56.0       
-## [19] GenomeInfoDb_1.40.0         IRanges_2.38.0             
-## [21] S4Vectors_0.42.0            BiocGenerics_0.50.0        
-## [23] MatrixGenerics_1.16.0       matrixStats_1.3.0          
+## [13] ggplot2_3.5.1               QFeatures_1.14.2           
+## [15] MultiAssayExperiment_1.30.3 SummarizedExperiment_1.34.0
+## [17] Biobase_2.64.0              GenomicRanges_1.56.1       
+## [19] GenomeInfoDb_1.40.1         IRanges_2.38.1             
+## [21] S4Vectors_0.42.1            BiocGenerics_0.50.0        
+## [23] MatrixGenerics_1.16.0       matrixStats_1.4.0          
 ## 
 ## loaded via a namespace (and not attached):
 ##   [1] RColorBrewer_1.1-3       rstudioapi_0.16.0        jsonlite_1.8.8          
-##   [4] magrittr_2.0.3           farver_2.1.1             rmarkdown_2.26          
+##   [4] magrittr_2.0.3           farver_2.1.2             rmarkdown_2.28          
 ##   [7] fs_1.6.4                 zlibbioc_1.50.0          vctrs_0.6.5             
-##  [10] memoise_2.0.1            ggtree_3.12.0            tinytex_0.51            
-##  [13] BiocBaseUtils_1.6.0      htmltools_0.5.8.1        S4Arrays_1.4.0          
-##  [16] usethis_2.2.3            gridGraphics_0.5-1       SparseArray_1.4.3       
-##  [19] plyr_1.8.9               impute_1.78.0            cachem_1.0.8            
-##  [22] igraph_2.0.3             lifecycle_1.0.4          pkgconfig_2.0.3         
-##  [25] gson_0.1.0               Matrix_1.7-0             R6_2.5.1                
-##  [28] fastmap_1.1.1            GenomeInfoDbData_1.2.12  clue_0.3-65             
-##  [31] digest_0.6.35            aplot_0.2.2              colorspace_2.1-0        
-##  [34] RSQLite_2.3.6            labeling_0.4.3           fansi_1.0.6             
-##  [37] httr_1.4.7               polyclip_1.10-6          abind_1.4-5             
-##  [40] compiler_4.4.0           bit64_4.0.5              withr_3.0.0             
-##  [43] BiocParallel_1.38.0      viridis_0.6.5            DBI_1.2.2               
-##  [46] ggforce_0.4.2            MASS_7.3-60.2            DelayedArray_0.30.1     
-##  [49] HDO.db_0.99.1            tools_4.4.0              scatterpie_0.2.2        
-##  [52] ape_5.8                  glue_1.7.0               nlme_3.1-164            
-##  [55] GOSemSim_2.30.0          shadowtext_0.1.3         grid_4.4.0              
-##  [58] cluster_2.1.6            reshape2_1.4.4           fgsea_1.30.0            
-##  [61] generics_0.1.3           gtable_0.3.5             tidyr_1.3.1             
-##  [64] data.table_1.15.4        tidygraph_1.3.1          utf8_1.2.4              
-##  [67] ggrepel_0.9.5            pillar_1.9.0             yulab.utils_0.1.4       
-##  [70] BiocWorkflowTools_1.30.0 splines_4.4.0            tweenr_2.0.3            
-##  [73] treeio_1.28.0            lattice_0.22-6           bit_4.0.5               
-##  [76] tidyselect_1.2.1         GO.db_3.19.1             knitr_1.46              
-##  [79] git2r_0.33.0             gridExtra_2.3            bookdown_0.39           
-##  [82] ProtGenerics_1.36.0      xfun_0.43                graphlayouts_1.1.1      
-##  [85] statmod_1.5.0            stringi_1.8.4            UCSC.utils_1.0.0        
-##  [88] lazyeval_0.2.2           ggfun_0.1.4              yaml_2.3.8              
-##  [91] evaluate_0.23            codetools_0.2-20         ggraph_2.2.1            
-##  [94] MsCoreUtils_1.16.0       qvalue_2.36.0            BiocManager_1.30.23     
-##  [97] ggplotify_0.1.2          cli_3.6.2                munsell_0.5.1           
-## [100] Rcpp_1.0.12              png_0.1-8                parallel_4.4.0          
-## [103] blob_1.2.4               DOSE_3.30.0              AnnotationFilter_1.28.0 
-## [106] tidytree_0.4.6           viridisLite_0.4.2        scales_1.3.0            
-## [109] purrr_1.0.2              crayon_1.5.2             rlang_1.1.3             
-## [112] cowplot_1.1.3            fastmatch_1.1-4          KEGGREST_1.44.0
+##  [10] memoise_2.0.1            ggtree_3.12.0            tinytex_0.52            
+##  [13] BiocBaseUtils_1.6.0      htmltools_0.5.8.1        S4Arrays_1.4.1          
+##  [16] usethis_3.0.0            gridGraphics_0.5-1       SparseArray_1.4.8       
+##  [19] plyr_1.8.9               httr2_1.0.3              impute_1.78.0           
+##  [22] cachem_1.1.0             igraph_2.0.3             lifecycle_1.0.4         
+##  [25] pkgconfig_2.0.3          gson_0.1.0               Matrix_1.7-0            
+##  [28] R6_2.5.1                 fastmap_1.2.0            GenomeInfoDbData_1.2.12 
+##  [31] clue_0.3-65              aplot_0.2.3              digest_0.6.37           
+##  [34] colorspace_2.1-1         RSQLite_2.3.7            labeling_0.4.3          
+##  [37] fansi_1.0.6              httr_1.4.7               polyclip_1.10-7         
+##  [40] abind_1.4-5              compiler_4.4.0           bit64_4.0.5             
+##  [43] withr_3.0.1              BiocParallel_1.38.0      viridis_0.6.5           
+##  [46] DBI_1.2.3                ggforce_0.4.2            R.utils_2.12.3          
+##  [49] MASS_7.3-61              rappdirs_0.3.3           DelayedArray_0.30.1     
+##  [52] tools_4.4.0              scatterpie_0.2.4         ape_5.8                 
+##  [55] R.oo_1.26.0              glue_1.7.0               nlme_3.1-166            
+##  [58] GOSemSim_2.30.2          shadowtext_0.1.4         grid_4.4.0              
+##  [61] cluster_2.1.6            reshape2_1.4.4           fgsea_1.30.0            
+##  [64] generics_0.1.3           gtable_0.3.5             R.methodsS3_1.8.2       
+##  [67] tidyr_1.3.1              data.table_1.16.0        tidygraph_1.3.1         
+##  [70] utf8_1.2.4               ggrepel_0.9.5            pillar_1.9.0            
+##  [73] yulab.utils_0.1.7        BiocWorkflowTools_1.30.0 splines_4.4.0           
+##  [76] tweenr_2.0.3             treeio_1.28.0            lattice_0.22-6          
+##  [79] bit_4.0.5                tidyselect_1.2.1         GO.db_3.19.1            
+##  [82] knitr_1.48               git2r_0.33.0             gridExtra_2.3           
+##  [85] bookdown_0.40            ProtGenerics_1.36.0      xfun_0.47               
+##  [88] graphlayouts_1.1.1       statmod_1.5.0            stringi_1.8.4           
+##  [91] UCSC.utils_1.0.0         ggfun_0.1.6              lazyeval_0.2.2          
+##  [94] yaml_2.3.10              evaluate_0.24.0          codetools_0.2-20        
+##  [97] ggraph_2.2.1             MsCoreUtils_1.16.1       qvalue_2.36.0           
+## [100] BiocManager_1.30.25      ggplotify_0.1.2          cli_3.6.3               
+## [103] munsell_0.5.1            Rcpp_1.0.13              png_0.1-8               
+## [106] parallel_4.4.0           blob_1.2.4               DOSE_3.30.5             
+## [109] AnnotationFilter_1.28.0  tidytree_0.4.6           viridisLite_0.4.2       
+## [112] scales_1.3.0             purrr_1.0.2              crayon_1.5.3            
+## [115] rlang_1.1.4              cowplot_1.1.3            fastmatch_1.1-4         
+## [118] KEGGREST_1.44.1
 \end{verbatim}
 
 Users are advised to update R itself as well as packages as required.
@@ -5208,6 +5259,73 @@ thresholds will likely be influenced by the quality of data output, as
 demonstrated later in this workflow. Instead, thresholds for the three
 aforementioned parameters were set to 0 during the identification search.
 
+\subsection{Using this workflow with MaxQuant data}\label{using-this-workflow-with-maxquant-data}
+
+This workflow was written for proteomics data processed using the Proteome
+Discoverer software. Nevertheless, the workflow and basic principles discussed
+are also applicable to the output of any similar proteomics raw data processing
+software, including MaxQuant. Below we outline the differences to be aware of
+when following this workflow using MaxQuant output text files. The code as
+written will require some minor modifications to work properly with MaxQuant
+formatted data.
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  The rough equivalent of the PSMs.txt file output by Proteome Discoverer is
+  the evidence.txt file output by MaxQuant.
+\item
+  Decoy PSMs (known false discoveries which are used to calculate false discovery
+  rate) are automatically filtered out by Proteome Discoverer, but this is not the
+  case with MaxQuant. Hence when working with MaxQuant outputs it is important to
+  filter out rows with `+' in the \texttt{Reverse} column.
+\item
+  Equivalent column names and the type of data contained are described here.
+  Ellipses are put where there no equivalent column exists.
+\end{enumerate}
+
+In PD the file \texttt{PSMs.txt} is equivalent to the MaxQuant \texttt{evidence.txt} file.
+Equivalent column names are shown in the table below:
+
+\begin{itemize}
+\item
+  \texttt{Abundance} (float) = \texttt{Reporter.intensity.corrected} (integer)
+\item
+  \texttt{Sequence} (string) = \texttt{Sequence} (string)
+\item
+  \texttt{Master.Protein.Accessions} (string) = \texttt{Leading.proteins} (string)
+\item
+  \texttt{Master.Protein.Descriptions} (string) = \ldots{}
+\item
+  \texttt{Contaminants} (string, True or False) = \texttt{Potential.contaminant} (string, + or blank)
+\item
+  \ldots{} = \texttt{Reverse} (string, + or blank)
+\item
+  \texttt{Rank} (integer) = \ldots{}
+\item
+  \texttt{Search.Engine.Rank} (integer) = \ldots{}
+\item
+  \texttt{PSM.Ambiguity} (string) = \ldots{}
+\item
+  \texttt{Number.of.Protein.Groups} (integer) = \ldots{} (you might calculate this by counting the number of ; in the Leading.proteins column and adding 1)
+\item
+  \texttt{Average.Reporter.SN} (float) = \ldots{} (you might calculate the average reporter ion intensity and threshold based on that instead)
+\item
+  \texttt{Isolation.Interference.in.Percent} (float) = \texttt{PIF} (float, to get the data in exactly the same format you have to calculate (1 - PIF)*100)
+\item
+  \texttt{SPS.Mass.Matches.in.Percent} (integer) = \ldots{}
+\end{itemize}
+
+(PD Proteins.txt column = MaxQuant proteinGroups.txt column):
+
+\begin{itemize}
+\item
+  \texttt{Accession} (string) = \texttt{Majority.protein.IDs} (string)
+\item
+  \texttt{Protein.FDR.Confidence.Combined} (string; High, Medium, or Low) = \texttt{Q.value} (float, a Proteome Discoverer protein FDR of `High' is equivalent to a Q.value \textless{} 0.01)
+\end{itemize}
+
+\renewcommand\refname{References}
 {\small\bibliography{refs.bib}}
 
 \end{document}
