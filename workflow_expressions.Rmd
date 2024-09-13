@@ -1262,7 +1262,8 @@ Finally, we add the annotations from our `"Protein.FDR.Confidence.Combined"`
 column to the `rowData` of our `"psms_filtered"` experiment.
 
 ```{r}
-rowData(cp_qf[["psms_filtered"]])$Protein.Confidence <- protein_fdr$Protein.FDR.Confidence.Combined
+rowData(cp_qf[["psms_filtered"]])$Protein.Confidence <- 
+  protein_fdr$Protein.FDR.Confidence.Combined
 ```
 
 We can now use `filterFeatures` to remove PSMs corresponding to low or medium
@@ -2040,8 +2041,7 @@ post_norm <- cp_qf[["log_norm_proteins"]] %>%
   labs(x = "Sample", y = "log2(abundance)", title = "Post-normalisation") +
   theme_bw()
 
-(pre_norm + theme(legend.position = "none")) + 
-  post_norm & plot_layout(guides = "collect")
+pre_norm + theme(legend.position = "none") + post_norm
 ```
 
 We can now generate a density plot to help us visualise what the process of log
@@ -2922,7 +2922,7 @@ correlation heat map.
 ```{r correlation_plot_2, out.height = '30%', fig.align = 'center'}
 ## Plot correlation between two samples - S1 and S2 used as example
 prot_df %>%
-  ggplot(aes(x = `S1`, y = `S2`)) +
+  ggplot(aes(x = S1, y = S2)) +
   geom_point(colour = "grey45", size = 0.5) +
   geom_abline(intercept = 0, slope = 1) +
   theme(panel.grid.major = element_blank(), 
@@ -3230,15 +3230,14 @@ apply a fold change threshold here.
 
 ```{r significance_thresholds}
 ## Add direction of log fold change relative to control
-limma_results$direction <- ifelse(limma_results$logFC > 0,
-                                  "up", "down") %>%
+limma_results$direction <- 
+  ifelse(limma_results$logFC > 0, "up", "down") %>%
   as.factor()
 
 ## Add significance thresholds
-limma_results$significance <- ifelse(limma_results$adj.P.Val < 0.01,
-                                     "sig", "not.sig") %>%
+limma_results$significance <- 
+  ifelse(limma_results$adj.P.Val < 0.01, "sig", "not.sig") %>%
   as.factor()
-
 
 ## Verify
 str(limma_results)
@@ -3257,15 +3256,13 @@ upregulation. To simplify interpretation, we print a `summary` of this matrix.
 ```{r summary_of_significant_changes}
 ## Get a summary of statistically significant results
 fitted_lm %>%
-  decideTests(adjust.method = "BH",
-              p.value = 0.01) %>%
+  decideTests(adjust.method = "BH", p.value = 0.01) %>%
   summary()
 ```
 
 ```{r save_summary_of_significant_changes, include = FALSE}
 results <- fitted_lm %>%
-  decideTests(adjust.method = "BH",
-              p.value = 0.01) %>%
+  decideTests(adjust.method = "BH", p.value = 0.01) %>%
   summary()
 ```
 
@@ -3279,9 +3276,7 @@ further.
 
 ```{r subset_significant_proteins}
 ## Subset proteins that show significantly different abundance
-sig_proteins <- subset(limma_results,
-                       adj.P.Val <= 0.01)
-
+sig_proteins <- subset(limma_results, adj.P.Val <= 0.01)
 length(sig_proteins$Protein)
 ```
 
@@ -3462,16 +3457,15 @@ Finally, we export the results of our statistical analyses as `.csv` files.
 
 ```{r saving_results, eval = FALSE}
 ## Save results of Limma statistics
-write.csv(gene_results, file = "all_limma_results.csv")
+write.csv(limma_results, file = "all_limma_results.csv")
 
 ## Save subsets of upregulated and downregulated proteins
-write.csv(sig_upregulated, file = "upregulated_results.csv")
-write.csv(sig_downregulated, file = "downregulated_results.csv"))
+write.csv(sig_up, file = "upregulated_results.csv")
+write.csv(sig_down, file = "downregulated_results.csv"))
 
 ## Save results of GO enrichment
 write.csv(ego_up, file = "upregulated_go_enrichment.csv")
 write.csv(ego_down, file = "downregulated_go_enrichment.csv")
-
 ```
 
 Users can also use the [`ggsave`](https://www.rdocumentation.org/packages/ggplot2/versions/0.9.0/topics/ggsave)
